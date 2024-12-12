@@ -27,6 +27,12 @@ import {
   Bell,
   Menu,
   X,
+  Calendar,
+  UserCheck,
+  GraduationCap,
+  MessageSquare,
+  BookOpen,
+  Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
@@ -34,35 +40,53 @@ import Logo from "./logo";
 
 const features = [
   {
-    icon: Code,
-    title: "Open source",
-    description: "This Pokemon's cry is very loud and distracting",
+    icon: Book,
+    title: "Evidence žáků",
+    description: "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
+    href: "/student-records"
+  },
+  {
+    icon: Calendar,
+    title: "Rozvrh hodin",
+    description: "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
+    href: "/class-schedule"
+  },
+  {
+    icon: UserCheck,
+    title: "Správa zaměstnanců",
+    description: "Centralizovaná evidence pedagogického a nepedagogického personálu, včetně jejich kvalifikace a úvazků.",
+    href: "/staff-management"
+  },
+  {
+    icon: GraduationCap,
+    title: "Klasifikace a hodnocení",
+    description: "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
+    href: "/grading-system"
+  },
+  {
+    icon: MessageSquare,
+    title: "Komunikační platforma",
+    description: "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
+    href: "/communication"
   },
   {
     icon: DollarSign,
-    title: "Free for everyone",
-    description: "The fluid of Smeargle's tail secretions changes",
+    title: "Ekonomická agenda",
+    description: "Správa školních poplatků, stipendií, rozpočtu a finančních transakcí školy.",
+    href: "/financial-management"
   },
   {
-    icon: Book,
-    title: "Documentation",
-    description: "Yanma is capable of seeing 360 degrees without",
+    icon: BookOpen,
+    title: "Správa učebních materiálů",
+    description: "Centralizovaná evidence učebnic, studijních materiálů a knihovního fondu.",
+    href: "/learning-resources"
   },
   {
-    icon: Fingerprint,
-    title: "Security",
-    description: "The shell's rounded shape and the grooves on its",
-  },
-  {
-    icon: PieChart,
-    title: "Analytics",
-    description: "This Pokémon uses its flying ability to quickly chase",
-  },
-  {
-    icon: Bell,
-    title: "Notifications",
-    description: "Combusken battles with the intensely hot flames it spews",
-  },
+    icon: Shield,
+    title: "Bezpečnost a přístupová práva",
+    description: "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
+    href: "/security-access"
+  }
 ];
 
 export default function SiteHeader() {
@@ -86,19 +110,19 @@ export default function SiteHeader() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>Moduly</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[600px] p-4">
+                    <div className="w-[800px] p-4">
                       <div className="flex items-center justify-between mb-4 pb-2 border-b">
-                        <h4 className="text-lg font-medium">Features</h4>
+                        <h4 className="text-lg font-medium">Moduly</h4>
                         <Link
                           href="/features"
                           className="text-sm text-blue-500 hover:underline"
                         >
-                          View all
+                          Zobrazit vše
                         </Link>
                       </div>
-                      <div className="grid gap-4 md:grid-cols-2">
+                      <div className="grid gap-4 md:grid-cols-3">
                         {features.map((feature, index) => (
                           <Link
                             key={index}
@@ -115,7 +139,7 @@ export default function SiteHeader() {
                                 <h5 className="font-medium mb-1 group-hover:text-blue-500">
                                   {feature.title}
                                 </h5>
-                                <p className="text-sm text-muted-foreground">
+                                <p className="text-sm text-muted-foreground line-clamp-2">
                                   {feature.description}
                                 </p>
                               </div>
