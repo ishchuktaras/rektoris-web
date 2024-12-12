@@ -1,9 +1,10 @@
+import HeroSection from '@/components/frontend/hero-section'
 import React from 'react'
 
-const Home = () => {
+export default function Home () {
   return (
-    <div>Home Page</div>
+    <div className='max-w-6xl mx-auto'>
+    <HeroSection />
+    </div>
   )
 }
-
-export default Home
