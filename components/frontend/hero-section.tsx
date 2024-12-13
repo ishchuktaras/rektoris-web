@@ -1,13 +1,12 @@
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, GraduationCap } from 'lucide-react'
 import SmallTitle from "./small-title"
-import Link from "next/link"
-import Logo from "../logo"
+
 
 export default function HeroSection() {
+
   return (
-    <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-white px-4">
+    <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-300 to-white px-4">
       <div className="container max-w-6xl mx-auto text-center space-y-8">
 
         <SmallTitle title=" Vítejte ve Škola Pro" />
