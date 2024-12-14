@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, GraduationCap } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import SectionHeader from "./section-header"
 
 
