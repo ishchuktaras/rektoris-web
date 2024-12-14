@@ -10,9 +10,9 @@ export default function SiteFooter() {
       <div className="container px-4 py-16 md:px-6">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <Logo variant="dark"/>
+            <Logo variant="dark" />
             <p className="text-sm text-white/90">
-            Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči.
+              Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči.
             </p>
             <div className="flex space-x-4">
               <Link
@@ -46,11 +46,11 @@ export default function SiteFooter() {
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">Get In Touch</h3>
+            <h3 className="text-lg font-bold">Kontaktujte nás</h3>
             <div className="space-y-2 text-sm">
-              <p>support@pagedone.com</p>
-              <p>+91 945 658 3256</p>
-              <p>61-A, Elm street, Gujarat, India.</p>
+              <p>support@skola-pro.com</p>
+              <p>+420 123 456 789</p>
+              <p>Masarykovo Nám. 4321, 586 01 Jihlava 1.</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
@@ -61,27 +61,27 @@ export default function SiteFooter() {
                   Home
                 </Link>
                 <Link className="hover:underline" href="#">
-                  FAQs
+                  Nejčastější dotazy
                 </Link>
                 <Link className="hover:underline" href="#">
-                  Price Plan
+                  Ceny
                 </Link>
                 <Link className="hover:underline" href="#">
-                  Features
+                  Moduly
                 </Link>
               </nav>
             </div>
             <div className="space-y-4">
-              <h3 className="text-lg font-bold invisible">Links</h3>
+              <h3 className="text-lg font-bold invisible">Odkazy</h3>
               <nav className="flex flex-col space-y-2 text-sm">
                 <Link className="hover:underline" href="#">
-                  Careers
+                  Kariéra
                 </Link>
                 <Link className="hover:underline" href="#">
-                  About
+                  O nás
                 </Link>
                 <Link className="hover:underline" href="#">
-                  Contact
+                  Kontaktujte nás
                 </Link>
                 <Link className="hover:underline" href="#">
                   Products
@@ -101,7 +101,7 @@ export default function SiteFooter() {
                 className="w-full bg-white text-[#884DEE] hover:bg-white/90"
                 type="submit"
               >
-                Subscribe
+                Přihlaste se k odběru
                 <svg
                   className="ml-2 h-4 w-4"
                   fill="none"
