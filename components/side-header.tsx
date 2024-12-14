@@ -191,7 +191,7 @@ export default function SiteHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="w-full p-0">
             <SheetHeader className="border-b p-4">
-              <SheetTitle className="text-left">Navigation</SheetTitle>
+              <SheetTitle className="text-left">Navigace</SheetTitle>
             </SheetHeader>
             <div className="flex flex-col py-4">
               <Link
