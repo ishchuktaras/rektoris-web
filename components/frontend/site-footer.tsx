@@ -55,7 +55,7 @@ export default function SiteFooter() {
           </div>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
             <div className="space-y-4">
-              <h3 className="text-lg font-bold">Quick Links</h3>
+              <h3 className="text-lg font-bold">Odkazy</h3>
               <nav className="flex flex-col space-y-2 text-sm">
                 <Link className="hover:underline" href="#">
                   Home
