@@ -5,9 +5,9 @@ import {
 } from "@/components/ui/card"
 import Image from "next/image"
 
-export function DashboardPreview() {
+export default function DashboardPreview() {
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white py-16">
       <div className="max-w-6xl mx-auto">
         <Card className="w-full">
           <CardContent className="mt-4">
