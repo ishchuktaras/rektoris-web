@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, GraduationCap } from 'lucide-react'
-import SmallTitle from "./small-title"
 import SectionHeader from "./section-header"
 
 
