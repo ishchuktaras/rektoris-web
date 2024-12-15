@@ -3,7 +3,6 @@ import Image from "next/image"
 import SectionHeader from "./section-header"
 import { Book, BookOpen, Calendar, ChartBar, CreditCard, DollarSign, GraduationCap, MessageSquare, Settings, Shield, UserCheck, Users } from "lucide-react"
 
-
 const features = [
     {
         icon: Book,
@@ -24,7 +23,7 @@ const features = [
         title: "Správa zaměstnanců",
         description: "Centralizovaná evidence pedagogického a nepedagogického personálu, včetně jejich kvalifikace a úvazků.",
         href: "/staff-management",
-        image: "/images/administrative_mamagement .jpg"
+        image: "/images/administrative_mamagement.jpg"
     },
     {
         icon: GraduationCap,
@@ -59,10 +58,9 @@ const features = [
         title: "Bezpečnost a přístupová práva",
         description: "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
         href: "/security-access",
-        image: "/images/administrative_mamagement .jpg"
+        image: "/images/security_and_access.jpg"
       }
 ]
-
 
 export default function GridFeatures() {
     return (
@@ -205,6 +203,25 @@ export default function GridFeatures() {
                                 width={600}
                                 height={400}
                                 alt={features[6].title}
+                                className="rounded w-full"
+                            />
+                        </CardContent>
+                    </Card>
+                    <Card className="border-none shadow-lg">
+                        <CardHeader>
+                            <CardTitle>
+                                {features[7].title}
+                            </CardTitle>
+                            <p className="text-muted-foreground">
+                                {features[7].description}
+                            </p>
+                        </CardHeader>
+                        <CardContent>
+                            <Image
+                                src={features[7].image}
+                                width={600}
+                                height={400}
+                                alt={features[7].title}
                                 className="rounded w-full"
                             />
                         </CardContent>
