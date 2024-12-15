@@ -1,52 +1,66 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
 import SectionHeader from "./section-header"
-import { BookOpen, Calendar, ChartBar, CreditCard, MessageSquare, Settings, Users } from "lucide-react"
+import { Book, BookOpen, Calendar, ChartBar, CreditCard, DollarSign, GraduationCap, MessageSquare, Settings, Shield, UserCheck, Users } from "lucide-react"
 
 
 const features = [
     {
-        title: "Správa informací o studentech",
-        description: "Spravujte údaje o studentech, včetně zápisu, docházky a akademických záznamů, vše v jednom centralizovaném systému.",
-        icon: Users,
+        icon: Book,
+        title: "Evidence žáků",
+        description: "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
+        href: "/student-records",
         image: "/images/student_information_system.jpg"
     },
     {
-        title: "Správa rozvrhů",
-        description: "Vytvářejte a spravujte rozvrhy hodin, přiřazení učitelů a alokace místností snadno a efektivně.",
         icon: Calendar,
+        title: "Rozvrh hodin",
+        description: "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
+        href: "/class-schedule",
         image: "/images/timetable_management.jpg"
     },
     {
-        title: "Správa učebních osnov",
-        description: "Organizujte a sledujte obsah učebních osnov, vzdělávací cíle a vzdělávací zdroje napříč všemi ročníky.",
-        icon: BookOpen,
-        image: "/images/curriculum_management.jpg"
+        icon: UserCheck,
+        title: "Správa zaměstnanců",
+        description: "Centralizovaná evidence pedagogického a nepedagogického personálu, včetně jejich kvalifikace a úvazků.",
+        href: "/staff-management",
+        image: "/images/administrative_mamagement .jpg"
     },
     {
-        title: "Analýza výkonnosti",
-        description: "Generujte užitečné zprávy a analýzy o výkonnosti studentů, efektivitě učitelů a celkových metrikách školy.",
-        icon: ChartBar,
+        icon: GraduationCap,
+        title: "Klasifikace a hodnocení",
+        description: "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
+        href: "/grading-system",
         image: "/images/performance_analytics.jpg"
     },
     {
-        title: "Komunikační portál",
-        description: "Usnadněte bezproblémovou komunikaci mezi učiteli, studenty a rodiči prostřednictvím integrovaných systémů zasílání zpráv a oznámení.",
         icon: MessageSquare,
+        title: "Komunikační platforma",
+        description: "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
+        href: "/communication",
         image: "/images/communication_portal.jpg"
     },
     {
-        title: "Správa finanční",
-        description: "Zefektivněte proces výběru poplatků, generujte faktury a spravujte finanční záznamy s přesností.",
-        icon: CreditCard,
+        icon: DollarSign,
+        title: "Ekonomická agenda",
+        description: "Správa školních poplatků, stipendií, rozpočtu a finančních transakcí školy.",
+        href: "/financial-management",
         image: "/images/financial_mamagement.jpg"
     },
     {
-        title: "Administrativní nástroje",
-        description: "Přistupujte k sadě nástrojů pro správu školních zdrojů, personálu a provozních úkolů pro zajištění hladkého každodenního fungování.",
-        icon: Settings,
+        icon: BookOpen,
+        title: "Správa učebních materiálů",
+        description: "Centralizovaná evidence učebnic, studijních materiálů a knihovního fondu.",
+        href: "/learning-resources",
+        image: "/images/learning_materials_management.jpg"
+    },
+    {
+        icon: Shield,
+        title: "Bezpečnost a přístupová práva",
+        description: "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
+        href: "/security-access",
         image: "/images/administrative_mamagement .jpg"
-    }
+      }
 ]
 
 
