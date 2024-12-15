@@ -30,7 +30,7 @@ export default function Pricing() {
                     >
                         Každoročně
                         <span className="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                            Ušetřete 20 %
+                            Ušetřete 10 %
                         </span>
                     </Button>
                 </div>
@@ -178,7 +178,7 @@ export default function Pricing() {
                         <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                             <div className="mx-auto max-w-xs px-8">
                                 <p className="text-base font-semibold text-gray-600">
-                                    {isAnnual ? "Plaťte ročně a ušetřete 20 %" : "Flexibilní měsíční tarif"}
+                                    {isAnnual ? "Plaťte ročně a ušetřete 10 %" : "Flexibilní měsíční tarif"}
                                 </p>
                                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
                                     <span className="text-5xl font-bold tracking-tight text-gray-900">
