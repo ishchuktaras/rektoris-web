@@ -114,7 +114,7 @@ export default function TabbedFeatures() {
         {features.map((feature, index) => (
           <TabsContent key={feature.tab} value={feature.tab.toLowerCase()} className="space-y-8">
             <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <h2 className="text-3xl font-bold tracking-tight">
                   {feature.title}
                 </h2>
