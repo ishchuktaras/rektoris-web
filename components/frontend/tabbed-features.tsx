@@ -87,7 +87,7 @@ const features = [
 
 export default function TabbedFeatures() {
   return (
-    <div className="conteiner mx-auto px-4 py-16">
+    <div className="container max-w-6xl mx-auto text-center space-y-8">
       <div className="py-8">
       <SectionHeader
                     title="Další moduly"
