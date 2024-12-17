@@ -96,7 +96,7 @@ export default function TabbedFeatures() {
                 />
       </div>
       <Tabs defaultValue={features[0].tab.toLowerCase()} className="space-y-8">
-        <TabsList className="inline-flex h-auto w-full justify-start gap-4 rounded-none border-b bg-transparent p-0">
+        <TabsList className="inline-flex h-auto wx-auto justify-start gap-4 rounded-none border-b bg-transparent p-0">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
