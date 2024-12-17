@@ -95,7 +95,7 @@ export default function TabbedFeatures() {
                     description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
                 />
       </div>
-      <Tabs defaultValue={features[0].tab.toLowerCase()} className="space-y-8">
+      <Tabs defaultValue={features[0].tab.toLowerCase()} className="space-y-8 max-w-6xl">
         <TabsList className="inline-flex h-auto wx-auto justify-start gap-4 rounded-none border-b bg-transparent p-0">
           {features.map((feature) => {
             const Icon = feature.icon;
