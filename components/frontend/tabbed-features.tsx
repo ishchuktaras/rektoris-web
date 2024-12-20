@@ -126,7 +126,7 @@ export default function TabbedFeatures() {
                   <CardContent className="grid gap-4 p-6">
                     {feature.subFeatures.map((subFeature, idx) => (
                       <div key={idx} className="flex items-center gap-4">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                           {idx + 1}
                         </div>
                         <span>{subFeature}</span>
