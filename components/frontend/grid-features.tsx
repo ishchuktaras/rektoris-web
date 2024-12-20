@@ -65,7 +65,7 @@ const features = [
 export default function GridFeatures() {
     return (
         <section className="w-full py-12 md:py-24 lg:py-32">
-            <div className="conteiner max-w-6xl mx-auto px-4 md:px-6">
+            <div className="container max-w-6xl mx-auto px-4 md:px-6">
                 {/* Header */}
                 <SectionHeader
                     title="Základní moduly"
