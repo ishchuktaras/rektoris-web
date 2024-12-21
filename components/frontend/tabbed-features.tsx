@@ -1,16 +1,12 @@
-"use client"
+"use client";
 
-import {
-  Book,
-  Calendar,
-  GraduationCap,
-  MessageSquare,
-} from "lucide-react";
+import { Book, Calendar, GraduationCap, MessageSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import SectionHeader from "./section-header";
 
 const features = [
   {
@@ -30,7 +26,7 @@ const features = [
       "Individuální vzdělávací plány",
       "Archivace historických záznamů",
     ],
-    image: "/images/student_information_system.jpg"
+    image: "/images/student_information_system.jpg",
   },
   {
     tab: "Rozvrh",
@@ -49,7 +45,7 @@ const features = [
       "Plánování konzultačních hodin",
       "Náhled rozvrhů pro různé role",
     ],
-    image: "/images/curriculum_management.jpg"
+    image: "/images/curriculum_management.jpg",
   },
 
   {
@@ -69,7 +65,7 @@ const features = [
       "Export výsledků",
       "Individuální hodnotící zprávy",
     ],
-    image: "/images/timetable_management.jpg"
+    image: "/images/timetable_management.jpg",
   },
   {
     tab: "Komunikace",
@@ -88,13 +84,21 @@ const features = [
       "Nastavení soukromí",
       "Vícejazyčná podpora",
     ],
-    image: "/images/communication_portal.jpg"
+    image: "/images/communication_portal.jpg",
   },
 ];
 
 export default function TabbedFeatures() {
   return (
     <div className="container mx-auto px-4 py-16">
+      {/* Header */}
+      <div className="py-8">
+        <SectionHeader
+          title="Základní moduly"
+          heading="Komplexní řešení pro správu škol"
+          description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
+        />
+      </div>
       <Tabs defaultValue={features[0].tab.toLowerCase()} className="space-y-8">
         <TabsList className="inline-flex h-auto w-full justify-start gap-4 rounded-none border-b bg-transparent p-0">
           {features.map((feature) => {
@@ -139,7 +143,7 @@ export default function TabbedFeatures() {
                 </Card>
                 <Button asChild>
                   <Link href={feature.href}>
-                  Další informace o {feature.title}
+                    Další informace o {feature.title}
                   </Link>
                 </Button>
               </div>
@@ -148,7 +152,8 @@ export default function TabbedFeatures() {
                   src={feature.image}
                   alt={`${feature.title} illustration`}
                   className="object-cover"
-                  fill priority
+                  fill
+                  priority
                 />
               </div>
             </div>

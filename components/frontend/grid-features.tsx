@@ -68,7 +68,7 @@ export default function GridFeatures() {
             <div className="container max-w-6xl mx-auto px-4 md:px-6">
                 {/* Header */}
                 <SectionHeader
-                    title="Základní moduly"
+                    title="Moduly"
                     heading="Komplexní řešení pro správu škol"
                     description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
                 />
