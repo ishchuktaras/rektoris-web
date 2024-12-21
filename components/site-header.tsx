@@ -37,51 +37,59 @@ const features = [
   {
     icon: Book,
     title: "Evidence žáků",
-    description: "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
-    href: "/student-records"
+    description:
+      "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
+    href: "/student-records",
   },
   {
     icon: Calendar,
     title: "Rozvrh hodin",
-    description: "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
-    href: "/class-schedule"
+    description:
+      "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
+    href: "/class-schedule",
   },
   {
     icon: UserCheck,
     title: "Správa zaměstnanců",
-    description: "Centralizovaná evidence pedagogického a nepedagogického personálu, včetně jejich kvalifikace a úvazků.",
-    href: "/staff-management"
+    description:
+      "Centralizovaná evidence pedagogického a nepedagogického personálu, včetně jejich kvalifikace a úvazků.",
+    href: "/staff-management",
   },
   {
     icon: GraduationCap,
     title: "Klasifikace a hodnocení",
-    description: "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
-    href: "/grading-system"
+    description:
+      "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
+    href: "/grading-system",
   },
   {
     icon: MessageSquare,
     title: "Komunikační platforma",
-    description: "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
-    href: "/communication"
+    description:
+      "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
+    href: "/communication",
   },
   {
     icon: DollarSign,
     title: "Ekonomická agenda",
-    description: "Správa školních poplatků, stipendií, rozpočtu a finančních transakcí školy.",
-    href: "/financial-management"
+    description:
+      "Správa školních poplatků, stipendií, rozpočtu a finančních transakcí školy.",
+    href: "/financial-management",
   },
   {
     icon: BookOpen,
     title: "Správa učebních materiálů",
-    description: "Centralizovaná evidence učebnic, studijních materiálů a knihovního fondu.",
-    href: "/learning-resources"
+    description:
+      "Centralizovaná evidence učebnic, studijních materiálů a knihovního fondu.",
+    href: "/learning-resources",
   },
   {
     icon: Shield,
     title: "Bezpečnost a přístupová práva",
-    description: "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
-    href: "/security-access"
-  }
+    description:
+      "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
+    href: "/security-access",
+  },
 ];
 
 export default function SiteHeader() {
@@ -146,8 +154,7 @@ export default function SiteHeader() {
                         <div>
                           <h4 className="font-medium mb-1">Get started</h4>
                           <p className="text-sm text-muted-foreground">
-                            Their food sources have decreased, and their
-                            numbers
+                            Their food sources have decreased, and their numbers
                           </p>
                         </div>
                         <Button asChild variant="secondary">
@@ -179,8 +186,14 @@ export default function SiteHeader() {
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="ghost">Log in</Button>
-          <Button>Sign up</Button>
+          <Button asChild variant="ghost">
+            <Link href={"/login"}>Přihlaste se</Link>
+          </Button>
+          <Button>
+            <Link href={"/contact-us"}>
+            Zkuste pro svou školu
+          </Link>
+          </Button>
         </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
@@ -238,7 +251,7 @@ export default function SiteHeader() {
                 </div>
               )}
               <Link
-                href="/#pricing"
+                href="/pricing"
                 className="px-4 py-2 text-lg font-medium hover:bg-accent"
                 onClick={() => setOpen(false)}
               >
@@ -259,10 +272,10 @@ export default function SiteHeader() {
                   className="w-full"
                   onClick={() => setOpen(false)}
                 >
-                  Log in
+                  Přihlaste se
                 </Button>
                 <Button className="w-full" onClick={() => setOpen(false)}>
-                  Sign up
+                  Zkuste pro svou školu
                 </Button>
               </div>
             </div>
