@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
- 
-// If loading a variable font, you don't need to specify the font weight
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
 import "./globals.css";
+import { ourFileRouter } from "./api/core";
+import { Toaster } from "react-hot-toast";
 
 
 export const metadata: Metadata = {
@@ -24,6 +27,14 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}
         className={inter.className}
       >
+        <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
+        <NextSSRPlugin
+          
+          routerConfig={extractRouterConfig(ourFileRouter)}
+        />
         {children}
       </body>
     </html>
