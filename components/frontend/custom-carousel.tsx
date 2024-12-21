@@ -4,19 +4,19 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const carouselItems = [
   {
-    image: "/images/signup.webp",
-    title: "Join Our Network,",
-    subtitle: "Transform Healthcare",
+    image: "/images/login_carousel_img_1.jpg",
+    title: "Digitalizujte výuku,",
+    subtitle: "Zefektivněte vzdělávání",
   },
   {
-    image: "/images/doctor.webp",
-    title: "Empower Patients,",
-    subtitle: "Anytime, Anywhere",
+    image: "/images/login_carousel_img_2.jpg",
+    title: "Propojte komunitu,",
+    subtitle: "Rodiče, Učitele a Žáky",
   },
   {
-    image: "/images/hero.webp",
-    title: "Advance Your Practice,",
-    subtitle: "With Telemedicine",
+    image: "/images/login_carousel_img_3.jpg",
+    title: "Řiďte školu moderně,",
+    subtitle: "Jednoduše a efektivně",
   },
 ];
 
@@ -39,7 +39,7 @@ export default function CustomCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full h-screen bg-purple-900 rounded-l-lg overflow-hidden">
+    <div className="relative w-full h-screen bg-purple-900  overflow-hidden">
       <div className="absolute inset-0">
         {carouselItems.map((item, index) => (
           <div

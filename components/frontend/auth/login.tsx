@@ -1,18 +1,21 @@
 "use client";
-import Link from "next/link";
+
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import CustomCarousel from "../custom-carousel";
+import Logo from "@/components/logo";
+import PasswordInput from "@/components/FormInputs/PasswordInput";
+import { Mail, Lock, LogIn } from "lucide-react";
 export type RegisterInputProps = {
   fullName: string;
   email: string;
   password: string;
   phone: string;
 };
-export default function RegisterV1() {
+export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -27,19 +30,14 @@ export default function RegisterV1() {
   return (
     <div className="w-full lg:grid h-screen lg:min-h-[600px] lg:grid-cols-2 relative ">
       <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="absolute top-5 left-5">Simple UI</div>
-          <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Create an Account</h1>
+        <div className="mx-auto grid w-[350px] gap-6 mt-10 md:mt-0">
+          <div className="absolute left-1/3 top-14 md:top-5 md:left-5">
+            <Logo />
+          </div>
+          <div className="grid gap-2 text-center mt-12 md:mt-0">
+            <h1 className="text-3xl font-bold">Přihlaste se ke svému účtu</h1>
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
-            <TextInput
-              label="Full Name"
-              register={register}
-              name="fullName"
-              errors={errors}
-              placeholder="eg John Doe"
-            />
             <TextInput
               label="Email Address"
               register={register}
@@ -47,36 +45,27 @@ export default function RegisterV1() {
               type="email"
               errors={errors}
               placeholder="Eg. johndoe@gmail.com"
+              icon={Mail}
             />
-            <TextInput
-              label="Phone Number"
-              register={register}
-              name="phone"
-              type="tel"
-              errors={errors}
-              placeholder=""
-            />
-            <TextInput
+
+            <PasswordInput
               label="Password"
               register={register}
               name="password"
               type="password"
               errors={errors}
               placeholder="******"
+              forgotPasswordLink="/forgot-password"
+              icon={Lock}
             />
 
             <SubmitButton
-              title="Sign Up"
+              buttonIcon={LogIn}
+              title="Přihlaste se"
               loading={isLoading}
-              loadingTitle="Creating Account please wait..."
+              loadingTitle="Přihlašování k účtu prosím čekejte..."
             />
           </form>
-          <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
-            <Link href="/login" className="underline">
-              Login
-            </Link>
-          </div>
         </div>
       </div>
       <div className="hidden bg-muted lg:block relative">
