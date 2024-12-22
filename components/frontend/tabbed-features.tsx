@@ -90,7 +90,7 @@ const features = [
 
 export default function TabbedFeatures() {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="max-w-6xl mx-auto px-4 py-16">
       {/* Header */}
       <div className="py-8">
         <SectionHeader
@@ -99,7 +99,7 @@ export default function TabbedFeatures() {
           description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
         />
       </div>
-      <Tabs defaultValue={features[0].tab.toLowerCase()} className="space-y-8">
+      <Tabs defaultValue={features[0].tab.toLowerCase()} className="bg-gray-100 rounded-2xl py-4 px-4 space-y-4">
         <TabsList className="inline-flex h-auto w-full justify-start gap-4 rounded-none border-b bg-transparent p-0">
           {features.map((feature) => {
             const Icon = feature.icon;
@@ -122,7 +122,7 @@ export default function TabbedFeatures() {
             className="space-y-8"
           >
             <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-6">
+              <div className="space-y-8 px-6">
                 <h2 className="text-3xl font-bold tracking-tight">
                   {feature.title}
                 </h2>
@@ -147,11 +147,11 @@ export default function TabbedFeatures() {
                   </Link>
                 </Button>
               </div>
-              <div className="relative aspect-video overflow-hidden rounded-xl bg-muted lg:aspect-square">
+              <div className="relative aspect-square overflow-auto rounded-xl bg-muted lg:aspect-square">
                 <Image
                   src={feature.image}
                   alt={`${feature.title} illustration`}
-                  className="object-cover"
+                  className="object-cover py-8"
                   fill
                   priority
                 />
