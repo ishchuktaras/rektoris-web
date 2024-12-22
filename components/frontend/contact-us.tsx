@@ -13,17 +13,17 @@ import {
   User,
   ShoppingCart,
   Code,
+  Earth,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
-import PasswordInput from "../FormInputs/PasswordInput";
+
 import SubmitButton from "../FormInputs/SubmitButton";
-import TextArea from "../FormInputs/TextAreaInput";
+
+import PhoneInput from "../FormInputs/PhoneInput";
 
 export type RegisterInputProps = {
   fullName: string;
@@ -57,7 +57,8 @@ export default function ContactUs() {
                   Kontaktujte nás pro demo
                 </h3>
                 <p className="text-muted-foreground text-sm text-center px-6 py-2 mb-4 max-w-xl mx-auto">
-                  Vyplňte formulář níže a náš tým vás bude kontaktovat s personalizovanou prezentací systému.
+                  Vyplňte formulář níže a náš tým vás bude kontaktovat s
+                  personalizovanou prezentací systému.
                 </p>
                 <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -88,13 +89,12 @@ export default function ContactUs() {
                       placeholder="Např. novotny@gmail.com"
                       icon={Mail}
                     />
-                    <TextInput
-                      label="Telefon"
+                    <PhoneInput
                       register={register}
-                      name="phone"
                       errors={errors}
-                      placeholder="Např. "
-                      icon={PhoneCall}
+                      label="Telefonní číslo"
+                      name="phoneNumber"
+                      toolTipText="Zadejte své telefonní číslo s kódem země"
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -112,7 +112,7 @@ export default function ContactUs() {
                       name="country"
                       errors={errors}
                       placeholder="Např. "
-                      icon={PhoneCall}
+                      icon={Earth}
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
