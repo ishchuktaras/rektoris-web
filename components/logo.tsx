@@ -15,7 +15,7 @@ export default function Logo({
       <Link href={"/"} className="flex items-center space-x-2">
         <div className="bg-[#884DEE] rounded-full p-1">
           <span className="text-white font-bold text-xl">
-            <GraduationCap />
+            <GraduationCap className={cn("w-6 h-6",size==="lg" && "w-10 h-10")}/>
           </span>
         </div>
         <span className={cn("font-bold text-xl", size === "lg" && "text-3xl")}>

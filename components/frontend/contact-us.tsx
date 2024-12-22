@@ -53,9 +53,12 @@ export default function ContactUs() {
             {/* Contact Form */}
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-2xl text-center font-semibold mb-4">
-                  Přihlaste se, abyste zapojili svou školu
+                <h3 className="text-2xl text-center font-semibold">
+                  Kontaktujte nás pro demo
                 </h3>
+                <p className="text-muted-foreground text-sm text-center px-6 py-2 mb-4 max-w-xl mx-auto">
+                  Vyplňte formulář níže a náš tým vás bude kontaktovat s personalizovanou prezentací systému.
+                </p>
                 <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
                   <div className="grid md:grid-cols-2 gap-4">
                     <TextInput
@@ -132,7 +135,7 @@ export default function ContactUs() {
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <TextInput
-                      label="Svou roli v organizaci"
+                      label="Vaše pozice v organizaci"
                       register={register}
                       name="role"
                       errors={errors}
@@ -169,67 +172,67 @@ export default function ContactUs() {
 
             <div className="py-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Consultation Card */}
-            <Card className="bg-[#1B5E20] text-white">
-              <CardHeader>
-                <h2 className="text-2xl font-semibold">
-                  Schedule a Consultation with Our Experts
-                </h2>
-                <p className="text-gray-100">
-                  Discuss your agricultural needs and explore tailored solutions
-                  with our sales team.
-                </p>
-              </CardHeader>
-              <CardContent>
-                <Button
-                  variant="secondary"
-                  className="bg-white text-[#1B5E20] hover:bg-gray-100"
-                >
-                  Book your Appointment
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Contact Info Card */}
-            <Card className="bg-[#B4E33D]">
-              <CardHeader>
-                <h2 className="text-xl font-semibold text-gray-800">
-                  Contact Our Team
-                </h2>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-gray-800">
-                    <Mail className="h-5 w-5" />
-                    <h3 className="font-semibold">Email Us</h3>
-                  </div>
-                  <div className="space-y-1 ml-7">
-                    <p>info@agrikkom.co.ug</p>
-                    <p>sales@agrikkom.co.ug</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-gray-800">
-                    <Phone className="h-5 w-5" />
-                    <h3 className="font-semibold">Call Us</h3>
-                  </div>
-                  <div className="space-y-1 ml-7">
-                    <p>+256 743 529 455</p>
-                    <p>+256 758 289 019</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-gray-800">
-                    <MapPin className="h-5 w-5" />
-                    <h3 className="font-semibold">Visit Us</h3>
-                  </div>
-                  <p className="ml-7">
-                    Plot 3426, Kikulu Zone, Kyanja, Kampala, Uganda
+              <Card className="bg-[#1B5E20] text-white">
+                <CardHeader>
+                  <h2 className="text-2xl font-semibold">
+                    Schedule a Consultation with Our Experts
+                  </h2>
+                  <p className="text-gray-100">
+                    Discuss your agricultural needs and explore tailored
+                    solutions with our sales team.
                   </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardHeader>
+                <CardContent>
+                  <Button
+                    variant="secondary"
+                    className="bg-white text-[#1B5E20] hover:bg-gray-100"
+                  >
+                    Book your Appointment
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Contact Info Card */}
+              <Card className="bg-[#B4E33D]">
+                <CardHeader>
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Contact Our Team
+                  </h2>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-gray-800">
+                      <Mail className="h-5 w-5" />
+                      <h3 className="font-semibold">Email Us</h3>
+                    </div>
+                    <div className="space-y-1 ml-7">
+                      <p>info@agrikkom.co.ug</p>
+                      <p>sales@agrikkom.co.ug</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-gray-800">
+                      <Phone className="h-5 w-5" />
+                      <h3 className="font-semibold">Call Us</h3>
+                    </div>
+                    <div className="space-y-1 ml-7">
+                      <p>+256 743 529 455</p>
+                      <p>+256 758 289 019</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-gray-800">
+                      <MapPin className="h-5 w-5" />
+                      <h3 className="font-semibold">Visit Us</h3>
+                    </div>
+                    <p className="ml-7">
+                      Plot 3426, Kikulu Zone, Kyanja, Kampala, Uganda
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
