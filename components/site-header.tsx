@@ -190,9 +190,7 @@ export default function SiteHeader() {
             <Link href={"/login"}>Přihlaste se</Link>
           </Button>
           <Button>
-            <Link href={"/contact-us"}>
-            Zkuste pro svou školu
-          </Link>
+            <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>
           </Button>
         </div>
 
@@ -275,7 +273,7 @@ export default function SiteHeader() {
                   Přihlaste se
                 </Button>
                 <Button className="w-full" onClick={() => setOpen(false)}>
-                  Zkuste pro svou školu
+                  <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>
                 </Button>
               </div>
             </div>
