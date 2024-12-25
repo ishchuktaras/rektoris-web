@@ -131,7 +131,7 @@ export default function PhoneInput({
             )}
             <input
               id={name}
-              type="number"
+              type="tel"
               onChange={handlePhoneChange}
               {...register(`${name}`, { required: true })}
               className={cn(

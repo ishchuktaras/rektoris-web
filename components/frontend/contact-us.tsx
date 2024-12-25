@@ -23,12 +23,21 @@ import SubmitButton from "../FormInputs/SubmitButton";
 import PhoneInput from "../FormInputs/PhoneInput";
 import { europeanCountries } from "../data/countries";
 import FormSelectInput from "../FormInputs/FormSelectInput";
+import TextArea from "../FormInputs/TextAreaInput";
 
-export type RegisterInputProps = {
+export type ContactProps = {
   name: string;
   email: string;
   password: string;
   phone: string;
+  school: string;
+  country: string;
+  website: string;
+  schoolPage: string;
+  students: number;
+  role: string;
+  media: string;
+  massage: string;
 };
 
 export const ContactUs: React.FC = () => {
@@ -46,13 +55,35 @@ export const ContactUs: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterInputProps>();
+  } = useForm<ContactProps>();
 
-  async function onSubmit(data: RegisterInputProps) {
+  const roles = [
+    { value: "teacher", label: "Učitel" },
+    { value: "principal", label: "Rodič" },
+    { value: "administrator", label: "Správce" },
+    { value: "student", label: "Student" },
+    { value: "other", label: "Jiné" },
+  ];
+
+  const media = [
+    { value: "select", label: "Vyberte" },
+    { value: "facebook", label: "Facebook" },
+    { value: "google", label: "Google" },
+    { value: "instagram", label: "Instagram" },
+    { value: "linkedin", label: "LinkedIn" },
+    { value: "twitter", label: "Twitter" },
+    { value: "youtube", label: "YouTube" },
+    { value: "other", label: "Jiné" },
+  ];
+
+  const [selectedRole, setSelectedRole] = useState<any>(null);
+  const [selectedMedia, setSelectedMadia] = useState<any>(media[0]);
+
+  async function onSubmit(data: ContactProps) {
     console.log(phoneCode);
     data.phone = data.phone[0] === "0" ? data.phone.substring(1) : data.phone;
     const phoneNumber = `${phoneCode}${data.phone}`;
-    console.log(phoneNumber);
+    console.log(data);
   }
 
   return (
@@ -144,30 +175,25 @@ export const ContactUs: React.FC = () => {
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
-                    <TextInput
-                      label="Vaše pozice v instituci"
-                      register={register}
-                      name="role"
-                      errors={errors}
-                      placeholder="Vaše pozice"
-                      icon={User}
+                    <FormSelectInput
+                      label="Vyberte pozice v instituci"
+                      options={roles}
+                      option={selectedRole}
+                      setOption={setSelectedRole}
                     />
-                    <TextInput
-                      label="Zájem o produkt (Které funkce potřebujete?)"
-                      register={register}
-                      name="students"
-                      errors={errors}
-                      placeholder="Např. "
-                      icon={ShoppingCart}
+
+                    <FormSelectInput
+                      label="Jak jste se o nás dozvěděli?"
+                      options={media}
+                      option={selectedMedia}
+                      setOption={setSelectedMadia}
                     />
                   </div>
-                  <TextInput
-                    label="Jak jste se o nás dozvěděli?"
+                  <TextArea
+                    label="Podělte se s námi o klíčové problémy, které chcete vyřešit"
                     register={register}
-                    name="students"
+                    name="features"
                     errors={errors}
-                    placeholder="Např."
-                    icon={Code}
                   />
 
                   <SubmitButton
