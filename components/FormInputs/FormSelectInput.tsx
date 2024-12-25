@@ -25,13 +25,13 @@ return (
 <div className="">
   {labelShown && (
     <h2 className="pb-2 block text-sm font-medium leading-6 text-gray-900">
-      Select {label}
+      {label}
     </h2>
   )}
   <div className="flex items-center space-x-2">
     <Select
       isSearchable
-      primaryColor="blue"
+      primaryColor="purple"
       value={option}
       onChange={(item) => setOption(item)}
       options={options}

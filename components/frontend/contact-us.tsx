@@ -21,21 +21,8 @@ import TextInput from "../FormInputs/TextInput";
 import SubmitButton from "../FormInputs/SubmitButton";
 
 import PhoneInput from "../FormInputs/PhoneInput";
-
-// // function that handles phone number formatting by removing the leading zero if present, but only if it hasn't already been removed
-
-// const formatPhoneNumber = (phoneNumber: string): string => {
-//   // Convert to string in case a number is passed
-//   const numberString = phoneNumber.toString();
-
-//   // Check if number starts with '0'
-//   if (numberString.startsWith('0')) {
-//     return numberString.substring(1); // Remove the first character (0)
-//   }
-
-//   // If it doesn't start with 0 or isn't 10 digits, return as is
-//   return numberString;
-// };
+import { europeanCountries } from "../data/countries";
+import FormSelectInput from "../FormInputs/FormSelectInput";
 
 export type RegisterInputProps = {
   name: string;
@@ -48,11 +35,12 @@ export const ContactUs: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [phoneCode, setPhoneCode] = useState("");
 
-  // const initialCountry: (typeof countries)[0] | undefined = countries.find(
-  //   (item) => item.countryCode === "initialCountryCode"
-  // );
-
-  // const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
+  const initialCountryCode = "CZ"; // Replace "CZ" with the appropriate country code
+  const initialCountry = europeanCountries.find(
+    (item) => item.countryCode === initialCountryCode
+  );
+  const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
+  console.log(initialCountry);
 
   const {
     register,
@@ -62,7 +50,7 @@ export const ContactUs: React.FC = () => {
 
   async function onSubmit(data: RegisterInputProps) {
     console.log(phoneCode);
-    data.phone = data.phone[0]==='0'?data.phone.substring(1):data.phone;
+    data.phone = data.phone[0] === "0" ? data.phone.substring(1) : data.phone;
     const phoneNumber = `${phoneCode}${data.phone}`;
     console.log(phoneNumber);
   }
@@ -114,10 +102,11 @@ export const ContactUs: React.FC = () => {
                     <PhoneInput
                       register={register}
                       errors={errors}
-                      label="Váš telefon (např. 999888777)"
+                      label="Váš telefon (s kódem země)"
                       name="phone"
                       toolTipText="Vyberte kód země a napište své číslo"
                       setPhoneCode={setPhoneCode}
+                      placeholder="Vaše telefonní číslo"
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -129,15 +118,11 @@ export const ContactUs: React.FC = () => {
                       placeholder="Např. Gymnázium Jihlava"
                       icon={School}
                     />
-                    <TextInput
-                      register={register}
-                      name="country"
-                      label="Země"
-                      // options={countries}
-                      // option={selectedCountry}
-                      // setOption={setSelectedCountry}
-                      errors={errors}
-                      placeholder="Např. Česká republika"
+                    <FormSelectInput
+                      label="Vyberte zemi"
+                      options={europeanCountries}
+                      option={selectedCountry}
+                      setOption={setSelectedCountry}
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
