@@ -58,15 +58,19 @@ export const ContactUs: React.FC = () => {
   } = useForm<ContactProps>();
 
   const roles = [
+    { value: "principal", label: "Ředitel/vedoucí učitel" },
+    { value: "vice_principal", label: "Zástupce ředitele" },
+    { value: "department_head", label: "Vedoucí oddělení" },
     { value: "teacher", label: "Učitel" },
-    { value: "principal", label: "Rodič" },
-    { value: "administrator", label: "Správce" },
-    { value: "student", label: "Student" },
-    { value: "other", label: "Jiné" },
+    { value: "admin_staff", label: "Administrativní pracovníci" },
+    { value: "it_coordinator", label: "IT koordinátor" },
+    { value: "counselor", label: "Školní poradce" },
+    { value: "librarian", label: "Školní knihovník" },
+    { value: "coordinator", label: "Programový koordinátor" },
+    { value: "other", label: "Jiný zaměstnanec" },
   ];
 
   const media = [
-    { value: "select", label: "Vyberte" },
     { value: "facebook", label: "Facebook" },
     { value: "google", label: "Google" },
     { value: "instagram", label: "Instagram" },
@@ -77,7 +81,7 @@ export const ContactUs: React.FC = () => {
   ];
 
   const [selectedRole, setSelectedRole] = useState<any>(null);
-  const [selectedMedia, setSelectedMadia] = useState<any>(media[0]);
+  const [selectedMedia, setSelectedMadia] = useState<any>(null);
 
   async function onSubmit(data: ContactProps) {
     console.log(phoneCode);
@@ -187,6 +191,7 @@ export const ContactUs: React.FC = () => {
                       options={media}
                       option={selectedMedia}
                       setOption={setSelectedMadia}
+                      
                     />
                   </div>
                   <TextArea
@@ -211,19 +216,19 @@ export const ContactUs: React.FC = () => {
               <Card className="bg-[#1B5E20] text-white">
                 <CardHeader>
                   <h2 className="text-2xl font-semibold">
-                    Schedule a Consultation with Our Experts
+                    Domluvte si konzultaci s našimi odborníky
                   </h2>
                   <p className="text-gray-100">
-                    Discuss your agricultural needs and explore tailored
-                    solutions with our sales team.
+                    Diskutujte o svých potřebách v oblasti školního managementu
+                    a prozkoumejte přizpůsobená řešení s naším týmem.
                   </p>
                 </CardHeader>
                 <CardContent>
                   <Button
                     variant="secondary"
-                    className="bg-white text-[#1B5E20] hover:bg-gray-100"
+                    className="bg-[#884dee] text-[#FFFFFF ]hover:bg-gray-200 hover:text-[#884dee] border-[#884dee] hover:border-[#884dee]"
                   >
-                    Book your Appointment
+                    Rezervujte si svůj termín
                   </Button>
                 </CardContent>
               </Card>
@@ -232,39 +237,37 @@ export const ContactUs: React.FC = () => {
               <Card className="bg-[#B4E33D]">
                 <CardHeader>
                   <h2 className="text-xl font-semibold text-gray-800">
-                    Contact Our Team
+                    Kontaktujte náš tým
                   </h2>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-gray-800">
                       <Mail className="h-5 w-5" />
-                      <h3 className="font-semibold">Email Us</h3>
+                      <h3 className="font-semibold">Napište nám</h3>
                     </div>
                     <div className="space-y-1 ml-7">
-                      <p>info@agrikkom.co.ug</p>
-                      <p>sales@agrikkom.co.ug</p>
+                      <p>skola-pro@com.cz</p>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-gray-800">
                       <Phone className="h-5 w-5" />
-                      <h3 className="font-semibold">Call Us</h3>
+                      <h3 className="font-semibold">Zavolejte nám</h3>
                     </div>
                     <div className="space-y-1 ml-7">
-                      <p>+256 743 529 455</p>
-                      <p>+256 758 289 019</p>
+                      <p>+420 777 777 777</p>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-gray-800">
                       <MapPin className="h-5 w-5" />
-                      <h3 className="font-semibold">Visit Us</h3>
+                      <h3 className="font-semibold">Navštivte nás</h3>
                     </div>
                     <p className="ml-7">
-                      Plot 3426, Kikulu Zone, Kyanja, Kampala, Uganda
+                      Nad Plovárnou 3767-8, 58601 Jihlava, Česká republika
                     </p>
                   </div>
                 </CardContent>
