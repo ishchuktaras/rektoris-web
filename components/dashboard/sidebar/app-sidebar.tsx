@@ -105,19 +105,19 @@ export default function AppSidebar() {
       items: [
         {
           title: "Adresář studentů",
-          url: "/students/directory",
+          url: "/dashboard/students",
         },
         {
-          title: "Registrace",
-          url: "/students/registration",
+          title: "Poplatky",
+          url: "/dashboard/students/fees",
         },
         {
-          title: "Účast",
-          url: "/students/attendance",
+          title: "ID studentů",
+          url: "/dashboard/students/ids",
         },
         {
-          title: "Výkon",
-          url: "/students/performance",
+          title: "Prospěch",
+          url: "/dashboard/students/attendance",
         },
       ],
     },
