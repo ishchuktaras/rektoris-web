@@ -1,4 +1,4 @@
-import ContactUs from "@/components/frontend/contact-us";
+import { ContactUs } from "@/components/frontend/contact-us";
 import SectionHeader from "@/components/frontend/section-header";
 import Logo from "@/components/logo";
 import React from "react";

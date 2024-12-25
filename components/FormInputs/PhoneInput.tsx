@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-tailwindcss-select";
 import {
   Tooltip,
@@ -10,10 +10,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { CircleHelp } from "lucide-react";
-import { countries } from "../data/countries";
+import { europeanCountries } from "../data/countries";
 
-type PhoneInputProps = {
+type TextInputProps = {
   register: any;
+  setPhoneCode: any;
   errors: any;
   label: string;
   type?: string;
@@ -26,21 +27,22 @@ type PhoneInputProps = {
 
 export default function PhoneInput({
   register,
+  setPhoneCode,
   errors,
   label,
-  type = "text",
+  type,
   name,
   toolTipText,
   unit,
   icon,
   placeholder,
-}: PhoneInputProps) {
+}: TextInputProps) {
   const Icon = icon;
   const initialCountryCode = "CZ";
-  const modifiedCountries = countries.map((country) => {
+  const modifiedCountries = europeanCountries.map((country) => {
     return {
       value: country.value,
-      label: `${country.flag} ${country.countryCode} ${country.phoneCode}`,
+      label: `${country.flag} ${country.countryCode} (${country.phoneCode})`,
       phoneCode: country.phoneCode,
       currencyCode: country.currencyCode,
       countryCode: country.countryCode,
@@ -50,33 +52,36 @@ export default function PhoneInput({
   const initialCountry = modifiedCountries.find(
     (item) => item.countryCode === initialCountryCode
   );
-
   const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
+  console.log(initialCountry);
 
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  // Handle country selection
-  const handleCountryChange = (country: any) => {
-    setSelectedCountry(country);
-    console.log(country);
+  const handleCountryChange = (europeanCountries = selectedCountry) => {
+    setSelectedCountry(europeanCountries);
+    setPhoneCode(europeanCountries.phoneCode);
+    console.log(europeanCountries);
   };
 
-  // Handle phone number input
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    setPhoneCode(selectedCountry.phoneCode);
+  }, [selectedCountry.phoneCode, setPhoneCode]);
+
+  // Custom register to combine country code with phone number
+  function handlePhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    const cleanValue = value.replace(/\D/g, "");
-    setPhoneNumber(cleanValue);
-
-    // Update the hidden input with full phone number
-    const fullNumber = `${selectedCountry.phoneCode}${cleanValue}`;
-
+    // Remove all non-numeric characters
+    const formattedValue = value.replace(/\D/g, "");
+    setPhoneNumber(formattedValue);
+    // Set the value of the input to the selected country's phone code
+    const fullPhoneNumber = `${selectedCountry.phoneCode} ${formattedValue}`;
     register(name).onChange({
       target: {
         name,
-        value: fullNumber,
+        value: fullPhoneNumber,
       },
     });
-  };
+  }
 
   return (
     <div>
@@ -104,16 +109,18 @@ export default function PhoneInput({
       </div>
       <div className="mt-2">
         <div className="flex gap-2">
-          <div className="w-32">
-            <div className="flex items-center space-x-2">
-              <Select
-                isSearchable
-                primaryColor="purple"
-                value={selectedCountry}
-                onChange={handleCountryChange}
-                options={modifiedCountries}
-                placeholder={label}
-              />
+          <div className="w-36">
+            <div className="">
+              <div className="flex items-center space-x-2">
+                <Select
+                  isSearchable
+                  primaryColor="purple"
+                  value={selectedCountry}
+                  onChange={handleCountryChange}
+                  options={modifiedCountries}
+                  placeholder={label}
+                />
+              </div>
             </div>
           </div>
           <div className="relative rounded-md flex-1">
@@ -124,10 +131,11 @@ export default function PhoneInput({
             )}
             <input
               id={name}
-              type={type}
+              type="number"
+              //onChange={handlePhoneChange}
               {...register(`${name}`, { required: true })}
               className={cn(
-                "block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-sm",
+                "block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6 text-sm",
                 (errors[`${name}`] && "focus:ring-red-500 pl-8") ||
                   (icon && "pl-8")
               )}
@@ -140,8 +148,8 @@ export default function PhoneInput({
             )}
           </div>
         </div>
-        {errors[`${name}`] && (
-          <span className="text-xs text-red-600">Pole "{label}" je povinné</span>
+        {errors[name] && (
+          <span className="text-xs text-red-600">{label} je vyžadováno</span>
         )}
       </div>
     </div>

@@ -4,20 +4,17 @@ import {
   Mail,
   Phone,
   MapPin,
-  LogIn,
   Send,
   PenLine,
-  PhoneCall,
   School,
   PanelsTopLeft,
   User,
   ShoppingCart,
   Code,
-  Earth,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
 
@@ -25,24 +22,49 @@ import SubmitButton from "../FormInputs/SubmitButton";
 
 import PhoneInput from "../FormInputs/PhoneInput";
 
+// // function that handles phone number formatting by removing the leading zero if present, but only if it hasn't already been removed
+
+// const formatPhoneNumber = (phoneNumber: string): string => {
+//   // Convert to string in case a number is passed
+//   const numberString = phoneNumber.toString();
+
+//   // Check if number starts with '0'
+//   if (numberString.startsWith('0')) {
+//     return numberString.substring(1); // Remove the first character (0)
+//   }
+
+//   // If it doesn't start with 0 or isn't 10 digits, return as is
+//   return numberString;
+// };
+
 export type RegisterInputProps = {
-  fullName: string;
+  name: string;
   email: string;
   password: string;
   phone: string;
 };
 
-export default function ContactUs() {
+export const ContactUs: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [phoneCode, setPhoneCode] = useState("");
+
+  // const initialCountry: (typeof countries)[0] | undefined = countries.find(
+  //   (item) => item.countryCode === "initialCountryCode"
+  // );
+
+  // const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
+
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<RegisterInputProps>();
 
   async function onSubmit(data: RegisterInputProps) {
-    console.log(data);
+    console.log(phoneCode);
+    data.phone = data.phone[0]==='0'?data.phone.substring(1):data.phone;
+    const phoneNumber = `${phoneCode}${data.phone}`;
+    console.log(phoneNumber);
   }
 
   return (
@@ -54,7 +76,7 @@ export default function ContactUs() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-2xl text-center font-semibold">
-                  Kontaktujte nás pro demo
+                  Kontaktujte nás pro demo verze szystému
                 </h3>
                 <p className="text-muted-foreground text-sm text-center px-6 py-2 mb-4 max-w-xl mx-auto">
                   Vyplňte formulář níže a náš tým vás bude kontaktovat s
@@ -92,9 +114,10 @@ export default function ContactUs() {
                     <PhoneInput
                       register={register}
                       errors={errors}
-                      label="Telefonní číslo"
-                      name="phoneNumber"
-                      toolTipText="Zadejte své telefonní číslo s kódem země"
+                      label="Váš telefon (např. 999888777)"
+                      name="phone"
+                      toolTipText="Vyberte kód země a napište své číslo"
+                      setPhoneCode={setPhoneCode}
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -107,12 +130,14 @@ export default function ContactUs() {
                       icon={School}
                     />
                     <TextInput
-                      label="Země"
                       register={register}
                       name="country"
+                      label="Země"
+                      // options={countries}
+                      // option={selectedCountry}
+                      // setOption={setSelectedCountry}
                       errors={errors}
-                      placeholder="Např. "
-                      icon={Earth}
+                      placeholder="Např. Česká republika"
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -135,11 +160,11 @@ export default function ContactUs() {
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <TextInput
-                      label="Vaše pozice v organizaci"
+                      label="Vaše pozice v instituci"
                       register={register}
                       name="role"
                       errors={errors}
-                      placeholder="role"
+                      placeholder="Vaše pozice"
                       icon={User}
                     />
                     <TextInput
@@ -239,4 +264,4 @@ export default function ContactUs() {
       </div>
     </section>
   );
-}
+};

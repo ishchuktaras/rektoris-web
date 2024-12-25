@@ -1,5 +1,5 @@
 
-export const countries = [
+export const europeanCountries = [
   // Western Europe
   {
     value: "AT",
