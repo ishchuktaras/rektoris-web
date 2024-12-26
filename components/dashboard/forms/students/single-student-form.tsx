@@ -1,14 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -214,7 +205,7 @@ export default function SingleStudentForm({
       <FormHeader
         href="/students"
         parent=""
-        title="Student"
+        title="studenta"
         editingId={editingId}
         loading={loading}
       />
@@ -226,13 +217,13 @@ export default function SingleStudentForm({
               <TextInput
                 register={register}
                 errors={errors}
-                label="First Name"
+                label="Křestní jméno"
                 name="firstName"
               />
               <TextInput
                 register={register}
                 errors={errors}
-                label="Last Name"
+                label="Příjmení"
                 name="lastName"
               />
               <TextInput
@@ -245,15 +236,15 @@ export default function SingleStudentForm({
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
               <FormSelectInput
-                label="Select Parent"
+                label="Vyberte Rodiče"
                 options={parents}
                 option={selectedParent}
                 setOption={setSelectedParent}
-                toolTipText="Add New Parent"
+                toolTipText="Přidat nového rodiče"
                 href="/dashboard/parents/new"
               />
               <FormSelectInput
-                label="Select Gender"
+                label="Vyberte Pohlaví"
                 options={genders}
                 option={selectedGender}
                 setOption={setlectedGender}
@@ -262,7 +253,7 @@ export default function SingleStudentForm({
               <TextInput
                 register={register}
                 errors={errors}
-                label="Date of Birth"
+                label="Datum narození"
                 name="dateOfBirth"
                 type="date"
               />
@@ -271,12 +262,12 @@ export default function SingleStudentForm({
               <TextInput
                 register={register}
                 errors={errors}
-                label="Phone Number"
+                label="Telefonní číslo"
                 name="phoneNumber"
                 type="tel"
               />
               <FormSelectInput
-                label="Select Nationality"
+                label="Vyberte Národnost"
                 options={europeanCountries}
                 option={selectedNationality}
                 setOption={setSelectedNationality}
@@ -285,10 +276,10 @@ export default function SingleStudentForm({
               <PasswordInput
                 register={register}
                 errors={errors}
-                label="Student Password"
+                label="Heslo studenta"
                 name="password"
                 type="password"
-                toolTipText="Password will be used by the student to login to the student portal"
+                toolTipText="Heslo bude studentem použito pro přihlášení do studentského portálu"
               />
             </div>
 
@@ -296,17 +287,17 @@ export default function SingleStudentForm({
               <TextInput
                 register={register}
                 errors={errors}
-                label="State/Province"
+                label="Stát/Provincie"
                 name="state"
               />
               <TextInput
                 register={register}
                 errors={errors}
-                label="Birth Certificate Number"
+                label="Číslo rodného listu"
                 name="birthCertificateNumber"
               />
               <FormSelectInput
-                label="Religion"
+                label="Náboženství"
                 options={religions}
                 option={selectedReligion}
                 setOption={setSelectedReligion}
@@ -314,7 +305,7 @@ export default function SingleStudentForm({
             </div>
             <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
               <FormSelectInput
-                label="Select Class"
+                label="Vyberte Třídu"
                 options={classes}
                 option={selectedClass}
                 setOption={setSelectedClass}
@@ -322,17 +313,17 @@ export default function SingleStudentForm({
                 href="/dashboard/academic/classes/new"
               />
               <FormSelectInput
-                label="Stream"
+                label="Vyberte stream"
                 options={streams}
                 option={selectedStrem}
                 setOption={setSelectedStream}
-                toolTipText="Add New Stream"
+                toolTipText="Přidat nový stream"
                 href="/dashboard/academic/streams/new"
               />
               <TextInput
                 register={register}
                 errors={errors}
-                label="Roll Number"
+                label="Školní číslo"
                 name="rollNumber"
               />
             </div>
@@ -342,13 +333,13 @@ export default function SingleStudentForm({
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Registration Number"
+                    label="Evidenční číslo"
                     name="registrationNumber"
                   />
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Admission Date"
+                    label="Datum přijetí"
                     name="admissionDate"
                     type="date"
                   />
@@ -357,14 +348,14 @@ export default function SingleStudentForm({
                   <TextArea
                     register={register}
                     errors={errors}
-                    label="Description"
+                    label="Popis"
                     name="description"
                   />
                 </div>
               </div>
               <div className="grid gap-3">
                 <ImageInput
-                  title="Student Profile Image"
+                  title="Profilový obrázek studenta"
                   imageUrl={imageUrl}
                   setImageUrl={setImageUrl}
                   endpoint="studentsProfileImage"
@@ -379,7 +370,7 @@ export default function SingleStudentForm({
         href="/students"
         editingId={editingId}
         loading={loading}
-        title="Student"
+        title="studenta"
         parent=""
       />
     </form>

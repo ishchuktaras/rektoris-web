@@ -16,7 +16,7 @@ return (
         parent === "" ? `/dashboard${href}` : `/dashboard/${parent}${href}`
       }
     >
-      Close
+      Zavřít sekci
     </Link>
   </Button>
 );

@@ -40,14 +40,14 @@ export default function FormHeader({
           <span className="sr-only">Back</span>
         </Button>
         <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-          {editingId ? "Update" : "Create"} {title}
+          {editingId ? "Update" : "Vytvořit"} {title}
         </h1>
       </div>
       <div className="flex items-center justify-center gap-2">
         <CloseButton href={href} parent={parent} />
         <SubmitButton
           size={"sm"}
-          title={editingId ? `Update ${title}` : `Save ${title}`}
+          title={editingId ? `Update ${title}` : `Uložit ${title}`}
           loading={loading}
         />
       </div>
