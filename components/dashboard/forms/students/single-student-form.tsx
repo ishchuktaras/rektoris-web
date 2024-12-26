@@ -36,11 +36,11 @@ export default function SingleStudentForm({
   // Parents
   const parents = [
     {
-      label: "Parent 1",
+      label: "Rodič 1",
       value: "parent1",
     },
     {
-      label: "Parent 2",
+      label: "Rodič 2",
       value: "parent2",
     },
   ];
@@ -51,12 +51,44 @@ export default function SingleStudentForm({
 
   const classes = [
     {
-      label: "Class 1",
+      label: "Třída 1",
       value: "class1",
     },
     {
-      label: "Class 2",
+      label: "Třída 2",
       value: "class2",
+    },
+    {
+      label: "Třída 3",
+      value: "class3",
+    },
+    {
+      label: "Třída 4",
+      value: "class4",
+    },
+    {
+      label: "Třída 5",
+      value: "class5",
+    },
+    {
+      label: "Třída 6",
+      value: "class6",
+    },
+    {
+      label: "Třída 7",
+      value: "class7",
+    },
+    {
+      label: "Třída 8",
+      value: "class8",
+    },
+    {
+      label: "Třída 9",
+      value: "class9",
+    },
+    {
+      label: "Třída 10",
+      value: "class10",
     },
   ];
 
@@ -66,26 +98,37 @@ export default function SingleStudentForm({
 
   const streams = [
     {
-      label: "Stream 1",
-      value: "stream1",
+      label: "Stream A",
+      value: "streamA",
     },
     {
-      label: "Stream 2",
-      value: "stream2",
+      label: "Stream B",
+      value: "streamB",
+    },
+    {
+      label: "Stream C",
+      value: "streamC",
+    },
+    {
+      label: "Stream D",
+      value: "streamD",
+    },
+    {
+      label: "Stream E",
+      value: "streamE",
     },
   ];
 
   const [selectedStrem, setSelectedStream] = useState<any>(null);
 
   // Genders
-
   const genders = [
     {
-      label: "Male",
+      label: "Muž",
       value: "Male",
     },
     {
-      label: "Female",
+      label: "Žena",
       value: "Female",
     },
   ];
@@ -106,43 +149,43 @@ export default function SingleStudentForm({
 
   const religions = [
     {
-      label: "Orthodox",
+      label: "Ortodoxné",
       value: "Orthodox",
     },
     {
-      label: "Catholic",
+      label: "Katolícké",
       value: "Catholic",
     },
     {
-      label: "Islamic",
+      label: "Islámské",
       value: "Islamic",
     },
     {
-      label: "Muslim",
+      label: "Muslimské",
       value: "Muslim",
     },
     {
-      label: "Hindu",
+      label: "Hinduistické",
       value: "Hindu",
     },
     {
-      label: "Buddhist",
+      label: "Buddhistické",
       value: "Buddhist",
     },
     {
-      label: "Jewish",
+      label: "Židovské",
       value: "Jewish",
     },
     {
-      label: "Sikh",
+      label: "Sikhské",
       value: "Sikh",
     },
     {
-      label: "Atheist",
+      label: "Ateistické",
       value: "Atheist",
     },
     {
-      label: "Other",
+      label: "Jiné",
       value: "Other",
     },
   ];
