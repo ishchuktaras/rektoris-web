@@ -206,7 +206,7 @@ export default function SingleStudentForm({
 
   const [loading, setLoading] = useState(false);
   const initialImage =
-    initialData?.imageUrl || "/images/profile_placeholder.png";
+    initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
   async function saveStudent(data: StudentProps) {

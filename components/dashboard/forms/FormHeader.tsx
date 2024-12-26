@@ -37,14 +37,16 @@ export default function FormHeader({
           type="button"
         >
           <ChevronLeft className="h-4 w-4" />
-          <span className="sr-only">Back</span>
+          <span className="sr-only">Zpět</span>
         </Button>
-        <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+        <h1 className="flex shrink-0 whitespace-nowrap text-lg font-medium tracking-tight sm:grow-0 px-2">
           {editingId ? "Update" : "Vytvořit"} {title}
         </h1>
       </div>
       <div className="flex items-center justify-center gap-2">
+        <div className="hidden md:block md:ml-4">
         <CloseButton href={href} parent={parent} />
+        </div>
         <SubmitButton
           size={"sm"}
           title={editingId ? `Update ${title}` : `Uložit ${title}`}
