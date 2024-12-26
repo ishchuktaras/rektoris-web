@@ -49,7 +49,7 @@ export const ContactUs: React.FC = () => {
     (item) => item.countryCode === initialCountryCode
   );
   const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
-  console.log(initialCountry);
+  // console.log(initialCountry);
 
   const {
     register,

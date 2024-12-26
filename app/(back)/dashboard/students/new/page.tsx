@@ -14,8 +14,8 @@ export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
   const tab = searchParams.tab || 'single'
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Student Admission</h1>
+    <div className="w-full max-w-5xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">Studentské přijetí</h1>
       <Tabs defaultValue={tab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           {/* Using Next.js Link for server-side navigation */}
@@ -25,7 +25,7 @@ export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
               className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2"
             >
               <UserPlus className="h-4 w-4" />
-              <span>Single Admission</span>
+              <span>Jednotlivé přijetí</span>
             </TabsTrigger>
           </Link>
           <Link href="?tab=bulk" className="w-full">
@@ -34,7 +34,7 @@ export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
               className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2"
             >
               <Users className="h-4 w-4" />
-              <span>Bulk Admission</span>
+              <span>Hromadné přijetí</span>
             </TabsTrigger>
           </Link>
         </TabsList>

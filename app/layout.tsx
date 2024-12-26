@@ -9,7 +9,7 @@ const inter = Inter({
   display: 'swap',
 })
 import "./globals.css";
-import { ourFileRouter } from "./api/core";
+import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "react-hot-toast";
 
 
