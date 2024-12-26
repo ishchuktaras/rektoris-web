@@ -29,70 +29,65 @@ export type StudentProps = {
   imageUrl: string;
 };
 
-export default function SingleStudentForm({
+export default function ParentForm({
   editingId,
   initialData,
 }: SingleStudentFormProps) {
-  // Parents
-  const parents = [
+  // Relationships
+  const relationships = [
     {
-      label: "Rodič 1",
-      value: "parent1",
+      label: "Otec",
+      value: "father",
     },
     {
-      label: "Rodič 2",
-      value: "parent2",
-    },
-  ];
-
-  const [selectedParent, setSelectedParent] = useState<any>(null);
-
-  // Classes
-
-  const classes = [
-    {
-      label: "Třída 1",
-      value: "class1",
+      label: "Matka",
+      value: "mother",
     },
     {
-      label: "Třída 2",
-      value: "class2",
+      label: "Zákonný zástupce",
+      value: "legalGuardian",
     },
     {
-      label: "Třída 3",
-      value: "class3",
-    },
-    {
-      label: "Třída 4",
-      value: "class4",
-    },
-    {
-      label: "Třída 5",
-      value: "class5",
-    },
-    {
-      label: "Třída 6",
-      value: "class6",
-    },
-    {
-      label: "Třída 7",
-      value: "class7",
-    },
-    {
-      label: "Třída 8",
-      value: "class8",
-    },
-    {
-      label: "Třída 9",
-      value: "class9",
-    },
-    {
-      label: "Třída 10",
-      value: "class10",
+      label: "Jiný",
+      value: "other",
     },
   ];
 
-  const [selectedClass, setSelectedClass] = useState<any>(null);
+  const [selectedRelationship, setSelectedRelationship] = useState<any>(
+    relationships[0]
+  );
+  // Titles
+  const titles = [
+    {
+      label: "Pan",
+      value: "Mr",
+    },
+    {
+      label: "Paní",
+      value: "Mrs",
+    },
+  ];
+
+  const [selectedTitle, setSelectedTitle] = useState<any>(null);
+
+  // Contact Methods
+
+  const contactMethods = [
+    {
+      label: "Telefon",
+      value: "phone",
+    },
+    {
+      label: "Email",
+      value: "email",
+    },
+    {
+      label: "WhatsApp",
+      value: "whatsapp",
+    },
+  ];
+
+  const [selectedContactMethod, setSelectedContactMethod] = useState<any>(null);
 
   // Sectioms/Streams
 
@@ -246,9 +241,9 @@ export default function SingleStudentForm({
   return (
     <form className="" onSubmit={handleSubmit(saveStudent)}>
       <FormHeader
-        href="/students"
-        parent=""
-        title="studenta"
+        href="/parents"
+        parent="users"
+        title="Rodiče"
         editingId={editingId}
         loading={loading}
       />
@@ -257,6 +252,12 @@ export default function SingleStudentForm({
         <div className="lg:col-span-12 col-span-full space-y-3">
           <div className="grid gap-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+              <FormSelectInput
+                label="Titul"
+                options={titles}
+                option={selectedTitle}
+                setOption={setSelectedTitle}
+              />
               <TextInput
                 register={register}
                 errors={errors}
@@ -269,22 +270,20 @@ export default function SingleStudentForm({
                 label="Příjmení"
                 name="lastName"
               />
-              <TextInput
-                register={register}
-                errors={errors}
-                label="Email"
-                name="email"
-                type="email"
-              />
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
               <FormSelectInput
-                label="Vyberte Rodiče"
-                options={parents}
-                option={selectedParent}
-                setOption={setSelectedParent}
-                toolTipText="Přidat nového rodiče"
-                href="/dashboard/users/parents/new"
+                label="Vztah"
+                options={relationships}
+                option={selectedRelationship}
+                setOption={setSelectedRelationship}
+                isSearchable={false}
+              />
+              <TextInput
+                register={register}
+                errors={errors}
+                label="Občanský průkaz / cestovní pas"
+                name="nationalId"
               />
               <FormSelectInput
                 label="Vyberte Pohlaví"
@@ -293,6 +292,8 @@ export default function SingleStudentForm({
                 setOption={setlectedGender}
                 isSearchable={false}
               />
+            </div>
+            <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
               <TextInput
                 register={register}
                 errors={errors}
@@ -300,8 +301,6 @@ export default function SingleStudentForm({
                 name="dateOfBirth"
                 type="date"
               />
-            </div>
-            <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
               <TextInput
                 register={register}
                 errors={errors}
@@ -316,75 +315,45 @@ export default function SingleStudentForm({
                 setOption={setSelectedNationality}
                 isSearchable={true}
               />
-              <PasswordInput
-                register={register}
-                errors={errors}
-                label="Heslo studenta"
-                name="password"
-                type="password"
-                toolTipText="Heslo bude studentem použito pro přihlášení do studentského portálu"
-              />
             </div>
 
             <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
               <TextInput
                 register={register}
                 errors={errors}
-                label="Stát/Provincie"
-                name="state"
+                label="Telefonní číslo"
+                name="phoneNumber"
+                type="tel"
               />
               <TextInput
                 register={register}
                 errors={errors}
-                label="Číslo rodného listu"
-                name="birthCertificateNumber"
-              />
-              <FormSelectInput
-                label="Náboženství"
-                options={religions}
-                option={selectedReligion}
-                setOption={setSelectedReligion}
-              />
-            </div>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
-              <FormSelectInput
-                label="Vyberte Třídu"
-                options={classes}
-                option={selectedClass}
-                setOption={setSelectedClass}
-                toolTipText="Add New Class"
-                href="/dashboard/academics/classes/new"
-              />
-              <FormSelectInput
-                label="Vyberte stream"
-                options={streams}
-                option={selectedStrem}
-                setOption={setSelectedStream}
-                toolTipText="Přidat nový stream"
-                href="/dashboard/academics/streams/new"
+                label="Email"
+                name="email"
+                type="email"
               />
               <TextInput
                 register={register}
                 errors={errors}
-                label="Školní číslo"
-                name="rollNumber"
+                label="WhatsApp číslo"
+                name="whatsappNumber"
               />
             </div>
             <div className="grid md:grid-cols-2 gap-3">
               <div className="space-y-3">
                 <div className="grid gap-3">
-                  <TextInput
-                    register={register}
-                    errors={errors}
-                    label="Evidenční číslo"
-                    name="registrationNumber"
+                  <FormSelectInput
+                    label="Preferovaný způsob komunikace"
+                    options={contactMethods}
+                    option={selectedContactMethod}
+                    setOption={setSelectedContactMethod}
+                    isSearchable={false}
                   />
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Datum přijetí"
-                    name="admissionDate"
-                    type="date"
+                    label="Povolání"
+                    name="occupation"
                   />
                 </div>
                 <div className="grid gap-3">
@@ -395,13 +364,22 @@ export default function SingleStudentForm({
                     name="address"
                   />
                 </div>
+                <div className="grid">
+                  <PasswordInput
+                    register={register}
+                    errors={errors}
+                    label="Rodičovské heslo"
+                    name="password"
+                    type="password"
+                  />
+                </div>
               </div>
-              <div className="grid gap-3">
+              <div className="grid">
                 <ImageInput
-                  title="Profilový obrázek studenta"
+                  title="Profilový obrázek rodiče"
                   imageUrl={imageUrl}
                   setImageUrl={setImageUrl}
-                  endpoint="studentsProfileImage"
+                  endpoint="parentsProfileImage"
                   className="object-contain"
                 />
               </div>
@@ -410,11 +388,11 @@ export default function SingleStudentForm({
         </div>
       </div>
       <FormFooter
-        href="/students"
+        href="/parents"
         editingId={editingId}
         loading={loading}
-        title="studenta"
-        parent=""
+        title="rodiče"
+        parent="users"
       />
     </form>
   );

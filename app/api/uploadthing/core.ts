@@ -28,6 +28,9 @@ export const ourFileRouter = {
     studentsProfileImage: f(["image"])
     .middleware(({ req }) => auth(req))
     .onUploadComplete((data) => console.log("file", data)),
+    parentsProfileImage: f(["image"])
+    .middleware(({ req }) => auth(req))
+    .onUploadComplete((data) => console.log("file", data)),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
