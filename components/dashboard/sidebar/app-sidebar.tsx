@@ -135,28 +135,28 @@ export default function AppSidebar() {
     },
     {
       title: "Akademici",
-      url: "/academics",
+      url: "/dashboard/academics",
       icon: BookOpen,
       items: [
         {
-          title: "Učební plán",
-          url: "/academics/curriculum",
+          title: "Třídy",
+          url: "/dashboard/academics/classes",
         },
         {
           title: "Jízdní řád",
-          url: "/academics/schedule",
+          url: "/dashboard/academics/schedule",
         },
         {
           title: "Zkoušky",
-          url: "/academics/exams",
+          url: "/dashboard/academics/exams",
         },
         {
           title: "Úkoly",
-          url: "/academics/assignments",
+          url: "/dashboard/academics/assignments",
         },
         {
           title: "Vysvědčení",
-          url: "/academics/reports",
+          url: "/dashboard/academics/reports",
         },
       ],
     },

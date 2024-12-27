@@ -8,7 +8,7 @@ import FormFooter from "../FormFooter";
 import TextInput from "@/components/FormInputs/TextInput";
 import TextArea from "@/components/FormInputs/TextAreaInput";
 import ImageInput from "@/components/FormInputs/ImageInput";
- 
+
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
@@ -245,6 +245,7 @@ export default function SingleStudentForm({
 
   return (
     <form className="" onSubmit={handleSubmit(saveStudent)}>
+      
       <FormHeader
         href="/students"
         parent=""
@@ -287,18 +288,20 @@ export default function SingleStudentForm({
                 href="/dashboard/users/parents/new"
               />
               <FormSelectInput
-                label="Vyberte Pohlaví"
-                options={genders}
-                option={selectedGender}
-                setOption={setlectedGender}
-                isSearchable={false}
+                label="Vyberte Třídu"
+                options={classes}
+                option={selectedClass}
+                setOption={setSelectedClass}
+                toolTipText="Add New Class"
+                href="/dashboard/academics/classes/new"
               />
-              <TextInput
-                register={register}
-                errors={errors}
-                label="Datum narození"
-                name="dateOfBirth"
-                type="date"
+              <FormSelectInput
+                label="Vyberte stream"
+                options={streams}
+                option={selectedStrem}
+                setOption={setSelectedStream}
+                toolTipText="Přidat nový stream"
+                href="/dashboard/academics/streams/new"
               />
             </div>
             <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
@@ -348,20 +351,18 @@ export default function SingleStudentForm({
             </div>
             <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
               <FormSelectInput
-                label="Vyberte Třídu"
-                options={classes}
-                option={selectedClass}
-                setOption={setSelectedClass}
-                toolTipText="Add New Class"
-                href="/dashboard/academics/classes/new"
+                label="Vyberte Pohlaví"
+                options={genders}
+                option={selectedGender}
+                setOption={setlectedGender}
+                isSearchable={false}
               />
-              <FormSelectInput
-                label="Vyberte stream"
-                options={streams}
-                option={selectedStrem}
-                setOption={setSelectedStream}
-                toolTipText="Přidat nový stream"
-                href="/dashboard/academics/streams/new"
+              <TextInput
+                register={register}
+                errors={errors}
+                label="Datum narození"
+                name="dateOfBirth"
+                type="date"
               />
               <TextInput
                 register={register}

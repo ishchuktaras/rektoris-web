@@ -1,5 +1,6 @@
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form";
 import SingleStudentForm from "@/components/dashboard/forms/students/single-student-form";
+import { InfoBanner } from "@/components/info-banner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { UserPlus, Users } from "lucide-react";
@@ -27,10 +28,15 @@ export default function AdmissionTabs() {
         </TabsList>
         <Card className="border-t-2 border-purple-500">
           <CardContent className="p-6">
-            <TabsContent value="single" className="mt-6 space-y-4">
+            <TabsContent value="single" className="mt-0 space-y-4">
+              <InfoBanner
+                variant="danger"
+                message="Ujistěte se, že jste již vytvořili rodiče, třídu a stream studenta"
+                
+              />
               <SingleStudentForm />
             </TabsContent>
-            <TabsContent value="bulk" className="mt-6 space-y-4">
+            <TabsContent value="bulk" className="mt-0 space-y-4">
               <BulkStudentForm />
             </TabsContent>
           </CardContent>
