@@ -5,7 +5,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { UserPlus, Users } from "lucide-react";
 
 interface AdmissionTabsProps {
-  searchParams?: { [key: string]: string | string[] | undefined }
+  params: { [key: string]: string | string[] } 
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
