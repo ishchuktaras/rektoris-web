@@ -8,7 +8,7 @@ import FormFooter from "../FormFooter";
 import TextInput from "@/components/FormInputs/TextInput";
 import TextArea from "@/components/FormInputs/TextAreaInput";
 import ImageInput from "@/components/FormInputs/ImageInput";
-import toast from "react-hot-toast";
+
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";

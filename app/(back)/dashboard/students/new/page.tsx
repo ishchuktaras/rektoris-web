@@ -4,15 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { UserPlus, Users } from "lucide-react";
 
-
 export default function AdmissionTabs() {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
-      
       <h1 className="text-2xl font-bold mb-6">Přijetí studenta</h1>
-      <Tabs defaultValue="tab" className="w-full">
+      <Tabs defaultValue="single" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          {/* Using Next.js Link for server-side navigation */}
           <TabsTrigger
             value="single"
             className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2"
