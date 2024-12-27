@@ -5,19 +5,13 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { UserPlus, Users } from 'lucide-react'
 import Link from 'next/link'
 
-interface AdmissionTabsProps {
-  searchParams: {
-    tab?: string
-  }
-}
 
-export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
-  const tab = searchParams.tab || 'single'
-
+export default function AdmissionTabs() {
+  
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Přijetí studenta</h1>
-      <Tabs defaultValue={tab} className="w-full">
+      <Tabs defaultValue="tab" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           {/* Using Next.js Link for server-side navigation */}
           <Link href="?tab=single" className="w-full">
