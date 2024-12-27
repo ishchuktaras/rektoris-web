@@ -89,7 +89,7 @@ const features = [
 
 export default function TabbedFeatures() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-16">
+    <div className="container max-w-6xl mx-auto px-4 py-16">
       {/* Header */}
       <div className="py-8">
         <SectionHeader
@@ -98,17 +98,17 @@ export default function TabbedFeatures() {
           description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
         />
       </div>
-      <Tabs defaultValue={features[0].tab.toLowerCase()} className="bg-gray-100 rounded-2xl py-4 px-4 space-y-4">
-        <TabsList className="inline-flex h-auto w-full justify-start gap-4 rounded-none border-b bg-transparent p-0">
+      <Tabs defaultValue={features[0].tab.toLowerCase()} className="space-y-8 w-full mx-auto">
+        <TabsList className="grid w-full grid-cols-4" >
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <TabsTrigger
                 key={feature.tab}
                 value={feature.tab.toLowerCase()}
-                className="inline-flex items-center gap-2 border-b-2 border-transparent px-4 pb-4 pt-2 data-[state-active]:border-primary"
+                className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2"
               >
-                <Icon className="h-5 w-5" />
+                <Icon className="h-4 w-4" />
                 {feature.tab}
               </TabsTrigger>
             );
@@ -121,7 +121,7 @@ export default function TabbedFeatures() {
             className="space-y-8"
           >
             <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-8 px-6">
+              <div className="space-y-8">
                 <h2 className="text-3xl font-bold tracking-tight">
                   {feature.title}
                 </h2>
@@ -150,7 +150,7 @@ export default function TabbedFeatures() {
                 <Image
                   src={feature.image}
                   alt={`${feature.title} illustration`}
-                  className="object-cover py-8"
+                  className="object-cover"
                   fill
                   priority
                 />
