@@ -1,5 +1,6 @@
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form"
 import SingleStudentForm from "@/components/dashboard/forms/students/single-student-form"
+import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { UserPlus, Users } from 'lucide-react'
 import Link from 'next/link'
@@ -38,12 +39,16 @@ export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
             </TabsTrigger>
           </Link>
         </TabsList>
-        <TabsContent value="single" className="mt-6 space-y-4">
+        <Card className="border-t-2 border-purple-500">
+          <CardContent className="p-6">
+          <TabsContent value="single" className="mt-6 space-y-4">
           <SingleStudentForm/>
         </TabsContent>
         <TabsContent value="bulk" className="mt-6 space-y-4">
           <BulkStudentForm/>
         </TabsContent>
+          </CardContent>
+        </Card>
       </Tabs>
     </div>
   )
