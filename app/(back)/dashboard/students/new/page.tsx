@@ -4,7 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { UserPlus, Users } from "lucide-react";
 
-export default function AdmissionTabs() {
+interface AdmissionTabsProps {
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Přijetí studenta</h1>
