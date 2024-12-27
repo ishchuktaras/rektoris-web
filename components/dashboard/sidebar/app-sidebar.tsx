@@ -80,7 +80,7 @@ export default function AppSidebar() {
   const user = {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "avatars/shadcn.jpg"
+    avatar: "avatars/shadcn.jpg",
   };
   const sidebarLinks = [
     {
@@ -139,12 +139,8 @@ export default function AppSidebar() {
       icon: BookOpen,
       items: [
         {
-          title: "Třídy",
+          title: "Třídy a Streamy",
           url: "/dashboard/academics/classes",
-        },
-        {
-          title: "Jízdní řád",
-          url: "/dashboard/academics/schedule",
         },
         {
           title: "Zkoušky",
