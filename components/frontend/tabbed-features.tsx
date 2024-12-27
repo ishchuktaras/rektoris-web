@@ -47,7 +47,6 @@ const features = [
     ],
     image: "/images/curriculum_management.jpg",
   },
-
   {
     tab: "Známky",
     icon: GraduationCap,
