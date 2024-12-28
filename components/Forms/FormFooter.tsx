@@ -1,6 +1,6 @@
 import React from "react";
-import CloseButton from "../CloseButton";
-import SubmitButton from "@/components/global/FormInputs/SubmitButton";
+import CloseButton from "../FormInputs/CloseButton";
+import SubmitButton from "@/components/FormInputs/SubmitButton";
  
 export default function FormFooter({
 href,
