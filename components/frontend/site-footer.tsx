@@ -69,6 +69,9 @@ export default function SiteFooter() {
                 <Link className="hover:underline" href="#">
                   Moduly
                 </Link>
+                <Link className="hover:underline" href="/school-onboarding">
+                  Admin
+                </Link>
               </nav>
             </div>
             <div className="space-y-4">
