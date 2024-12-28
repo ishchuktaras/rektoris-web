@@ -301,13 +301,13 @@ export default function ParentForm({
                 name="dateOfBirth"
                 type="date"
               />
-              <TextInput
+              {/* <TextInput
                 register={register}
                 errors={errors}
                 label="Telefonní číslo"
                 name="phoneNumber"
                 type="tel"
-              />
+              /> */}
               <FormSelectInput
                 label="Vyberte Národnost"
                 options={europeanCountries}
