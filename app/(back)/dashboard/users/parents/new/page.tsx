@@ -2,13 +2,14 @@ import ParentForm from "@/components/dashboard/forms/users/parent-form";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface AdmissionTabsProps {
-  searchParams: {
-    tab?: string;
-  };
+  searchParams: Promise<{ tab?: string }>;
 }
 
-export default function AdmissionTabs({ searchParams }: AdmissionTabsProps) {
-  const tab = searchParams.tab || "single";
+export default async function AdmissionTabs({
+  searchParams,
+}: AdmissionTabsProps) {
+  const params = await searchParams;
+  const tab = params.tab || "single";
 
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
