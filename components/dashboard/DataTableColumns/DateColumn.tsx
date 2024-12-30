@@ -2,8 +2,8 @@ import { getNormalDate } from "@/lib/getNormalDate";
 import React from "react";
 
 const getPastDays = (isoString: string): number => {
-  const createdDate = newDate(isoString);
-  const currentDate = newDate();
+  const createdDate = new Date(isoString);
+  const currentDate = new Date();
 
   //Reset times to midnight for accurate day calculation
   createdDate.setHours(0, 0, 0, 0);
@@ -11,8 +11,9 @@ const getPastDays = (isoString: string): number => {
 
   const diffTime = currentDate.getTime() - createdDate.getTime();
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays
 };
-function timeAgo(createAt: string): string {
+function timeAgo(createdAt: string): string {
   const createdDate = new Date (createdAt); // Convert the string to a Date object
   const now = new Date();
 
@@ -52,7 +53,7 @@ export default function DateColumn({
     row: any;
     accessorKey: any;
   }) {
-    const createAt = row.getValue(`${accessorKey}`);
+    const createAt = row.getValue(`${accessorKey}`).toString();
     const date = getNormalDate(createAt);
     const originalDate = new Date(createAt);
 

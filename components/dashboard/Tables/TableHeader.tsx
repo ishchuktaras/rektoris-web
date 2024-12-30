@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import * as XLSX from "xlsx";
- 
+
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ExcelCategoryProps, ProductProps, SelectOption } from "@/types/types";
+//import { ExcelCategoryProps, ProductProps, SelectOption } from "@/types/types";
 import {
   Check,
   CloudUpload,
@@ -18,7 +18,7 @@ import {
 import Link from "next/link";
 import React, { useState } from "react";
 import { RiFileExcel2Line } from "react-icons/ri";
-import { SiMicrosoftexcel } from "react-icons/si";
+//import { SiMicrosoftexcel } from "react-icons/si";
 import Select from "react-tailwindcss-select";
 import {
   Options,
@@ -34,17 +34,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { DialogDemo } from "./Button";
+
 import { formatBytes } from "@/lib/formatBytes";
 import { generateSlug } from "@/lib/generateSlug";
-import { createBulkCategories } from "@/actions/category";
+
 import toast from "react-hot-toast";
 import exportDataToExcel from "@/lib/exportDataToExcel";
-import { createBulkBrands } from "@/actions/brand";
-import { createBulkWarehouses } from "@/actions/warehouse";
-import { createBulkSuppliers } from "@/actions/supplier";
-import { createBulkUnits } from "@/actions/unit";
-import { createBulkProducts } from "@/actions/products";
+
 type TableHeaderProps = {
   title: string;
   href: string;
@@ -99,7 +95,7 @@ export default function TableHeader({
     console.log("value:", item);
     setDate(item);
   };
- 
+
   function previewData() {
     setPreview(true);
     if (excelFile) {
@@ -135,7 +131,7 @@ export default function TableHeader({
           // Json
           const json = XLSX.utils.sheet_to_json(workSheet);
           setJsonData(JSON.stringify(json, null, 2));
- 
+
           try {
             setLoading(true);
             if (model === "category") {
@@ -159,7 +155,7 @@ export default function TableHeader({
                   status: true,
                 };
               });
-              await createBulkBrands(brands);
+              //  await createBulkBrands(brands);
               // console.log(brands);
             } else if (model === "warehouse") {
               const warehouses = json.map((item: any) => {
@@ -176,7 +172,7 @@ export default function TableHeader({
                   status: true,
                 };
               });
-              await createBulkWarehouses(warehouses);
+              //   await createBulkWarehouses(warehouses);
               // console.log(warehouses);
             } else if (model === "supplier") {
               const suppliers = json.map((item: any) => {
@@ -195,7 +191,7 @@ export default function TableHeader({
                   status: true,
                 };
               });
-              await createBulkSuppliers(suppliers);
+              //  await createBulkSuppliers(suppliers);
               // console.log(suppliers);
             } else if (model === "unit") {
               const units = json.map((item: any) => {
@@ -204,7 +200,7 @@ export default function TableHeader({
                   abbreviation: item.abbreviation,
                 };
               });
-              await createBulkUnits(units);
+              //   await createBulkUnits(units);
               // console.log(brands);
             } else if (model === "product") {
               const products = json.map((item: any) => {
@@ -229,7 +225,7 @@ export default function TableHeader({
                   productDetails: item.productDetails,
                 };
               });
-              await createBulkProducts(products as any);
+              //  await createBulkProducts(products as any);
               // console.log(brands);
             }
             setLoading(false);
@@ -267,12 +263,12 @@ export default function TableHeader({
             variant="outline"
             className="h-8 gap-1"
           >
-            <SiMicrosoftexcel className="h-3.5 w-3.5" />
+            
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Export
             </span>
           </Button>
- 
+
           {showImport && (
             <Dialog>
               <DialogTrigger asChild>
@@ -349,7 +345,7 @@ export default function TableHeader({
                           Data Synced Successfully. You can close the Window
                         </h2>
                       </div>
- 
+
                       <DialogFooter className="justify-between ">
                         <DialogClose asChild>
                           <Button
@@ -385,7 +381,7 @@ export default function TableHeader({
                               Download {model} Sample Data
                             </Link>
                           </Button>
- 
+
                           <div className="flex items-center justify-center w-full">
                             <label
                               htmlFor="dropzone-file"
@@ -393,7 +389,7 @@ export default function TableHeader({
                             >
                               <div className="flex flex-row lg:flex-col items-center justify-center pt-5 pb-6 gap-4 lg:gap-0">
                                 <CloudUpload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" />
- 
+
                                 <p className="lg:mb-2 text-sm text-gray-500 dark:text-gray-400">
                                   <span className="font-semibold">
                                     Click to upload
@@ -442,7 +438,7 @@ export default function TableHeader({
                           )}
                         </div>
                       )}
- 
+
                       <DialogFooter className="justify-between ">
                         {preview ? (
                           <Button
@@ -483,4 +479,17 @@ export default function TableHeader({
       </div>
     </div>
   );
+}
+
+function createBulkCategories(
+  categories: {
+    title: any;
+    slug: string;
+    description: any;
+    imageUrl: any;
+    mainCategoryId: any;
+    status: boolean;
+  }[]
+) {
+  throw new Error("Function not implemented.");
 }
