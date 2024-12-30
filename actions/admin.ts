@@ -27,3 +27,10 @@ export async function createContact(data:ContactProps) {
   }
 }
 
+export async function deleteContact(id:string) {
+  console.log("deleted",id);
+  return {
+    ok: true
+  }
+}
+

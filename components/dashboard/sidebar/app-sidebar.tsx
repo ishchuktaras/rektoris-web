@@ -54,6 +54,7 @@ import {
   Frame,
   GalleryVerticalEnd,
   GraduationCap,
+  KeySquare,
   LayoutDashboard,
   LogOut,
   Map,
@@ -314,6 +315,17 @@ export default function AppSidebar() {
         {
           title: "Zálohování a zabezpečení",
           url: "/settings/backup-security",
+        },
+      ],
+    },
+    {
+      title: "Admin Only",
+      url: "dashboard/admin",
+      icon: KeySquare,
+      items: [
+        {
+          title: "Kontakty",
+          url: "/dashboard/admin/contacts",
         },
       ],
     },
