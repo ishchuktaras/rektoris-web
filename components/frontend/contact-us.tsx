@@ -9,8 +9,6 @@ import {
   School,
   PanelsTopLeft,
   User,
-  ShoppingCart,
-  Code,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
@@ -26,37 +24,28 @@ import FormSelectInput from "../FormInputs/FormSelectInput";
 import TextArea from "../FormInputs/TextAreaInput";
 
 export type ContactProps = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password: string;
+  //password: string;
   phone: string;
-  school: string;
+  schoolName: string;
   country: string;
-  website: string;
   schoolPage: string;
-  students: number;
+  numberOfStudents: number;
   role: string;
   media: string;
-  massage: string;
+  pointsToSolve: string;
 };
 
 export const ContactUs: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [phoneCode, setPhoneCode] = useState("");
-
-  const initialCountryCode = "CZ"; // Replace "CZ" with the appropriate country code
-  const initialCountry = europeanCountries.find(
-    (item) => item.countryCode === initialCountryCode
-  );
-  const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
-  // console.log(initialCountry);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ContactProps>();
-
   const roles = [
     { value: "principal", label: "Ředitel/vedoucí učitel" },
     { value: "vice_principal", label: "Zástupce ředitele" },
@@ -69,7 +58,6 @@ export const ContactUs: React.FC = () => {
     { value: "coordinator", label: "Programový koordinátor" },
     { value: "other", label: "Jiný zaměstnanec" },
   ];
-
   const media = [
     { value: "facebook", label: "Facebook" },
     { value: "google", label: "Google" },
@@ -79,14 +67,24 @@ export const ContactUs: React.FC = () => {
     { value: "youtube", label: "YouTube" },
     { value: "other", label: "Jiné" },
   ];
+  const initialCountryCode = "CZ"; // Replace "CZ" with the appropriate country code
+  const initialCountry = europeanCountries.find(
+    (item) => item.countryCode === initialCountryCode
+  );
+  const [selectedCountry, setSelectedCountry] = useState<any>(initialCountry);
 
-  const [selectedRole, setSelectedRole] = useState<any>(null);
-  const [selectedMedia, setSelectedMadia] = useState<any>(null);
+  const [selectedRole, setSelectedRole] = useState<any>(roles[0]);
+  const [selectedMedia, setSelectedMadia] = useState<any>(media[0]);
 
   async function onSubmit(data: ContactProps) {
     console.log(phoneCode);
     data.phone = data.phone[0] === "0" ? data.phone.substring(1) : data.phone;
     const phoneNumber = `${phoneCode}${data.phone}`;
+    data.phone = phoneNumber;
+    data.country = selectedCountry.label;
+    data.role = selectedRole.value;
+    data.media = selectedMedia.value;
+    data.numberOfStudents = Number(data.numberOfStudents);
     console.log(data);
   }
 
@@ -110,7 +108,7 @@ export const ContactUs: React.FC = () => {
                     <TextInput
                       label="Křestní jméno"
                       register={register}
-                      name="name"
+                      name="firstName"
                       errors={errors}
                       placeholder="Např. Karel"
                       icon={PenLine}
@@ -118,7 +116,7 @@ export const ContactUs: React.FC = () => {
                     <TextInput
                       label="Příjmení"
                       register={register}
-                      name="name"
+                      name="lastName"
                       errors={errors}
                       placeholder="Např. Novotný"
                       icon={PenLine}
@@ -148,7 +146,7 @@ export const ContactUs: React.FC = () => {
                     <TextInput
                       label="Název školy"
                       register={register}
-                      name="school"
+                      name="schoolName"
                       errors={errors}
                       placeholder="Např. Gymnázium Jihlava"
                       icon={School}
@@ -172,7 +170,7 @@ export const ContactUs: React.FC = () => {
                     <TextInput
                       label="Počet studentů"
                       register={register}
-                      name="students"
+                      name="numberOfStudents"
                       errors={errors}
                       placeholder="Např. 300"
                       icon={User}
@@ -191,13 +189,12 @@ export const ContactUs: React.FC = () => {
                       options={media}
                       option={selectedMedia}
                       setOption={setSelectedMadia}
-                      
                     />
                   </div>
                   <TextArea
                     label="Podělte se s námi o klíčové problémy, které chcete vyřešit"
                     register={register}
-                    name="features"
+                    name="pointsToSolve"
                     errors={errors}
                   />
 

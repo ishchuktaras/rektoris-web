@@ -10,6 +10,7 @@ type ImageInputProps = {
   endpoint: any;
   className?: string;
   size?: "sm" | "md" | "lg";
+ 
 };
 export default function ImageInput({
   title,
@@ -18,6 +19,7 @@ export default function ImageInput({
   endpoint,
   className,
   size = "lg",
+ 
 }: ImageInputProps) {
   if (size === "sm") {
     return (
@@ -33,6 +35,7 @@ export default function ImageInput({
               height="500"
               src={imageUrl}
               width="500"
+              
             />
             <UploadButton
               className="col-span-full"

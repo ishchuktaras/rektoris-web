@@ -3,46 +3,24 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import FormHeader from "../FormHeader";
-import FormFooter from "../FormFooter";
 import TextInput from "@/components/FormInputs/TextInput";
-import TextArea from "@/components/FormInputs/TextAreaInput";
 import ImageInput from "@/components/FormInputs/ImageInput";
 import toast from "react-hot-toast";
-import PasswordInput from "@/components/FormInputs/PasswordInput";
-import FormSelectInput from "@/components/FormInputs/FormSelectInput";
-import { europeanCountries } from "@/components/data/countries";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { Send } from "lucide-react";
+import { createSchool } from "@/app/actions/schools";
 
-export type SelectOptionProps = {
-  label: string;
-  value: string;
-};
-type SingleStudentFormProps = {
-  editingId?: string | undefined;
-  initialData?: any | undefined | null;
-};
-
-export type StudentProps = {
+export type SchoolProps = {
   name: string;
-  email: string;
-  password: string;
-  imageUrl: string;
+  logo: string;
 };
 
-export default function ParentForm() {
-  const initialCountryCode = "CZ";
-  const initialCountry = europeanCountries.find(
-    (item) => item.countryCode === initialCountryCode
-  );
-
+export default function SchoolOnboardingForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm<StudentProps>({
+  } = useForm<SchoolProps>({
     defaultValues: {
       name: "",
     },
@@ -53,11 +31,15 @@ export default function ParentForm() {
   const initialImage = "/images/logo.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: StudentProps) {
+  async function saveOnboarding(data: SchoolProps) {
     try {
       setLoading(true);
-      data.imageUrl = imageUrl;
+      data.logo = imageUrl;
       console.log(data);
+      const res = await createSchool(data);
+      console.log(res);
+      setLoading(false)
+      toast.success("School was succesfully Created!");
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -65,7 +47,7 @@ export default function ParentForm() {
   }
 
   return (
-    <form className="" onSubmit={handleSubmit(saveStudent)}>
+    <form className="" onSubmit={handleSubmit(saveOnboarding)}>
       <div className="text-center">
         <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
           Vítejte ve Škola Pro
@@ -83,7 +65,7 @@ export default function ParentForm() {
                 register={register}
                 errors={errors}
                 label="Název školy"
-                name="schoolName"
+                name="name"
               />
             </div>
             <div className="grid">
