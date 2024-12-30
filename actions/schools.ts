@@ -26,3 +26,6 @@ export async function createSchool(data:SchoolProps) {
       throw error;
     }
   }
+
+  
+

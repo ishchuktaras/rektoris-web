@@ -22,12 +22,13 @@ import PhoneInput from "../FormInputs/PhoneInput";
 import { europeanCountries } from "../data/countries";
 import FormSelectInput from "../FormInputs/FormSelectInput";
 import TextArea from "../FormInputs/TextAreaInput";
+import toast from "react-hot-toast";
+import { createContact } from "@/actions/admin";
 
 export type ContactProps = {
   firstName: string;
   lastName: string;
   email: string;
-  //password: string;
   phone: string;
   schoolName: string;
   country: string;
@@ -39,7 +40,7 @@ export type ContactProps = {
 };
 
 export const ContactUs: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [phoneCode, setPhoneCode] = useState("");
   const {
     register,
@@ -47,8 +48,8 @@ export const ContactUs: React.FC = () => {
     formState: { errors },
   } = useForm<ContactProps>();
   const roles = [
-    { value: "principal", label: "Ředitel/vedoucí učitel" },
-    { value: "vice_principal", label: "Zástupce ředitele" },
+    { value: "principal/head_teacher", label: "Ředitel/vedoucí učitel" },
+    { value: "deputy_director", label: "Zástupce ředitele" },
     { value: "department_head", label: "Vedoucí oddělení" },
     { value: "teacher", label: "Učitel" },
     { value: "admin_staff", label: "Administrativní pracovníci" },
@@ -86,6 +87,17 @@ export const ContactUs: React.FC = () => {
     data.media = selectedMedia.value;
     data.numberOfStudents = Number(data.numberOfStudents);
     console.log(data);
+    try {
+      setLoading(true);
+      console.log(data);
+      const res = await createContact(data);
+      console.log(res);
+      setLoading(false);
+      toast.success("Your request was succesfully Submitted!");
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   }
 
   return (
@@ -201,7 +213,7 @@ export const ContactUs: React.FC = () => {
                   <SubmitButton
                     buttonIcon={Send}
                     title="Odeslat"
-                    loading={isLoading}
+                    loading={loading}
                     loadingTitle="Odesílání, prosím čekejte..."
                   />
                 </form>
