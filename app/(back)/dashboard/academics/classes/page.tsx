@@ -7,8 +7,8 @@ export default async function page() {
   const classes = await getAllClasses()|| [];
   return (
     <div>
-      <ClassListing />
-     {/* <ClassListing classes={classes}/> */}
+      
+     <ClassListing classes={classes}/>
     </div>
   );
 }

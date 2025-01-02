@@ -1,7 +1,7 @@
 "use server"
 
 import axios from "axios";
-import { ClassCreateProps, Contact, Stream, StreamCreateProps } from "@/types/types";
+import { Class, ClassCreateProps, Contact, Stream, StreamCreateProps } from "@/types/types";
 
 
 const BASE_API_URL = process.env.API_URL|| "";
@@ -20,10 +20,27 @@ export async function createClass(data:ClassCreateProps) {
   return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-       const message = error.response?.data.message || "Faild to create Class";
+       const message = error.response?.data?.message || "Faild to create Class";
       throw new Error(message);
     }
     throw error;
+  }
+}
+
+export async function getAllClasses (){
+  try {
+    const response = await api.get('/classes');
+    const classes = response.data;
+  return classes as Class[];
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteClass(id:string) {
+  console.log("deleted",id);
+  return {
+    ok: true
   }
 }
 
@@ -50,20 +67,6 @@ export async function getAllStreams (){
   }
 }
 
-export async function deleteClass(id:string) {
-  console.log("deleted",id);
-  return {
-    ok: true
-  }
-}
 
-export async function getAllClasses (){
-  try {
-    const response = await api.get('/classes');
-    const classes = response.data;
-  return classes as Contact[];
-  } catch (error) {
-    console.log(error)
-  }
-}
+
 
