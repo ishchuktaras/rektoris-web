@@ -6,7 +6,7 @@ import SortableColumn from "@/components/dashboard/DataTableColumns/SortableColu
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/dashboard/DataTableColumns/ActionColumn";
 import { Contact } from "@/types/types";
-import { ContactCard } from "@/components/dashboard/DataTableColumns/ContactCard";
+import { ContactInfoCard } from "@/components/dashboard/DataTableColumns/ContactCard";
 
 export const columns: ColumnDef<Contact>[] = [
   {
@@ -35,8 +35,8 @@ export const columns: ColumnDef<Contact>[] = [
   },
   {
     accessorKey: "view",
-    header: "View",
-    cell: ({ row }) => <ContactCard contact={row.original}  />,
+    header: "View contact Info",
+    cell: ({ row }) => <ContactInfoCard contact={row.original}  />,
   },
   {
     accessorKey: "numberOfStudents",

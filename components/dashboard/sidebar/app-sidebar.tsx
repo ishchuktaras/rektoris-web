@@ -140,12 +140,12 @@ export default function AppSidebar() {
       icon: BookOpen,
       items: [
         {
-          title: "Třídy a Streamy",
+          title: "Třídy",
           url: "/dashboard/academics/classes",
         },
         {
-          title: "Zkoušky",
-          url: "/dashboard/academics/exams",
+          title: "streams/sections",
+          url: "/dashboard/academics/streams",
         },
         {
           title: "Úkoly",

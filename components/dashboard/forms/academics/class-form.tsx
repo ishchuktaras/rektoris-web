@@ -9,10 +9,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export type ClassProps = {
-  name: string;
-};
-
 import { Check, FolderPlus, Pen, Pencil, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
@@ -20,7 +16,13 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
- 
+import { ClassCreateProps } from "@/types/types";
+import { createClass } from "@/actions/classes";
+
+export type ClassProps = {
+  name: string;
+};
+
 export default function ClassForm({
   userId,
   initialContent,
@@ -35,34 +37,35 @@ export default function ClassForm({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ClassProps>({
+  } = useForm<ClassCreateProps>({
     defaultValues: {
-      name: initialContent || "",
+      title: initialContent || "",
     },
   });
- 
+
   const [loading, setLoading] = useState(false);
- 
-  async function saveFolder(data: ClassProps) {
+
+  async function saveClass(data: ClassCreateProps) {
     // data.userId = userId;
     try {
       setLoading(true);
       if (editingId) {
         // await updateFolderById(editingId, data);
         // setLoading(false);
-        
+
         toast.success("Updated Successfully!");
       } else {
-        // await createFolder(data);
-        // setLoading(false);
-        // toast.success("Successfully Created!");
+        const res = await createClass(data);
+        setLoading(false);
+        toast.success("Successfully Created!");
+        reset();
       }
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
   }
- 
+
   return (
     <div>
       <div className="py-1">
@@ -88,7 +91,7 @@ export default function ClassForm({
                 Please Write your Comment here, with respect
               </DialogDescription> */}
             </DialogHeader>
-            <form className="" onSubmit={handleSubmit(saveFolder)}>
+            <form className="" onSubmit={handleSubmit(saveClass)}>
               <div className="">
                 <div className="space-y-3">
                   <div className="grid gap-3">
@@ -96,13 +99,9 @@ export default function ClassForm({
                       register={register}
                       errors={errors}
                       label=""
-                      name="name"
+                      name="title"
                       icon={Check}
                     />
-                    {/* <IconInput
-                      onIconSelect={setSelectedIcon}
-                      selectedIcon={selectedIcon}
-                    /> */}
                   </div>
                 </div>
                 <div className="py-3">

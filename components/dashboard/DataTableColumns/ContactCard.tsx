@@ -6,10 +6,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
 import {
   Eye,
+  View,
   Mail,
   Phone,
   Building2,
@@ -17,28 +18,33 @@ import {
   Users,
   UserCircle,
   Calendar,
+  LinkIcon,
 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 // Define the Contact type based on the column structure
 type Contact = {
+  
   id: number;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   schoolName: string;
+  schoolPage: string;
   country: string;
   numberOfStudents: number;
   role: string;
+  media: string;
   createdAt: string;
 };
 
-export const ContactCard = ({ contact }: { contact?: Contact }) => {
+export const ContactInfoCard = ({ contact }: { contact?: Contact }) => {
   // If contact is undefined, return null or a placeholder
   if (!contact) {
     return (
-      <Button variant="ghost" size="icon" disabled>
-        
+      <Button variant="outline" size="icon" disabled>
+        <Eye className="h-6 w-6" />
       </Button>
     );
   }
@@ -46,100 +52,125 @@ export const ContactCard = ({ contact }: { contact?: Contact }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon">
-          
-          View
+        <Button /* variant="outline" */ size="sm">
+          <Eye className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] md:max-w-[700px] lg:max-w-[900px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">
-            {contact?.firstName} {contact?.lastName}
+          <DialogTitle className="flex items-center gap-4">
+            <div className="h-12 w-12 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl">
+              {contact.firstName?.[0]}
+              {contact.lastName?.[0]}
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">
+                {contact.firstName} {contact.lastName}
+              </h2>
+              <p className="text-sm text-gray-500">Via {contact.media|| "N/A"}</p>
+            </div>
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid gap-6 py-4">
-          <Card>
-            <CardContent className="grid gap-4 pt-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">Email</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.email || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">Phone</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.phone || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">School</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.schoolName || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Globe className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">Country</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.country || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">Number of Students</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.numberOfStudents || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <UserCircle className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">Role</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.role || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
-                  <div>
-                    <p className="text-sm font-medium">Created At</p>
-                    <p className="text-sm text-gray-500">
-                      {contact?.createdAt
-                        ? new Date(contact.createdAt).toLocaleDateString()
-                        : "N/A"}
-                    </p>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Mail className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">Email</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm break-all">{contact.email || "N/A"}</p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Phone className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">Phone</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm">{contact.phone || "N/A"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Building2 className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">School Name</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm">{contact.schoolName || "N/A"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Globe className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">Country</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm">{contact.country || "N/A"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <LinkIcon className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">School Page</h3>
+              <div className="flex items-center gap-2">
+                {contact.schoolPage ? (
+                  <a
+                    href={contact.schoolPage}
+                    className="text-sm text-purple-600 hover:underline break-all"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {contact.schoolPage}
+                  </a>
+                ) : (
+                  <p className="text-sm">N/A</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Users className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">Students</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm">{contact.numberOfStudents || "N/A"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Building2 className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">Role</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm">{contact.role || "N/A"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex flex-col gap-1">
+              <Calendar className="h-5 w-5 text-purple-600" />
+              <h3 className="text-sm font-medium text-gray-500">Joined</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm">
+                  {contact.createdAt
+                    ? new Date(contact.createdAt).toLocaleDateString()
+                    : "N/A"}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default ContactCard;
+export default ContactInfoCard;
