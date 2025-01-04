@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Logo from "@/components/logo";
+import Link from "next/link";
 
 interface FeatureCardProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -182,7 +183,7 @@ const SchoolManagementPresentation = () => {
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900"
               >
-                Začít
+                <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             </DialogTrigger>
