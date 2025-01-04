@@ -18,7 +18,7 @@ export default function Logo({
             <GraduationCap className={cn("w-6 h-6",size==="lg" && "w-10 h-10")}/>
           </span>
         </div>
-        <span className={cn("font-bold text-xl", size === "lg" && "text-6xl")}>
+        <span className={cn("font-bold text-xl", size === "lg" && "text-5xl")}>
           Škola <span className="text-[#884DEE]">Pro</span>
         </span>
       </Link>

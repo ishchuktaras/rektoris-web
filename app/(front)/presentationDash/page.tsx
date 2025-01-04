@@ -196,23 +196,23 @@ const SchoolManagementPresentation = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="overview" className="mb-12">
+      <Tabs defaultValue="overview" className="w-full space-y-8">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="overview" className="flex items-center gap-2">
+          <TabsTrigger value="overview" className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2">
             <LayoutDashboard className="h-4 w-4" />
             Přehled systému
           </TabsTrigger>
-          <TabsTrigger value="details" className="flex items-center gap-2">
+          <TabsTrigger value="details" className="fw-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2">
             <ClipboardList className="h-4 w-4" />
             Funkce a možnosti
           </TabsTrigger>
-          <TabsTrigger value="quickAccess" className="flex items-center gap-2">
+          <TabsTrigger value="quickAccess" className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2">
             <GraduationCap className="h-4 w-4" />
             Rychlý přístup
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview">
+        <TabsContent value="overview" className="space-y-8">
           <div className="mb-6">
             <Image
               src="/images/dash_overview.jpg"
