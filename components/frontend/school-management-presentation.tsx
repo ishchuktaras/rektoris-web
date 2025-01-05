@@ -1,103 +1,30 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import Image from "next/image";
+import Image from "next/image"
+import Link from "next/link"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  ChevronRight,
-  ChevronDown,
-  ChevronUp,
-  GraduationCap,
-  Users,
-  Calendar,
-  BookOpen,
-  Shield,
-  Bell,
-  LayoutDashboard,
-  ClipboardList,
-  School,
-  Building2,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import Logo from "@/components/logo";
-import Link from "next/link";
+} from "@/components/ui/dialog"
+import { ChevronRight, GraduationCap, Users, Calendar, BookOpen, Shield, Bell, LayoutDashboard, ClipboardList, School, Building2 } from 'lucide-react'
+import { Badge } from "@/components/ui/badge"
+import { FeatureCard } from "./feature-card"
+import type { Feature, QuickAccessItem } from '@/types/presentation'
 
-interface FeatureCardProps {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  items: string[];
-}
-
-const FeatureCard: React.FC<FeatureCardProps> = ({
-  icon: Icon,
-  title,
-  items,
-}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  return (
-    <div className="transition-all duration-200 hover:scale-102">
-      <Card className="h-full">
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <Icon className="h-6 w-6 mr-2" />
-            {title}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {items
-              .slice(0, isExpanded ? items.length : 1)
-              .map((item, index) => (
-                <div key={index} className="flex items-center">
-                  <span className="mr-2">•</span>
-                  {item}
-                </div>
-              ))}
-            {items.length > 1 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="mt-2 w-full flex items-center justify-center"
-                onClick={() => setIsExpanded(!isExpanded)}
-              >
-                {isExpanded ? (
-                  <>
-                    <ChevronUp className="h-4 w-4 mr-2" />
-                    Zobrazit méně
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="h-4 w-4 mr-2" />
-                    Zobrazit více
-                  </>
-                )}
-              </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
-
-const SchoolManagementPresentation = () => {
-  const features = [
+export function SchoolManagementPresentation() {
+  const features: Feature[] = [
     {
       icon: Users,
       title: "Administrativa",
@@ -128,38 +55,38 @@ const SchoolManagementPresentation = () => {
       title: "Oznámení",
       items: ["Push notifikace", "Emailové zprávy", "SMS upozornění"],
     },
-  ];
+  ]
 
-  const quickAccessItems = [
+  const quickAccessItems: QuickAccessItem[] = [
     {
       title: "Denní přehled",
       description: "Aktuální docházka, události a úkoly",
       icon: LayoutDashboard,
       link: "#dashboard",
-      image: "/images/dash_overview.jpg",  
+      image: "images/dash_overview.jpg",
     },
     {
       title: "Správa tříd",
       description: "Rozdělení žáků, rozvrhy, známky",
       icon: School,
       link: "#classes",
-      image: "/images/dash_classes.jpg",
+      image: "/placeholder.svg?height=300&width=400",
     },
     {
       title: "Učitelský sbor",
       description: "Přehled pedagogů a jejich úvazků",
       icon: GraduationCap,
       link: "#teachers",
-      image: "/images/dash_student.jpg",
+      image: "/placeholder.svg?height=300&width=400",
     },
     {
       title: "Správa budov",
       description: "Učebny, tělocvičny, jídelna",
       icon: Building2,
       link: "#facilities",
-      image: "/images/dash_student.jpg",
+      image: "/placeholder.svg?height=300&width=400",
     },
-  ];
+  ]
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -168,12 +95,14 @@ const SchoolManagementPresentation = () => {
           version 2.0
         </Badge>
         <div className="flex justify-center mb-4">
-        <Logo variant="light" size="lg"/>
+          <div className="bg-purple-600 text-white p-4 rounded-full">
+            <GraduationCap className="h-12 w-12" />
+          </div>
         </div>
         <h1 className="text-4xl font-bold mb-4">
-           - Moderní systém pro řízení školy
+          Škola Pro - Moderní systém pro řízení školy
         </h1>
-        <p className="text-xl text-gray-600 mb-8">
+        <p className="text-xl text-muted-foreground mb-8">
           Komplexní řešení pro vzdělávací instituce
         </p>
         <div className="flex justify-center gap-4">
@@ -183,14 +112,17 @@ const SchoolManagementPresentation = () => {
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900"
               >
-                <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>
+                <Link href="/contact-us">Kontaktujte nás pro demo</Link>
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Vítejte v Skola Pro</DialogTitle>
+                <DialogTitle>Vítejte v Škola Pro</DialogTitle>
               </DialogHeader>
+              <div className="p-6">
+                <p>Děkujeme za váš zájem. Náš tým vás bude kontaktovat.</p>
+              </div>
             </DialogContent>
           </Dialog>
           <Button variant="outline" size="lg">
@@ -201,16 +133,25 @@ const SchoolManagementPresentation = () => {
 
       <Tabs defaultValue="overview" className="w-full space-y-8">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="overview" className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2">
-            <LayoutDashboard className="h-4 w-4" />
+          <TabsTrigger 
+            value="overview" 
+            className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+          >
+            <LayoutDashboard className="h-4 w-4 mr-2" />
             Přehled systému
           </TabsTrigger>
-          <TabsTrigger value="details" className="fw-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2">
-            <ClipboardList className="h-4 w-4" />
+          <TabsTrigger 
+            value="details"
+            className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+          >
+            <ClipboardList className="h-4 w-4 mr-2" />
             Funkce a možnosti
           </TabsTrigger>
-          <TabsTrigger value="quickAccess" className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2">
-            <GraduationCap className="h-4 w-4" />
+          <TabsTrigger 
+            value="quickAccess"
+            className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+          >
+            <GraduationCap className="h-4 w-4 mr-2" />
             Rychlý přístup
           </TabsTrigger>
         </TabsList>
@@ -220,9 +161,9 @@ const SchoolManagementPresentation = () => {
             <Image
               src="/images/dash_overview.jpg"
               alt="Přehled školního systému"
-              className="w-full rounded-lg mb-6"
-              width={600}
-              height={600}
+              className="w-full rounded-lg shadow-lg"
+              width={800}
+              height={400}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -231,15 +172,16 @@ const SchoolManagementPresentation = () => {
             ))}
           </div>
         </TabsContent>
+
         <TabsContent value="details">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <Image
-                src="/images/dash_student.jpg"
+                src="/images/dash_overview.jpg"
                 alt="Funkce systému"
-                className="w-full rounded-lg mb-6"
+                className="w-full rounded-lg shadow-lg"
                 width={600}
-                height={600}
+                height={400}
               />
             </div>
             <Card>
@@ -254,10 +196,10 @@ const SchoolManagementPresentation = () => {
                   {features.map((feature, index) => (
                     <div key={index} className="border-b pb-4 last:border-b-0">
                       <h3 className="font-semibold mb-2 flex items-center">
-                        <feature.icon className="h-5 w-5 mr-2" />
+                        <feature.icon className="h-5 w-5 mr-2 text-purple-600" />
                         {feature.title}
                       </h3>
-                      <ul className="ml-7 list-disc space-y-1">
+                      <ul className="ml-7 list-disc space-y-1 marker:text-purple-600">
                         {feature.items.map((item, idx) => (
                           <li key={idx}>{item}</li>
                         ))}
@@ -273,23 +215,25 @@ const SchoolManagementPresentation = () => {
         <TabsContent value="quickAccess">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {quickAccessItems.map((item, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg transition-shadow group">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <item.icon className="h-5 w-5" />
+                    <item.icon className="h-5 w-5 text-purple-600 group-hover:scale-110 transition-transform" />
                     {item.title}
                   </CardTitle>
                   <CardDescription>{item.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Image
-                    src={item.image}
+                    src="/images/dash_classes.jpg"
                     alt={item.title}
-                    className="w-full rounded-lg mb-4"
-                    width={600}
-                    height={600}
+                    className="w-full rounded-lg shadow-md mb-4"
+                    width={400}
+                    height={300}
                   />
-                  <Button className="w-full">Otevřít sekci</Button>
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                    Otevřít sekci
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -297,7 +241,6 @@ const SchoolManagementPresentation = () => {
         </TabsContent>
       </Tabs>
     </div>
-  );
-};
+  )
+}
 
-export default SchoolManagementPresentation;

@@ -7,7 +7,7 @@ import LogoCloud from '@/components/frontend/logo-cloud'
 import Pricing from '@/components/frontend/pricing'
 import TabbedFeatures from '@/components/frontend/tabbed-features'
 import React from 'react'
-import SchoolManagementPresentation from './presentationDash/page'
+import { SchoolManagementPresentation } from '../../components/frontend/school-management-presentation'
 
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 <SchoolManagementPresentation />
       <HeroSection />
       <LogoCloud />
-      <DashboardPreview />
+      {/* <DashboardPreview /> */}
       <GridFeatures />
       <TabbedFeatures />
       <Pricing />
