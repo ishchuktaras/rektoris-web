@@ -12,6 +12,9 @@ import ImageInput from "@/components/FormInputs/ImageInput";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
+import RadioInput from "@/components/FormInputs/RadioInput";
+import toast from "react-hot-toast";
+import { generateStudentRegNumber } from "@/lib/generateRegNo"
 
 export type SelectOptionProps = {
   label: string;
@@ -23,6 +26,7 @@ type SingleStudentFormProps = {
 };
 
 export type StudentProps = {
+  regNo: string;
   name: string;
   email: string;
   password: string;
@@ -209,6 +213,17 @@ export default function SingleStudentForm({
     initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
+  const sponsorshipTypes = [
+    {
+      label: "Private Student",
+      id: "PS",
+    },
+    {
+      label: "Sponsored Student",
+      id: "SS",
+    },
+  ];
+
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
@@ -227,7 +242,12 @@ export default function SingleStudentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
-        // await createCategory(data);
+        const regNo = generateStudentRegNumber("SD", "PS", 1, {
+          schoolCode: "SD",
+          sponsorshipType: "PS",
+          sequence: 1
+        });
+        data.regNo = regNo;
         // setLoading(false);
         // // Toast
         // toast.success("Successfully Created!");
@@ -245,7 +265,6 @@ export default function SingleStudentForm({
 
   return (
     <form className="" onSubmit={handleSubmit(saveStudent)}>
-      
       <FormHeader
         href="/students"
         parent=""
@@ -374,11 +393,19 @@ export default function SingleStudentForm({
             <div className="grid md:grid-cols-2 gap-3">
               <div className="space-y-3">
                 <div className="grid gap-3">
-                  <TextInput
+                  {/* <TextInput
                     register={register}
                     errors={errors}
                     label="Evidenční číslo"
                     name="registrationNumber"
+                  /> */}
+                  <RadioInput
+                    radioOptions={sponsorshipTypes}
+                    register={register}
+                    label="Sponsorship Type"
+                    name="sponsorshipType"
+                    errors={errors}
+                    defaultValue="PS"
                   />
                   <TextInput
                     register={register}
@@ -420,3 +447,11 @@ export default function SingleStudentForm({
     </form>
   );
 }
+function createStudent(data: StudentProps) {
+  throw new Error("Function not implemented.");
+}
+
+// function generateRegistrationNumber(arg0: string) {
+//   throw new Error("Function not implemented.");
+// }
+
