@@ -101,7 +101,7 @@ export default function SiteFooter() {
                 type="email"
               />
               <Button
-                className="w-full bg-white text-[#884DEE] hover:bg-white/90"
+                className="border border-white"
                 type="submit"
               >
                 Přihlaste se k odběru
