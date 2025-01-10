@@ -10,24 +10,32 @@ import { ContactInfoCard } from "@/components/dashboard/DataTableColumns/Contact
 
 export const columns: ColumnDef<Contact>[] = [
   {
-    accessorKey: "firstName",
-    header: ({ column }) => <SortableColumn column={column} title="First Name" />,
+    accessorKey: "user",
+    header: "Name / School Name",
+    cell: ({ row }) => {
+      const contact = row.original;
+      return (
+        <div className="">
+          <h2 className="font-medium capitalize">
+            {contact.firstName.toLowerCase()} {contact.lastName.toLowerCase()}
+          </h2>
+          <p className="text-xs text-muted-foreground">{contact.schoolName}</p>
+        </div>
+      );
+    },
   },
   {
-    accessorKey: "lastName",
-    header: ({ column }) => <SortableColumn column={column} title="Last Name" />,
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => <SortableColumn column={column} title="Email" />,
-  },
-  {
-    accessorKey: "phone",
-    header: ({ column }) => <SortableColumn column={column} title="Phone" />,
-  },
-  {
-    accessorKey: "schoolName",
-    header: ({ column }) => <SortableColumn column={column} title="School Name" />,
+    accessorKey: "email-phone",
+    header: "Email / Phone Number",
+    cell: ({ row }) => {
+      const contact = row.original;
+      return (
+        <div className="">
+          <h2 className="font-medium">{contact.email.toLowerCase()}</h2>
+          <p className="text-xs text-muted-foreground">{contact.phone}</p>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "country",
@@ -36,7 +44,7 @@ export const columns: ColumnDef<Contact>[] = [
   {
     accessorKey: "view",
     header: "View contact Info",
-    cell: ({ row }) => <ContactInfoCard contact={row.original}  />,
+    cell: ({ row }) => <ContactInfoCard contact={row.original} />,
   },
   {
     accessorKey: "numberOfStudents",

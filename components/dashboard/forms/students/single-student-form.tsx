@@ -14,7 +14,8 @@ import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
 import RadioInput from "@/components/FormInputs/RadioInput";
 import toast from "react-hot-toast";
-import { generateStudentRegNumber } from "@/lib/generateRegNo"
+import { generateStudentRegNumber } from "@/lib/generateRegNo";
+import { Class } from "@/types/types";
 
 export type SelectOptionProps = {
   label: string;
@@ -23,6 +24,7 @@ export type SelectOptionProps = {
 type SingleStudentFormProps = {
   editingId?: string | undefined;
   initialData?: any | undefined | null;
+  classes: Class[];
 };
 
 export type StudentProps = {
@@ -36,6 +38,7 @@ export type StudentProps = {
 export default function SingleStudentForm({
   editingId,
   initialData,
+  classes
 }: SingleStudentFormProps) {
   // Parents
   const parents = [
@@ -53,77 +56,26 @@ export default function SingleStudentForm({
 
   // Classes
 
-  const classes = [
-    {
-      label: "Třída 1",
-      value: "class1",
-    },
-    {
-      label: "Třída 2",
-      value: "class2",
-    },
-    {
-      label: "Třída 3",
-      value: "class3",
-    },
-    {
-      label: "Třída 4",
-      value: "class4",
-    },
-    {
-      label: "Třída 5",
-      value: "class5",
-    },
-    {
-      label: "Třída 6",
-      value: "class6",
-    },
-    {
-      label: "Třída 7",
-      value: "class7",
-    },
-    {
-      label: "Třída 8",
-      value: "class8",
-    },
-    {
-      label: "Třída 9",
-      value: "class9",
-    },
-    {
-      label: "Třída 10",
-      value: "class10",
-    },
-  ];
+  const classOptions = classes.map((item) => {
+    return {
+      label: item.title,
+      value: item.id,
+    };
+  });
 
-  const [selectedClass, setSelectedClass] = useState<any>(null);
+  const [selectedClass, setSelectedClass] = useState<any>(classOptions[0]);
+  const classId = selectedClass.value ?? "";
+  const streams = classes.find((item) => item.id === classId)?.streams || [];
+  const streamsOptions = streams.map((item)=>{
+    return{
+      label:item.title,
+      value:item.id
+    }
+  });
 
   // Sectioms/Streams
 
-  const streams = [
-    {
-      label: "Stream A",
-      value: "streamA",
-    },
-    {
-      label: "Stream B",
-      value: "streamB",
-    },
-    {
-      label: "Stream C",
-      value: "streamC",
-    },
-    {
-      label: "Stream D",
-      value: "streamD",
-    },
-    {
-      label: "Stream E",
-      value: "streamE",
-    },
-  ];
-
-  const [selectedStrem, setSelectedStream] = useState<any>(null);
+    const [selectedStrem, setSelectedStream] = useState<any>(null);
 
   // Genders
   const genders = [
@@ -242,10 +194,10 @@ export default function SingleStudentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
-        const regNo = generateStudentRegNumber("SD", "PS", 1, {
-          schoolCode: "SD",
+        const regNo = generateStudentRegNumber("SK", "PS", 1, {
+          schoolCode: "ZS",
           sponsorshipType: "PS",
-          sequence: 1
+          sequence: 1,
         });
         data.regNo = regNo;
         // setLoading(false);
@@ -308,7 +260,7 @@ export default function SingleStudentForm({
               />
               <FormSelectInput
                 label="Vyberte Třídu"
-                options={classes}
+                options={classOptions}
                 option={selectedClass}
                 setOption={setSelectedClass}
                 toolTipText="Add New Class"
@@ -316,7 +268,7 @@ export default function SingleStudentForm({
               />
               <FormSelectInput
                 label="Vyberte stream/sekce"
-                options={streams}
+                options={streamsOptions}
                 option={selectedStrem}
                 setOption={setSelectedStream}
                 toolTipText="Přidat nový stream"
@@ -454,4 +406,3 @@ function createStudent(data: StudentProps) {
 // function generateRegistrationNumber(arg0: string) {
 //   throw new Error("Function not implemented.");
 // }
-

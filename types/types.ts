@@ -45,3 +45,25 @@ export type Stream = {
   createAt: Date;
   updateedAt: Date;
 };
+
+export type Parent = {
+  id: string;
+  title: string;
+  firstName: string;
+  lastName: string;
+  relationship: string;
+  email: string;
+  nationalId: string;
+  gender: string;
+  dateOfBirth: string;
+  phone: string;
+  nationality: string;
+  whatsappNumber: string;
+  contactMethod: string;
+  ocupation: string;
+  address: string;
+  password: string;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+};

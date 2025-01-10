@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,98 +11,109 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-import { ChevronLeft, ChevronRight, GraduationCap, Users, BookOpen, Calendar, Shield, Bell, Building2 } from 'lucide-react'
-import { cn } from "@/lib/utils"
-import type { Slide } from '@/types/presentation'
-import React from 'react'
+} from "@/components/ui/navigation-menu";
+import {
+  ChevronLeft,
+  ChevronRight,
+  GraduationCap,
+  Users,
+  BookOpen,
+  Calendar,
+  Shield,
+  Bell,
+  Building2,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import type { Slide } from "@/types/presentation";
+import React from "react";
+import Link from "next/link";
 
 export function Presentation() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides: Slide[] = [
     {
-      type: 'hero',
+      type: "hero",
       title: "Škola Pro",
       subtitle: "Moderní systém pro řízení školy",
-      content: "Komplexní řešení pro vzdělávací instituce"
+      content: "Komplexní řešení pro vzdělávací instituce",
     },
     {
-      type: 'tabs',
+      type: "tabs",
       title: "Přehled systému",
       tabs: [
         {
           title: "Přehled systému",
-          content: "Kompletní správa školy v jednom systému"
+          content: "Kompletní správa školy v jednom systému",
         },
         {
           title: "Funkce a možnosti",
-          content: "Pokročilé nástroje pro efektivní řízení"
+          content: "Pokročilé nástroje pro efektivní řízení",
         },
         {
           title: "Rychlý přístup",
-          content: "Intuitivní rozhraní pro snadné použití"
-        }
-      ]
+          content: "Intuitivní rozhraní pro snadné použití",
+        },
+      ],
     },
     {
-      type: 'features',
+      type: "features",
       title: "Klíčové moduly",
       features: [
-        { 
-          icon: Building2, 
-          title: "Administrativa", 
+        {
+          icon: Building2,
+          title: "Administrativa",
           desc: "Správa zaměstnanců a dokumentů",
-          action: "Zobrazit více" 
+          action: "Zobrazit více",
         },
-        { 
-          icon: Users, 
-          title: "Správa studentů", 
+        {
+          icon: Users,
+          title: "Správa studentů",
           desc: "Zápisy studentů a evidence",
-          action: "Zobrazit více" 
+          action: "Zobrazit více",
         },
-        { 
-          icon: Calendar, 
-          title: "Plánování výuky", 
+        {
+          icon: Calendar,
+          title: "Plánování výuky",
           desc: "Rozvrhy hodin a organizace",
-          action: "Zobrazit více" 
+          action: "Zobrazit více",
         },
-        { 
-          icon: BookOpen, 
-          title: "Správa učebních osnov", 
+        {
+          icon: BookOpen,
+          title: "Správa učebních osnov",
           desc: "Učební plány a materiály",
-          action: "Zobrazit více" 
+          action: "Zobrazit více",
         },
-        { 
-          icon: Shield, 
-          title: "Zabezpečení", 
+        {
+          icon: Shield,
+          title: "Zabezpečení",
           desc: "Zabezpečený přístup k datům",
-          action: "Zobrazit více" 
+          action: "Zobrazit více",
         },
-        { 
-          icon: Bell, 
-          title: "Oznámení", 
+        {
+          icon: Bell,
+          title: "Oznámení",
           desc: "Push notifikace a komunikace",
-          action: "Zobrazit více" 
-        }
-      ]
+          action: "Zobrazit více",
+        },
+      ],
     },
     {
-      type: 'cta',
+      type: "cta",
       title: "Začněte ještě dnes",
       subtitle: "Transformujte vaši školu s Škola Pro",
       content: "Kontaktujte nás pro nezávaznou demonstraci systému",
-      cta: "Kontaktujte nás pro demo"
-    }
-  ]
+      cta: "Kontaktujte nás pro demo",
+    },
+  ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length)
-  }
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-  }
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-purple-50 dark:from-gray-900 dark:to-gray-800">
@@ -125,7 +136,12 @@ export function Presentation() {
                             className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                             href="#"
                           >
-                            {React.createElement(feature.icon as React.ComponentType<{ className: string }>, { className: "h-6 w-6 text-purple-600" })}
+                            {React.createElement(
+                              feature.icon as React.ComponentType<{
+                                className: string;
+                              }>,
+                              { className: "h-6 w-6 text-purple-600" }
+                            )}
                             <div className="mb-2 mt-4 text-lg font-medium">
                               {feature.title}
                             </div>
@@ -160,10 +176,12 @@ export function Presentation() {
                 key={index}
                 className={cn(
                   "absolute inset-0 p-8 transition-all duration-500 ease-in-out",
-                  currentSlide === index ? "opacity-100 z-10 translate-x-0" : "opacity-0 z-0 translate-x-full"
+                  currentSlide === index
+                    ? "opacity-100 z-10 translate-x-0"
+                    : "opacity-0 z-0 translate-x-full"
                 )}
               >
-                {slide.type === 'hero' && (
+                {slide.type === "hero" && (
                   <div className="text-center space-y-6">
                     <div className="flex justify-center mb-6">
                       <div className="bg-purple-600 text-white p-4 rounded-full">
@@ -174,10 +192,17 @@ export function Presentation() {
                       {slide.title}
                     </h1>
                     <p className="text-3xl font-semibold">{slide.subtitle}</p>
-                    <p className="text-xl text-muted-foreground">{slide.content}</p>
+                    <p className="text-xl text-muted-foreground">
+                      {slide.content}
+                    </p>
                     <div className="flex justify-center gap-4 pt-4">
-                      <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-                        Kontaktujte nás pro demo
+                      <Button
+                        size="lg"
+                        className="bg-purple-600 hover:bg-purple-700"
+                      >
+                        <Link href={"/contact-us"}>
+                          Kontaktujte nás pro demo
+                        </Link>
                       </Button>
                       <Button size="lg" variant="outline">
                         Zjistit více
@@ -186,24 +211,31 @@ export function Presentation() {
                   </div>
                 )}
 
-                {slide.type === 'tabs' && slide.tabs && (
+                {slide.type === "tabs" && slide.tabs && (
                   <div className="space-y-6">
-                    <h2 className="text-3xl font-bold text-center mb-8">{slide.title}</h2>
-                    <Tabs defaultValue={slide.tabs[0].title.toLowerCase().replace(/\s+/g, '-')} className="w-full">
+                    <h2 className="text-3xl font-bold text-center mb-8">
+                      {slide.title}
+                    </h2>
+                    <Tabs
+                      defaultValue={slide.tabs[0].title
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}
+                      className="w-full"
+                    >
                       <TabsList className="grid w-full grid-cols-3">
                         {slide.tabs.map((tab, idx) => (
-                          <TabsTrigger 
-                            key={idx} 
-                            value={tab.title.toLowerCase().replace(/\s+/g, '-')}
+                          <TabsTrigger
+                            key={idx}
+                            value={tab.title.toLowerCase().replace(/\s+/g, "-")}
                           >
                             {tab.title}
                           </TabsTrigger>
                         ))}
                       </TabsList>
                       {slide.tabs.map((tab, idx) => (
-                        <TabsContent 
-                          key={idx} 
-                          value={tab.title.toLowerCase().replace(/\s+/g, '-')}
+                        <TabsContent
+                          key={idx}
+                          value={tab.title.toLowerCase().replace(/\s+/g, "-")}
                           className="mt-6 text-center text-lg"
                         >
                           {tab.content}
@@ -213,9 +245,11 @@ export function Presentation() {
                   </div>
                 )}
 
-                {slide.type === 'features' && slide.features && (
+                {slide.type === "features" && slide.features && (
                   <div className="space-y-6">
-                    <h2 className="text-3xl font-bold text-center mb-8">{slide.title}</h2>
+                    <h2 className="text-3xl font-bold text-center mb-8">
+                      {slide.title}
+                    </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {slide.features.map((feature, idx) => (
                         <div
@@ -226,10 +260,25 @@ export function Presentation() {
                             "hover:shadow-lg hover:scale-105"
                           )}
                         >
-                          {React.createElement(feature.icon as React.ComponentType<{ className: string }>, { className: "w-10 h-10 text-purple-600 mb-4 transition-transform group-hover:scale-110" })}
-                          <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                          <p className="text-muted-foreground mb-4">{feature.desc}</p>
-                          <Button variant="link" className="text-purple-600 p-0">
+                          {React.createElement(
+                            feature.icon as React.ComponentType<{
+                              className: string;
+                            }>,
+                            {
+                              className:
+                                "w-10 h-10 text-purple-600 mb-4 transition-transform group-hover:scale-110",
+                            }
+                          )}
+                          <h3 className="text-xl font-semibold mb-2">
+                            {feature.title}
+                          </h3>
+                          <p className="text-muted-foreground mb-4">
+                            {feature.desc}
+                          </p>
+                          <Button
+                            variant="link"
+                            className="text-purple-600 p-0"
+                          >
                             {feature.action}
                           </Button>
                         </div>
@@ -238,13 +287,13 @@ export function Presentation() {
                   </div>
                 )}
 
-                {slide.type === 'cta' && (
+                {slide.type === "cta" && (
                   <div className="text-center space-y-6">
                     <h2 className="text-3xl font-bold">{slide.title}</h2>
                     <p className="text-2xl text-purple-600">{slide.subtitle}</p>
                     <p className="text-muted-foreground">{slide.content}</p>
-                    <Button 
-                      size="lg" 
+                    <Button
+                      size="lg"
                       className="mt-8 bg-purple-600 hover:bg-purple-700"
                     >
                       {slide.cta}
@@ -269,7 +318,7 @@ export function Presentation() {
                 <div
                   key={index}
                   className={`h-2 w-2 rounded-full transition-colors ${
-                    currentSlide === index ? 'bg-purple-600' : 'bg-muted'
+                    currentSlide === index ? "bg-purple-600" : "bg-muted"
                   }`}
                 />
               ))}
@@ -286,6 +335,5 @@ export function Presentation() {
         </Card>
       </main>
     </div>
-  )
+  );
 }
-

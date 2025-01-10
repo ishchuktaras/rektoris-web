@@ -34,8 +34,8 @@ export function generateStudentRegNumber(p0: string, p1: string, p2: number, opt
 }
 
 // Example usage:
-const regNumber = generateStudentRegNumber("SD", "PS", 123, {
-    schoolCode: "SD",    // Science department
+const regNumber = generateStudentRegNumber("ZS", "PS", 123, {
+    schoolCode: "ZS",    // Science department
     sponsorshipType: "PS", // Private Sponsored
     sequence: 123        // Will be padded to 0123
 });
@@ -45,7 +45,7 @@ const regNumber = generateStudentRegNumber("SD", "PS", 123, {
 // Error handling example:
 try {
     const invalidRegNumber = generateStudentRegNumber("CSE", "PS", 123, {
-        schoolCode: "CSE",    // Invalid - more than 2 letters
+        schoolCode: "ZS",    // Invalid - more than 2 letters
         sponsorshipType: "PS",
         sequence: 123
     });

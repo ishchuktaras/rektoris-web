@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
+import { createParent } from "@/actions/parents";
 
 export type SelectOptionProps = {
   label: string;
@@ -22,9 +23,21 @@ type SingleStudentFormProps = {
   initialData?: any | undefined | null;
 };
 
-export type StudentProps = {
-  name: string;
+export type ParentProps = {
+  title: string;
+  firstName: string;
+  lastName: string;
+  relationship: string;
   email: string;
+  nationalId: string;
+  gender: string;
+  dateOfBirth: string;
+  phone: string;
+  nationality: string;
+  whatsappNumber: string;
+  contactMethod: string;
+  ocupation: string;
+  address: string;
   password: string;
   imageUrl: string;
 };
@@ -68,7 +81,7 @@ export default function ParentForm({
     },
   ];
 
-  const [selectedTitle, setSelectedTitle] = useState<any>(null);
+  const [selectedTitle, setSelectedTitle] = useState<any>(titles[0]);
 
   // Contact Methods
 
@@ -87,34 +100,7 @@ export default function ParentForm({
     },
   ];
 
-  const [selectedContactMethod, setSelectedContactMethod] = useState<any>(null);
-
-  // Sectioms/Streams
-
-  const streams = [
-    {
-      label: "Stream A",
-      value: "streamA",
-    },
-    {
-      label: "Stream B",
-      value: "streamB",
-    },
-    {
-      label: "Stream C",
-      value: "streamC",
-    },
-    {
-      label: "Stream D",
-      value: "streamD",
-    },
-    {
-      label: "Stream E",
-      value: "streamE",
-    },
-  ];
-
-  const [selectedStrem, setSelectedStream] = useState<any>(null);
+  const [selectedMethod, setSelectedMethod] = useState<any>(contactMethods[0]);
 
   // Genders
   const genders = [
@@ -128,7 +114,7 @@ export default function ParentForm({
     },
   ];
 
-  const [selectedGender, setlectedGender] = useState<any>(null);
+  const [selectedGender, setlectedGender] = useState<any>(genders[0]);
 
   // Nationalities
 
@@ -140,61 +126,14 @@ export default function ParentForm({
   const [selectedNationality, setSelectedNationality] =
     useState<any>(initialCountry);
 
-  // Religions
-
-  const religions = [
-    {
-      label: "Ortodoxné",
-      value: "Orthodox",
-    },
-    {
-      label: "Katolícké",
-      value: "Catholic",
-    },
-    {
-      label: "Islámské",
-      value: "Islamic",
-    },
-    {
-      label: "Muslimské",
-      value: "Muslim",
-    },
-    {
-      label: "Hinduistické",
-      value: "Hindu",
-    },
-    {
-      label: "Buddhistické",
-      value: "Buddhist",
-    },
-    {
-      label: "Židovské",
-      value: "Jewish",
-    },
-    {
-      label: "Sikhské",
-      value: "Sikh",
-    },
-    {
-      label: "Ateistické",
-      value: "Atheist",
-    },
-    {
-      label: "Jiné",
-      value: "Other",
-    },
-  ];
-
-  const [selectedReligion, setSelectedReligion] = useState<any>(null);
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<StudentProps>({
+  } = useForm<ParentProps>({
     defaultValues: {
-      name: "",
+      firstName: "",
     },
   });
   const router = useRouter();
@@ -204,33 +143,24 @@ export default function ParentForm({
     initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: StudentProps) {
+  async function saveStudent(data: ParentProps) {
     try {
       setLoading(true);
-
       data.imageUrl = imageUrl;
+      data.title = selectedTitle.value;
+      data.relationship = selectedRelationship.value;
+      data.gender = selectedGender.value;
+      data.nationality=selectedNationality.label;
+      data.contactMethod = selectedMethod.value;
       console.log(data);
-
       if (editingId) {
-        // await updateCategoryById(editingId, data);
-        // setLoading(false);
-        // // Toast
-        // toast.success("Updated Successfully!");
-        // //reset
-        // reset();
-        // //route
-        // router.push("/dashboard/categories");
-        // setImageUrl("/placeholder.svg");
       } else {
-        // await createCategory(data);
-        // setLoading(false);
-        // // Toast
-        // toast.success("Successfully Created!");
-        // //reset
-        // reset();
-        // setImageUrl("/placeholder.svg");
-        // //route
-        // router.push("/dashboard/categories");
+        const res = await createParent(data);
+        setLoading(false);
+        toast.success("Successfuly Created!");
+        reset();
+        // setImageUrl("/placecholder.svg");
+        // router.push("/dashboard/")
       }
     } catch (error) {
       setLoading(false);
@@ -301,13 +231,13 @@ export default function ParentForm({
                 name="dateOfBirth"
                 type="date"
               />
-              {/* <TextInput
+              <TextInput
                 register={register}
                 errors={errors}
                 label="Telefonní číslo"
                 name="phoneNumber"
                 type="tel"
-              /> */}
+              />
               <FormSelectInput
                 label="Vyberte Národnost"
                 options={europeanCountries}
@@ -317,14 +247,7 @@ export default function ParentForm({
               />
             </div>
 
-            <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
-              <TextInput
-                register={register}
-                errors={errors}
-                label="Telefonní číslo"
-                name="phoneNumber"
-                type="tel"
-              />
+            <div className="grid lg:grid-cols-2  md:grid-cols-2 gap-3">
               <TextInput
                 register={register}
                 errors={errors}
@@ -335,6 +258,7 @@ export default function ParentForm({
               <TextInput
                 register={register}
                 errors={errors}
+                type="tel"
                 label="WhatsApp číslo"
                 name="whatsappNumber"
               />
@@ -345,8 +269,8 @@ export default function ParentForm({
                   <FormSelectInput
                     label="Preferovaný způsob komunikace"
                     options={contactMethods}
-                    option={selectedContactMethod}
-                    setOption={setSelectedContactMethod}
+                    option={selectedMethod}
+                    setOption={setSelectedMethod}
                     isSearchable={false}
                   />
                   <TextInput
