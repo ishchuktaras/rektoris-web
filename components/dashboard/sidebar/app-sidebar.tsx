@@ -79,9 +79,9 @@ const data = {};
 
 export default function AppSidebar() {
   const user = {
-    name: "shadcn",
+    name: "ŠkolaPro",
     email: "m@example.com",
-    avatar: "avatars/shadcn.jpg",
+    avatar: "/images/profile_placeholder.png",
   };
   const sidebarLinks = [
     {

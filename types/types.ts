@@ -60,7 +60,7 @@ export type Parent = {
   nationality: string;
   whatsappNumber: string;
   contactMethod: string;
-  ocupation: string;
+  occupation: string;
   address: string;
   password: string;
   imageUrl: string;

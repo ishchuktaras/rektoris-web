@@ -1,16 +1,17 @@
 "use server"
 
 import axios from "axios";
-import { Class, ClassCreateProps, Contact, Stream, StreamCreateProps } from "@/types/types";
+import { Class, ClassCreateProps, Stream, StreamCreateProps } from "@/types/types";
 
 
 const BASE_API_URL = process.env.API_URL|| "";
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: BASE_API_URL,
   timeout: 5000,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
   }
 });
 

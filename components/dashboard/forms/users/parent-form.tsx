@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import FormHeader from "../FormHeader";
@@ -13,6 +12,7 @@ import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
 import { createParent } from "@/actions/parents";
+import { useRouter } from "next/navigation";
 
 export type SelectOptionProps = {
   label: string;
@@ -35,11 +35,11 @@ export type ParentProps = {
   phone: string;
   nationality: string;
   whatsappNumber: string;
+  imageUrl: string;
   contactMethod: string;
-  ocupation: string;
+  occupation: string;
   address: string;
   password: string;
-  imageUrl: string;
 };
 
 export default function ParentForm({
@@ -67,7 +67,7 @@ export default function ParentForm({
   ];
 
   const [selectedRelationship, setSelectedRelationship] = useState<any>(
-    relationships[0]
+    relationships[1]
   );
   // Titles
   const titles = [
@@ -136,26 +136,54 @@ export default function ParentForm({
       firstName: "",
     },
   });
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const initialImage =
-    initialData?.imageUrl || "/images/profile_placeholder.svg";
+    initialData?.imageUrl || "/images/profile_placeholder.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: ParentProps) {
+  async function saveParent(data: ParentProps) {
     try {
+      // Add validation
+      const requiredFields: (keyof ParentProps)[] = [
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "password",
+      ];
+      const missingFields = requiredFields.filter(
+        (field) => !data[field as keyof ParentProps]
+      );
+
+      if (missingFields.length > 0) {
+        toast.error(`Missing required fields: ${missingFields.join(", ")}`);
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
-      data.imageUrl = imageUrl;
-      data.title = selectedTitle.value;
-      data.relationship = selectedRelationship.value;
-      data.gender = selectedGender.value;
-      data.nationality=selectedNationality.label;
-      data.contactMethod = selectedMethod.value;
+      // Make sure all required fields are in the correct format
+      const formattedData = {
+        ...data,
+        imageUrl: imageUrl || "/images/profile_placeholder.png",
+        title: selectedTitle.value,
+        relationship: selectedRelationship.value,
+        gender: selectedGender.value,
+        nationality: selectedNationality.label,
+        contactMethod: selectedMethod.value,
+        // Ensure phone number format is consistent
+        phone: data.phone?.trim(),
+        whatsappNumber: data.whatsappNumber?.trim(),
+        // Ensure email is lowercase
+        email: data.email?.toLowerCase().trim(),
+      };
       console.log(data);
       if (editingId) {
       } else {
-        const res = await createParent(data);
+        const res = await createParent(formattedData);
         setLoading(false);
         toast.success("Successfuly Created!");
         reset();
@@ -169,7 +197,7 @@ export default function ParentForm({
   }
 
   return (
-    <form className="" onSubmit={handleSubmit(saveStudent)}>
+    <form className="" onSubmit={handleSubmit(saveParent)}>
       <FormHeader
         href="/parents"
         parent="users"
@@ -235,7 +263,7 @@ export default function ParentForm({
                 register={register}
                 errors={errors}
                 label="Telefonní číslo"
-                name="phoneNumber"
+                name="phone"
                 type="tel"
               />
               <FormSelectInput

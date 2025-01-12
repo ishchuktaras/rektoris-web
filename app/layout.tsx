@@ -30,7 +30,7 @@ export default function RootLayout({
         <Toaster position="top-center" reverseOrder={false} />
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {children}
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
       </body>
     </html>
   );

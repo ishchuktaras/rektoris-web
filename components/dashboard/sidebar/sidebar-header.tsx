@@ -24,7 +24,7 @@ export default function SidebarHeader() {
   const user = {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "/images/profile_placeholder.png",
   };
 
   return (

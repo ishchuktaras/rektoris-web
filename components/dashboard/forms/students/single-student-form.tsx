@@ -13,7 +13,7 @@ import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
 import RadioInput from "@/components/FormInputs/RadioInput";
-import toast from "react-hot-toast";
+
 import { generateStudentRegNumber } from "@/lib/generateRegNo";
 import { Class } from "@/types/types";
 
@@ -38,7 +38,7 @@ export type StudentProps = {
 export default function SingleStudentForm({
   editingId,
   initialData,
-  classes
+  classes,
 }: SingleStudentFormProps) {
   // Parents
   const parents = [
@@ -63,19 +63,21 @@ export default function SingleStudentForm({
     };
   });
 
-  const [selectedClass, setSelectedClass] = useState<any>(classOptions[0]);
-  const classId = selectedClass.value ?? "";
+  const [selectedClass, setSelectedClass] = useState<any>(
+    classOptions.length > 0 ? classOptions[0] : { label: "", value: "" }
+  );
+
   const streams = classes.find((item) => item.id === classId)?.streams || [];
-  const streamsOptions = streams.map((item)=>{
-    return{
-      label:item.title,
-      value:item.id
-    }
-  });
+  const streamsOptions = streams.map((item) => ({
+    label: item.title,
+    value: item.id,
+  }));
+
+  const classId = selectedClass.value ?? "";
 
   // Sectioms/Streams
 
-    const [selectedStrem, setSelectedStream] = useState<any>(null);
+  const [selectedStrem, setSelectedStream] = useState<any>(null);
 
   // Genders
   const genders = [
