@@ -67,3 +67,29 @@ export type Parent = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type Student = {
+  regNo: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  schoolId: string;
+  parentId: string;
+  classId: string;
+  streamId: string;
+  password: string;
+  imageUrl: string;
+  phone: string;
+  state: string;
+  birthCertificateNumber: string;
+  nationality: string;
+  religion: string;
+  gender: string;
+  dateOfBirth: string;
+  rollNumber: string;
+  admissionDate: string;
+  address: string;
+  createdAt: string;
+  updatedAt: string;
+};

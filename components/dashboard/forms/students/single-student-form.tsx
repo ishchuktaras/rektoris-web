@@ -15,7 +15,10 @@ import { europeanCountries } from "@/components/data/countries";
 import RadioInput from "@/components/FormInputs/RadioInput";
 
 import { generateStudentRegNumber } from "@/lib/generateRegNo";
+import toast from "react-hot-toast";
 import { Class } from "@/types/types";
+import { Parent } from "@/types/types";
+import { createStudent } from "@/actions/students";
 
 export type SelectOptionProps = {
   label: string;
@@ -25,32 +28,46 @@ type SingleStudentFormProps = {
   editingId?: string | undefined;
   initialData?: any | undefined | null;
   classes: Class[];
+  parents: Parent[];
 };
 
 export type StudentProps = {
   regNo: string;
   name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  schoolId: string;
+  parentId: string;
+  classId: string;
+  streamId: string;
   password: string;
   imageUrl: string;
+  phone: string;
+  state: string;
+  birthCertificateNumber: string;
+  nationality: string;
+  religion: string;
+  gender: string;
+  dateOfBirth: string;
+  rollNumber: string;
+  admissionDate: string;
+  address: string;
 };
 
 export default function SingleStudentForm({
   editingId,
   initialData,
   classes,
+  parents,
 }: SingleStudentFormProps) {
   // Parents
-  const parents = [
-    {
-      label: "Rodič 1",
-      value: "parent1",
-    },
-    {
-      label: "Rodič 2",
-      value: "parent2",
-    },
-  ];
+  const parentOptions = parents.map((parent) => {
+    return {
+      label: `${parent.firstName} ${parent.lastName}`,
+      value: parent.id,
+    };
+  });
 
   const [selectedParent, setSelectedParent] = useState<any>(null);
 
@@ -66,6 +83,7 @@ export default function SingleStudentForm({
   const [selectedClass, setSelectedClass] = useState<any>(
     classOptions.length > 0 ? classOptions[0] : { label: "", value: "" }
   );
+  const classId = selectedClass.value ?? "";
 
   const streams = classes.find((item) => item.id === classId)?.streams || [];
   const streamsOptions = streams.map((item) => ({
@@ -73,11 +91,11 @@ export default function SingleStudentForm({
     value: item.id,
   }));
 
-  const classId = selectedClass.value ?? "";
-
   // Sectioms/Streams
 
-  const [selectedStrem, setSelectedStream] = useState<any>(null);
+  const [selectedStream, setSelectedStream] = useState<any>(
+    streamsOptions.length > 0 ? streamsOptions[0] : null
+  );
 
   // Genders
   const genders = [
@@ -91,7 +109,7 @@ export default function SingleStudentForm({
     },
   ];
 
-  const [selectedGender, setlectedGender] = useState<any>(null);
+  const [selectedGender, setlectedGender] = useState<any>(genders[0]);
 
   // Nationalities
 
@@ -148,7 +166,7 @@ export default function SingleStudentForm({
     },
   ];
 
-  const [selectedReligion, setSelectedReligion] = useState<any>(null);
+  const [selectedReligion, setSelectedReligion] = useState<any>(religions[0]);
 
   const {
     register,
@@ -181,10 +199,15 @@ export default function SingleStudentForm({
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
-
       data.imageUrl = imageUrl;
+      data.name = `${data.firstName} ${data.lastName}`;
+      data.parentId = selectedParent.value;
+      data.classId = selectedClass.value;
+      data.streamId = selectedStream.value;
+      data.nationality = selectedNationality.label;
+      data.religion = selectedReligion.value;
+      data.gender = selectedGender.value;
       console.log(data);
-
       if (editingId) {
         // await updateCategoryById(editingId, data);
         // setLoading(false);
@@ -202,14 +225,15 @@ export default function SingleStudentForm({
           sequence: 1,
         });
         data.regNo = regNo;
-        // setLoading(false);
+        const res = await createStudent(data);
+        setLoading(false);
         // // Toast
-        // toast.success("Successfully Created!");
+        toast.success("Successfully Created!");
         // //reset
-        // reset();
-        // setImageUrl("/placeholder.svg");
+        reset();
+        setImageUrl("/placeholder.svg");
         // //route
-        // router.push("/dashboard/categories");
+        //router.push("/dashboard/categories");
       }
     } catch (error) {
       setLoading(false);
@@ -254,7 +278,7 @@ export default function SingleStudentForm({
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
               <FormSelectInput
                 label="Vyberte Rodiče"
-                options={parents}
+                options={parentOptions}
                 option={selectedParent}
                 setOption={setSelectedParent}
                 toolTipText="Přidat nového rodiče"
@@ -271,7 +295,7 @@ export default function SingleStudentForm({
               <FormSelectInput
                 label="Vyberte stream/sekce"
                 options={streamsOptions}
-                option={selectedStrem}
+                option={selectedStream}
                 setOption={setSelectedStream}
                 toolTipText="Přidat nový stream"
                 href="/dashboard/academics/classes"
@@ -282,7 +306,7 @@ export default function SingleStudentForm({
                 register={register}
                 errors={errors}
                 label="Telefonní číslo"
-                name="phoneNumber"
+                name="phone"
                 type="tel"
               />
               <FormSelectInput
@@ -401,10 +425,3 @@ export default function SingleStudentForm({
     </form>
   );
 }
-function createStudent(data: StudentProps) {
-  throw new Error("Function not implemented.");
-}
-
-// function generateRegistrationNumber(arg0: string) {
-//   throw new Error("Function not implemented.");
-// }

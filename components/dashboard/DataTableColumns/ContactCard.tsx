@@ -20,7 +20,6 @@ import {
   Calendar,
   LinkIcon,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 // Define the Contact type based on the column structure
 type Contact = {

@@ -141,7 +141,7 @@ export default function ParentForm({
 
   const [loading, setLoading] = useState(false);
   const initialImage =
-    initialData?.imageUrl || "/images/profile_placeholder.png";
+    initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
   async function saveParent(data: ParentProps) {
