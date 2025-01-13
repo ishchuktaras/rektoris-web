@@ -67,7 +67,7 @@ export default function ParentForm({
   ];
 
   const [selectedRelationship, setSelectedRelationship] = useState<any>(
-    relationships[1]
+    relationships[2]
   );
   // Titles
   const titles = [
@@ -165,6 +165,13 @@ export default function ParentForm({
       }
 
       setLoading(true);
+      // Validate date format
+      const dateOfBirth = new Date(data.dateOfBirth);
+      if (isNaN(dateOfBirth.getTime())) {
+        toast.error("Invalid date format");
+        setLoading(false);
+        return;
+      }
       // Make sure all required fields are in the correct format
       const formattedData = {
         ...data,
@@ -180,19 +187,20 @@ export default function ParentForm({
         // Ensure email is lowercase
         email: data.email?.toLowerCase().trim(),
       };
-      console.log(data);
-      if (editingId) {
-      } else {
-        const res = await createParent(formattedData);
-        setLoading(false);
-        toast.success("Successfuly Created!");
-        reset();
-        // setImageUrl("/placecholder.svg");
-        // router.push("/dashboard/")
-      }
+
+      const res = await createParent(formattedData);
+
+      toast.success("Successfuly Created!");
+      reset();
+      router.push("/dashboard/users/parents");
+      // setImageUrl("/placecholder.svg");
+      // router.push("/dashboard/")
     } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to create parent"
+      );
+    } finally {
       setLoading(false);
-      console.log(error);
     }
   }
 
