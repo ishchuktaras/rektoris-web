@@ -23,6 +23,7 @@ import { createStudent } from "@/actions/students";
 export type SelectOptionProps = {
   label: string;
   value: string;
+  sponsorshipType: string;
 };
 type SingleStudentFormProps = {
   editingId?: string | undefined;
@@ -32,14 +33,16 @@ type SingleStudentFormProps = {
 };
 
 export type StudentProps = {
-  regNo: string;
+  id: string;
   name: string;
   firstName: string;
   lastName: string;
   email: string;
-  schoolId: string;
   parentId: string;
+  parentName?: string;
+  classTitle?: string;
   classId: string;
+  streamTitle?: string;
   streamId: string;
   password: string;
   imageUrl: string;
@@ -51,6 +54,8 @@ export type StudentProps = {
   gender: string;
   dateOfBirth: string;
   rollNumber: string;
+  sponsorshipType: "PS" | "SS";
+  regNo: string;
   admissionDate: string;
   address: string;
 };
@@ -93,9 +98,7 @@ export default function SingleStudentForm({
 
   // Sectioms/Streams
 
-  const [selectedStream, setSelectedStream] = useState<any>(
-    streamsOptions.length > 0 ? streamsOptions[0] : null
-  );
+  const [selectedStream, setSelectedStream] = useState<any>(null);
 
   // Genders
   const genders = [
@@ -109,7 +112,7 @@ export default function SingleStudentForm({
     },
   ];
 
-  const [selectedGender, setlectedGender] = useState<any>(genders[0]);
+  const [selectedGender, setSelectedGender] = useState<any>(genders[0]);
 
   // Nationalities
 
@@ -117,12 +120,10 @@ export default function SingleStudentForm({
   const initialCountry = europeanCountries.find(
     (item) => item.countryCode === initialCountryCode
   );
-
   const [selectedNationality, setSelectedNationality] =
     useState<any>(initialCountry);
 
   // Religions
-
   const religions = [
     {
       label: "Ortodoxné",
@@ -188,22 +189,32 @@ export default function SingleStudentForm({
   const sponsorshipTypes = [
     {
       label: "Private Student",
-      id: "PS",
+      id: "PS" as const,
     },
     {
       label: "Sponsored Student",
-      id: "SS",
+      id: "SS" as const,
     },
   ];
 
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
+
+      if (!selectedParent) {
+        toast.error("Please select a parent");
+        setLoading(false);
+        return;
+      }
+
       data.imageUrl = imageUrl;
       data.name = `${data.firstName} ${data.lastName}`;
       data.parentId = selectedParent.value;
+      data.parentName = selectedParent.label;
       data.classId = selectedClass.value;
+      data.classTitle = selectedClass.label;
       data.streamId = selectedStream.value;
+      data.streamTitle = selectedStream.label;
       data.nationality = selectedNationality.label;
       data.religion = selectedReligion.value;
       data.gender = selectedGender.value;
@@ -219,21 +230,19 @@ export default function SingleStudentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
-        const regNo = generateStudentRegNumber("SK", "PS", 1, {
-          schoolCode: "ZS",
-          sponsorshipType: "PS",
-          sequence: 1,
+        const regNo = generateStudentRegNumber({
+          schoolCode: "ZS", // Ensure this is uppercase
+          sponsorshipType: data.sponsorshipType as "PS" | "SS",
         });
         data.regNo = regNo;
-        const res = await createStudent(data);
+
+        await createStudent(data);
         setLoading(false);
-        // // Toast
         toast.success("Successfully Created!");
-        // //reset
         reset();
-        setImageUrl("/placeholder.svg");
+        setImageUrl("/images/profile_placeholder.svg");
         // //route
-        //router.push("/dashboard/categories");
+        router.push("/dashboard/students");
       }
     } catch (error) {
       setLoading(false);
@@ -250,7 +259,6 @@ export default function SingleStudentForm({
         editingId={editingId}
         loading={loading}
       />
-
       <div className="grid grid-cols-12 gap-6 py-8">
         <div className="lg:col-span-12 col-span-full space-y-3">
           <div className="grid gap-6">
@@ -351,7 +359,7 @@ export default function SingleStudentForm({
                 label="Vyberte Pohlaví"
                 options={genders}
                 option={selectedGender}
-                setOption={setlectedGender}
+                setOption={setSelectedGender}
                 isSearchable={false}
               />
               <TextInput
@@ -375,7 +383,7 @@ export default function SingleStudentForm({
                     register={register}
                     errors={errors}
                     label="Evidenční číslo"
-                    name="registrationNumber"
+                    name="regNo"
                   /> */}
                   <RadioInput
                     radioOptions={sponsorshipTypes}

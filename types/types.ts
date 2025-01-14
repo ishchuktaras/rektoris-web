@@ -25,15 +25,40 @@ export type StreamCreateProps = {
   classId: string;
 };
 
+// export type Class = {
+//   sections: any;
+//   name: any;
+//   id: string;
+//   title: string;
+//   slug: string;
+//   streams: Stream[];
+//   students: Student[];
+//   createAt: string;
+//   updateedAt: string;
+// };
+
 export type Class = {
-  sections: any;
-  name: any;
   id: string;
   title: string;
   slug: string;
-  streams: Stream[];
-  createAt: string;
-  updateedAt: string;
+  streams: StreamWithCount[]; // Updated Stream type defined below
+  _count: {
+    students: number; // Count of students directly in the class
+  };
+  createdAt: string; // Fixed typo
+  updatedAt: string; // Fixed typo
+};
+
+export type StreamWithCount = {
+  id: string;
+  title: string;
+  slug: string;
+  classId: string;
+  _count: {
+    students: number; // Count of students in the stream
+  };
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Stream = {
@@ -69,14 +94,16 @@ export type Parent = {
 };
 
 export type Student = {
-  regNo: string;
+  id: string;
   name: string;
   firstName: string;
   lastName: string;
   email: string;
-  schoolId: string;
   parentId: string;
+  parentName?: string;
+  classTitle?: string;
   classId: string;
+  streamTitle?: string;
   streamId: string;
   password: string;
   imageUrl: string;
@@ -88,6 +115,8 @@ export type Student = {
   gender: string;
   dateOfBirth: string;
   rollNumber: string;
+  sponsorshipType: "PS" | "SS";
+  regNo: string;
   admissionDate: string;
   address: string;
   createdAt: string;

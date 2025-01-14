@@ -11,7 +11,7 @@ export default async function AdmissionTabs() {
 const classes = await getAllClasses()||[]
 const parents = await getAllParents()||[]
   return (
-    <div className="w-full max-w-5xl mx-auto p-6">
+    <div className="w-full max-w-6xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Přijetí studenta</h1>
       <Tabs defaultValue="single" className="w-full">
         <TabsList className="grid w-full grid-cols-2">

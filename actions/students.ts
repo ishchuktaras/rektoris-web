@@ -1,14 +1,13 @@
 "use server"
 
 import axios from "axios";
+
+
 import { Student } from "@/types/types";
 import { StudentProps } from "@/components/dashboard/forms/students/single-student-form";
-import { cookies } from 'next/headers';
-import { revalidatePath } from "next/cache";
 
 
 const BASE_API_URL = process.env.API_URL|| "";
-
 
 const api = axios.create({
   baseURL: BASE_API_URL,
@@ -19,18 +18,35 @@ const api = axios.create({
   }
 });
 
-export async function createStudent(data:StudentProps) {
+export async function createStudent(data: StudentProps) {
   try {
-      const res = await api.post('/students', data);
-  return res.data;
+    // Convert date strings to ISO format
+    const formattedData = {
+      ...data,
+      dateOfBirth: new Date(data.dateOfBirth).toISOString(),
+      admissionDate: new Date(data.admissionDate).toISOString()
+    };
+
+    const res = await api.post('/students', formattedData);
+    
+    if (res.data.error) {
+      throw new Error(res.data.error);
+    }
+    
+    return res.data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-       const message = error.response?.data?.message || "Faild to create Student";
+      // Handle specific error cases
+      if (error.response?.status === 409) {
+        throw new Error(error.response.data.error);
+      }
+      const message = error.response?.data?.error || "Failed to create Student";
       throw new Error(message);
     }
     throw error;
   }
 }
+
 
 export async function deleteStudent(id:string) {
   console.log("deleted",id);

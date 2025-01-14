@@ -1,58 +1,32 @@
 type SponsorshipType = 'PS' | 'SS'; // PS = Private Sponsored, SS = Sponsored Student
 
-interface RegNumberOptions {
-    schoolCode?: string;
-    sponsorshipType: SponsorshipType;
-    sequence: number;
-}
+function generateUniqueSequence(): number {
+    // Use the last 4 digits of the current timestamp to generate a unique sequence
+    const timestamp = Date.now();
+    const sequence = timestamp % 10000;
+    return sequence;
+  }
 
-export function generateStudentRegNumber(p0: string, p1: string, p2: number, options: RegNumberOptions): string {
-  const {
-    schoolCode = "PS",
-    sponsorshipType,
-    sequence
-  } = options;
-
-    // Validate school code (must be 2 letters)
-    if (!/^[A-Z]{2}$/.test(schoolCode)) {
-        throw new Error('School code must be exactly 2 uppercase letters');
+  export interface RegNumberOptions {
+    schoolCode: string;
+    sponsorshipType: 'PS' | 'SS';
+    sequence?: number;
+  }
+  
+  export function generateStudentRegNumber(options: RegNumberOptions): string {
+    // Validate school code is exactly 2 uppercase letters
+    if (!/^[A-Z]{2}$/.test(options.schoolCode)) {
+      throw new Error('School code must be exactly 2 uppercase letters');
     }
-
-    // Validate sequence number (must be between 1 and 9999)
-    if (options.sequence < 1 || options.sequence > 9999) {
-        throw new Error('Sequence must be between 1 and 9999');
+  
+    // Validate sponsorship type
+    if (!['PS', 'SS'].includes(options.sponsorshipType)) {
+      throw new Error('Invalid sponsorship type. Must be either PS or SS');
     }
-
-    // Get current year
-    const currentYear = new Date().getFullYear();
-
-    // Pad sequence number with leading zeros to always have 4 digits
-    const paddedSequence = options.sequence.toString().padStart(4, '0');
-
-    // Construct registration number
-    return `${options.schoolCode}/${options.sponsorshipType}/${currentYear}/${paddedSequence}`;
-}
-
-// Example usage:
-const regNumber = generateStudentRegNumber("ZS", "PS", 123, {
-    schoolCode: "ZS",    // Science department
-    sponsorshipType: "PS", // Private Sponsored
-    sequence: 123        // Will be padded to 0123
-});
-
-// Output: CS/PS/2025/0123
-
-// Error handling example:
-try {
-    const invalidRegNumber = generateStudentRegNumber("CSE", "PS", 123, {
-        schoolCode: "ZS",    // Invalid - more than 2 letters
-        sponsorshipType: "PS",
-        sequence: 123
-    });
-} catch (error) {
-    if (error instanceof Error) {
-        console.error(error.message);
-    } else {
-        console.error('An unknown error occurred');
-    }
-}
+  
+    const sequence = options.sequence || generateUniqueSequence();
+    const paddedSequence = sequence.toString().padStart(4, '0');
+    const year = new Date().getFullYear();
+  
+    return `${options.schoolCode}/${options.sponsorshipType}/${year}/${paddedSequence}`;
+  }

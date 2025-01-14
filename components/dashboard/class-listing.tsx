@@ -114,7 +114,7 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Users className="h-4 w-4" />
-                    40 students
+                    {classItem._count.students} students
                   </div>
                 </button>
                 <div className="flex items-center gap-1">
@@ -184,7 +184,7 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
                   <CardContent>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <User className="h-4 w-4" />
-                      40 students
+                      {section._count.students} students
                     </div>
                   </CardContent>
                   <div className="flex items-end gap-1">
