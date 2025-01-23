@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { Button } from "@/components/ui/button";
 import {
   Eye,
@@ -20,10 +19,8 @@ import {
   Calendar,
   LinkIcon,
 } from "lucide-react";
-
 // Define the Contact type based on the column structure
-type Contact = {
-  
+type Contact = {  
   id: number;
   firstName: string;
   lastName: string;

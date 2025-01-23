@@ -20,6 +20,9 @@ export type Contact = {
 export type ClassCreateProps = {
   title: string;
 };
+export type DepartmentCreateProps = {
+  name: string;
+};
 export type StreamCreateProps = {
   title: string;
   classId: string;
@@ -45,6 +48,21 @@ export type Class = {
   _count: {
     students: number; // Count of students directly in the class
   };
+  createdAt: string; // Fixed typo
+  updatedAt: string; // Fixed typo
+};
+
+export type Department = {
+  id: string;
+  name: string;
+  slug: string;
+  hodId?: string;
+  hodName?: string;
+  hodStartDate?: string;
+  budjet?: number;
+  budjetYear?: string;
+  teachers: StreamWithCount[];
+  subjects: StreamWithCount[];
   createdAt: string; // Fixed typo
   updatedAt: string; // Fixed typo
 };

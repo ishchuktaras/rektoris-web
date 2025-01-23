@@ -8,20 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Check, FolderPlus, Pen, Pencil, Plus } from "lucide-react";
+import { Check, Pencil, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
-import { ClassCreateProps } from "@/types/types";
+import { DepartmentCreateProps } from "@/types/types";
 import { createClass } from "@/actions/classes";
+import { createDepartment } from "@/actions/departments";
 
-export type ClassProps = {
+export type DepartmentProps = {
   name: string;
 };
 
-export default function ClassForm({
+export default function DepartmentForm({
   userId,
   initialContent,
   editingId,
@@ -35,15 +36,15 @@ export default function ClassForm({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ClassCreateProps>({
+  } = useForm<DepartmentCreateProps>({
     defaultValues: {
-      title: initialContent || "",
+      name: initialContent || "",
     },
   });
 
   const [loading, setLoading] = useState(false);
 
-  async function saveClass(data: ClassCreateProps) {
+  async function saveDepartment(data: DepartmentCreateProps) {
     // data.userId = userId;
     try {
       setLoading(true);
@@ -51,11 +52,11 @@ export default function ClassForm({
         // await updateFolderById(editingId, data);
         // setLoading(false);
 
-        toast.success("Updated Successfully!");
+        toast.success("Aktualizováno úspěšně!");
       } else {
-        const res = await createClass(data);
+        const res = await createDepartment(data);
         setLoading(false);
-        toast.success("Successfully Created!");
+        toast.success("Oddělení úspěšně vytvořeno!");
         reset();
       }
     } catch (error) {
@@ -76,20 +77,19 @@ export default function ClassForm({
             ) : (
               <Button title="Vytvořit třídu" variant={"outline"} size="sm">
                 <Plus className="w-4 h-4 " />
-                Přidat třídu
               </Button>
             )}
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                {editingId ? "Edit Folder" : "Přidat novou třídu"}
+                {editingId ? "Edit Department" : "Přidat nové oddělení"}
               </DialogTitle>
               {/* <DialogDescription>
                 Please Write your Comment here, with respect
               </DialogDescription> */}
             </DialogHeader>
-            <form className="" onSubmit={handleSubmit(saveClass)}>
+            <form className="" onSubmit={handleSubmit(saveDepartment)}>
               <div className="">
                 <div className="space-y-3">
                   <div className="grid gap-3">
@@ -97,7 +97,7 @@ export default function ClassForm({
                       register={register}
                       errors={errors}
                       label=""
-                      name="title"
+                      name="name"
                       icon={Check}
                     />
                   </div>

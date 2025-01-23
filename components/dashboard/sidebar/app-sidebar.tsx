@@ -28,13 +28,11 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-
 import {
   ArrowRight,
   AudioWaveform,
@@ -71,7 +69,6 @@ import {
   Trash2,
   Users,
 } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logo from "@/components/logo";
 

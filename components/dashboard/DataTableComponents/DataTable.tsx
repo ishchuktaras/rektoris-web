@@ -14,8 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
- 
+} from "@tanstack/react-table"; 
 import {
   Table,
   TableBody,
@@ -32,8 +31,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
- 
+import { useState } from "react"; 
 import SearchBar from "./SearchBar";
 import { DataTableViewOptions } from "./DataTableViewOptions";
 import { Button } from "../../ui/button";
@@ -108,24 +106,23 @@ export default function DataTable<TData, TValue>({
               <Button variant="outline" size="sm" className="h-8 gap-1">
                 <ListFilter className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  Filter
+                Filtr
                 </span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+              <DropdownMenuLabel>Filtrovat podle</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuCheckboxItem checked>
-                Active
+              Aktivní
               </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem>Návrh</DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem>Archivováno</DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <DataTableViewOptions table={table} />
         </div>
-      </div>
- 
+      </div> 
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -169,7 +166,7 @@ export default function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center "
                 >
-                  No results.
+                  Žádné výsledky.
                 </TableCell>
               </TableRow>
             )}
