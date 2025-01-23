@@ -1,11 +1,8 @@
 "use server"
 
 import axios from "axios";
-
-
 import { Student } from "@/types/types";
 import { StudentProps } from "@/components/dashboard/forms/students/single-student-form";
-
 
 const BASE_API_URL = process.env.API_URL|| "";
 
@@ -60,6 +57,16 @@ export async function getAllStudents (){
     const response = await api.get('/students');
     const students = response.data;
   return students as Student[];
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getStudentNextSequence (){
+  try {
+    const response = await api.get('/students/sequence');
+    const nextSequence = response.data;
+  return nextSequence as number;
   } catch (error) {
     console.log(error)
   }

@@ -39,7 +39,7 @@ export default function SchoolOnboardingForm() {
       const res = await createSchool(data);
       console.log(res);
       setLoading(false)
-      toast.success("School was succesfully Created!");
+      toast.success("Škola byla úspěšně vytvořena!");
     } catch (error) {
       setLoading(false);
       console.log(error);

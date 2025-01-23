@@ -28,6 +28,9 @@ export const ourFileRouter = {
     studentsProfileImage: f(["image"])
     .middleware(({ req }) => auth(req))
     .onUploadComplete((data) => console.log("file", data)),
+    teacherProfileImage: f(["image"])
+    .middleware(({ req }) => auth(req))
+    .onUploadComplete((data) => console.log("file", data)),
     parentsProfileImage: f(["image"])
     .middleware(({ req }) => auth(req))
     .onUploadComplete((data) => console.log("file", data)),

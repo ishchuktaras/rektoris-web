@@ -15,6 +15,7 @@ import { europeanCountries } from "@/components/data/countries";
 import RadioInput from "@/components/FormInputs/RadioInput";
 
 import { generateStudentRegNumber } from "@/lib/generateRegNo";
+import { generateRollNumber } from "@/lib/generateRollNo";
 import toast from "react-hot-toast";
 import { Class } from "@/types/types";
 import { Parent } from "@/types/types";
@@ -30,6 +31,7 @@ type SingleStudentFormProps = {
   initialData?: any | undefined | null;
   classes: Class[];
   parents: Parent[];
+  nextSequence: number;
 };
 
 export type StudentProps = {
@@ -54,7 +56,7 @@ export type StudentProps = {
   gender: string;
   dateOfBirth: string;
   rollNumber: string;
-  sponsorshipType: "PS" | "SS";
+  sponsorshipType: string;
   regNo: string;
   admissionDate: string;
   address: string;
@@ -65,6 +67,7 @@ export default function SingleStudentForm({
   initialData,
   classes,
   parents,
+  nextSequence,
 }: SingleStudentFormProps) {
   // Parents
   const parentOptions = parents.map((parent) => {
@@ -200,13 +203,11 @@ export default function SingleStudentForm({
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
-
       if (!selectedParent) {
-        toast.error("Please select a parent");
+        toast.error("Prosím, Vyberte rodiče");
         setLoading(false);
         return;
       }
-
       data.imageUrl = imageUrl;
       data.name = `${data.firstName} ${data.lastName}`;
       data.parentId = selectedParent.value;
@@ -230,18 +231,21 @@ export default function SingleStudentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
+        const rollNumber = generateRollNumber();
+        const sponsorshipType = data.sponsorshipType as "PS" | "SS";
         const regNo = generateStudentRegNumber({
           schoolCode: "ZS", // Ensure this is uppercase
-          sponsorshipType: data.sponsorshipType as "PS" | "SS",
+          sponsorshipType,
+          sequence: nextSequence,
         });
+        data.rollNumber = rollNumber;
         data.regNo = regNo;
-
-        await createStudent(data);
+        console.log(data);
+        const res = await createStudent(data);
         setLoading(false);
-        toast.success("Successfully Created!");
+        toast.success("Student úspěšně vytvořen!");
         reset();
-        setImageUrl("/images/profile_placeholder.svg");
-        // //route
+        // setImageUrl("/images/profile_placeholder.svg");
         router.push("/dashboard/students");
       }
     } catch (error) {
@@ -372,8 +376,9 @@ export default function SingleStudentForm({
               <TextInput
                 register={register}
                 errors={errors}
-                label="Školní číslo"
-                name="rollNumber"
+                label="Datum přijetí"
+                name="admissionDate"
+                type="date"
               />
             </div>
             <div className="grid md:grid-cols-2 gap-3">
@@ -393,22 +398,13 @@ export default function SingleStudentForm({
                     errors={errors}
                     defaultValue="PS"
                   />
-                  <TextInput
-                    register={register}
-                    errors={errors}
-                    label="Datum přijetí"
-                    name="admissionDate"
-                    type="date"
-                  />
                 </div>
-                <div className="grid gap-3">
-                  <TextArea
-                    register={register}
-                    errors={errors}
-                    label="Adresa"
-                    name="address"
-                  />
-                </div>
+                <TextInput
+                  register={register}
+                  errors={errors}
+                  label="Adresa"
+                  name="address"
+                />
               </div>
               <div className="grid gap-3">
                 <ImageInput

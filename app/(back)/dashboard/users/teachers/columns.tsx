@@ -1,41 +1,43 @@
 "use client";
 
 import DateColumn from "@/components/dashboard/DataTableColumns/DateColumn";
+
+import SortableColumn from "@/components/dashboard/DataTableColumns/SortableColumn";
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/dashboard/DataTableColumns/ActionColumn";
-import { Student } from "@/types/types";
+import { Parent } from "@/types/types";
 import Image from "next/image";
-import { StudentInfoModal } from "@/components/dashboard/modals/student-info-modal";
+import { ParentInfoModal } from "@/components/dashboard/modals/parent-info-modal";
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Parent>[] = [
   {
-    accessorKey: "student",
+    accessorKey: "user",
     header: "Name / Relationship",
     cell: ({ row }) => {
-      const student = row.original;
+      const parent = row.original;
       return (
         <div className="flex items-center gap-2">
           <div className="h-14 w-14 relative rounded-full overflow-hidden">
-            {student.imageUrl ? (
+            {parent.imageUrl ? (
               <Image
-                src={student.imageUrl}
-                alt={`${student.firstName} ${student.lastName}`}
+                src={parent.imageUrl}
+                alt={`${parent.firstName} ${parent.lastName}`}
                 fill
                 className="object-cover"
               />
             ) : (
               <div className="w-full h-full bg-purple-600 flex items-center justify-center text-white text-lg">
-                {student.firstName[0]}
-                {student.lastName[0]}
+                {parent.firstName[0]}
+                {parent.lastName[0]}
               </div>
             )}
           </div>
           <div className="">
             <h2 className="font-medium capitalize">
-              {student.firstName.toLowerCase()} {student.lastName.toLowerCase()}
+              {parent.firstName.toLowerCase()} {parent.lastName.toLowerCase()}
             </h2>
             <p className="text-xs text-muted-foreground">
-              {student.email}
+              {parent.relationship}
             </p>
           </div>
         </div>
@@ -43,44 +45,37 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: "details",
-    header: "Registration / Phone Number",
+    accessorKey: "email-phone",
+    header: "Email / Phone Number",
     cell: ({ row }) => {
-      const student = row.original;
+      const parent = row.original;
       return (
         <div className="">
-          <h2 className="font-medium">{student.regNo}</h2>
-          <p className="text-xs text-muted-foreground">{student.phone}</p>
+          <h2 className="font-medium">{parent.email.toLowerCase()}</h2>
+          <p className="text-xs text-muted-foreground">{parent.phone}</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "class-stream",
-    header: "Class / Stream",
-    cell: ({ row }) => {
-      const student = row.original;
-      return (
-        <div className="">
-          <h2 className="font-medium">{student.classTitle??"N/A"}</h2>
-          <p className="text-xs text-muted-foreground">{student.streamTitle??"N/A"}</p>
-        </div>
-      );
-    },
+    accessorKey: "nationality",
+    header: ({ column }) => (
+      <SortableColumn column={column} title="Nationality" />
+    ),
   },
-    {
+  {
     accessorKey: "view",
-    header: "View Student Info",
+    header: "View Parent Info",
     cell: ({ row }) => (
-      <StudentInfoModal
-        student={row.original}
-        onEdit={(student) => {
+      <ParentInfoModal
+        parent={row.original}
+        onEdit={(parent) => {
           // Handle edit logic
-          console.log("Edit student:", student);
+          console.log("Edit parent:", parent);
         }}
-        onDelete={(student) => {
+        onDelete={(parent) => {
           // Handle delete logic
-          console.log("Delete student:", student);
+          console.log("Delete parent:", parent);
         }}
       />
     ),

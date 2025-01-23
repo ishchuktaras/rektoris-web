@@ -6,10 +6,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { UserPlus, Users } from "lucide-react";
 import { getAllParents } from "@/actions/parents";
+import { getStudentNextSequence } from "@/actions/students";
 
 export default async function AdmissionTabs() {
 const classes = await getAllClasses()||[]
 const parents = await getAllParents()||[]
+const nextSequence = await getStudentNextSequence()||0
   return (
     <div className="w-full max-w-6xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Přijetí studenta</h1>
@@ -38,7 +40,7 @@ const parents = await getAllParents()||[]
                 message="Ujistěte se, že jste již vytvořili rodiče, třídu a stream studenta"
                 
               />
-              <SingleStudentForm parents={parents} classes={classes}/>
+              <SingleStudentForm nextSequence = {nextSequence} parents={parents} classes={classes}/>
             </TabsContent>
             <TabsContent value="bulk" className="mt-0 space-y-4">
               <BulkStudentForm />

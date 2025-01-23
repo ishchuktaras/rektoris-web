@@ -79,8 +79,8 @@ const data = {};
 
 export default function AppSidebar() {
   const user = {
-    name: "ŠkolaPro",
-    email: "m@example.com",
+    name: "Škola Pro",
+    email: "skola-pro@example.com",
     avatar: "/images/profile_placeholder.png",
   };
   const sidebarLinks = [
@@ -129,7 +129,11 @@ export default function AppSidebar() {
           url: "/dashboard/users/parents",
         },
         {
-          title: "Secretary",
+          title: "Učitelé",
+          url: "/dashboard/users/teachers",
+        },
+        {
+          title: "Jednatel",
           url: "/dashboard/users/secretary",
         },
       ],
@@ -140,12 +144,16 @@ export default function AppSidebar() {
       icon: BookOpen,
       items: [
         {
-          title: "Třídy",
+          title: "Třídy a Streamy",
           url: "/dashboard/academics/classes",
         },
         {
-          title: "streams/sections",
-          url: "/dashboard/academics/streams",
+          title: "Předměty",
+          url: "/dashboard/academics/subjects",
+        },
+        {
+          title: "Oddělení",
+          url: "/dashboard/academics/departments",
         },
         {
           title: "Úkoly",
