@@ -3,6 +3,7 @@
 import axios from "axios";
 import { Student } from "@/types/types";
 import { StudentProps } from "@/components/dashboard/forms/students/single-student-form";
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL|| "";
 
@@ -25,7 +26,7 @@ export async function createStudent(data: StudentProps) {
     };
 
     const res = await api.post('/students', formattedData);
-    
+    revalidatePath("/dashboard/students");
     if (res.data.error) {
       throw new Error(res.data.error);
     }

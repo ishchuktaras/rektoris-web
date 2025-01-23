@@ -1,11 +1,9 @@
 "use server"
 
 import axios from "axios";
-
-
 import { Parent } from "@/types/types";
 import { ParentProps } from "@/components/dashboard/forms/users/parent-form";
-
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL|| "";
 
@@ -21,6 +19,7 @@ const api = axios.create({
 export async function createParent(data:ParentProps) {
   try {
       const res = await api.post('/parents', data);
+      revalidatePath("/dashboard/users/parents");
   return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

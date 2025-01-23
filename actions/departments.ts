@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { Department, DepartmentCreateProps } from "@/types/types";
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL|| "";
 const api = axios.create({
@@ -16,6 +17,7 @@ const api = axios.create({
 export async function createDepartment(data:DepartmentCreateProps) {
   try {
       const response = await api.post('/departments', data);
+      revalidatePath("/dashboard/academics/departments");
   return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
