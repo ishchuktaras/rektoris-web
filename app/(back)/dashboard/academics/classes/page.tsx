@@ -4,10 +4,9 @@ import ClassListing from "@/components/dashboard/class-listing";
 import React from "react";
 
 export default async function page() {
-  const classes = await getAllClasses()|| [];
+  const classes = await getAllClasses()||[];
   return (
-    <div>
-      
+    <div>      
      <ClassListing classes={classes}/>
     </div>
   );

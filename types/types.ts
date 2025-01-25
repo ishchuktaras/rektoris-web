@@ -23,22 +23,23 @@ export type ClassCreateProps = {
 export type DepartmentCreateProps = {
   name: string;
 };
+
+export type SubjectCreateProps = {
+  name: string;
+  code: string;
+  shortName: string;
+  category: string;
+  type: string;
+  departmentId: string;
+  departmentName: string;
+  passingMarks: number;
+  totalMarks: number;
+};
+
 export type StreamCreateProps = {
   title: string;
   classId: string;
 };
-
-// export type Class = {
-//   sections: any;
-//   name: any;
-//   id: string;
-//   title: string;
-//   slug: string;
-//   streams: Stream[];
-//   students: Student[];
-//   createAt: string;
-//   updateedAt: string;
-// };
 
 export type Class = {
   id: string;
@@ -52,20 +53,75 @@ export type Class = {
   updatedAt: string; // Fixed typo
 };
 
-export type Department = {
+export interface Department {
   id: string;
   name: string;
   slug: string;
+  createdAt: Date;
+  updatedAt: Date;
   hodId?: string;
   hodName?: string;
-  hodStartDate?: string;
-  budjet?: number;
-  budjetYear?: string;
+  hodStartDate?: Date;
   teachers: StreamWithCount[];
   subjects: StreamWithCount[];
-  createdAt: string; // Fixed typo
-  updatedAt: string; // Fixed typo
+  budjet?: number;
+  budjetYear?: string;
+}
+
+export type DepartmentBrief = {
+  id: string;
+  name: string;
 };
+export type ClassBrief = {
+  id: string;
+  title: string;
+};
+
+export type SubjectBrief = {
+  id: string;
+  name: string;
+};
+
+export interface Subject {
+  id: string;
+  name: string;
+  slug: string;
+  code: string;
+  shortName?: string;
+  category: SubjectCategory;
+  type: SubjectType;
+  passingMarks?: number;
+  totalMarks?: number;
+  department?: Department;
+  departmentId: string;
+  departmentName: string;
+  isActive: boolean;
+  isOptional: boolean;
+  hasTheory: boolean;
+  hasPractical: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  labRequired: boolean;
+}
+
+export enum SubjectCategory {
+  CORE = "ZÁKLADNÍ",
+  ELECTIVE = "VOLITELNÝ",
+  ADDITIONAL = "DODATEČNÝ",
+  VOCATIONAL = "ODBORNÝ",
+  LANGUAGE = "JAZYK",
+  SCIENCE = "VĚDA",
+  ARTS = "UMĚNÍ",
+  COMMERCE = "OBCHOD",
+  EXTRA_CURRUCULAR = "MIMOŠKOLNÍ",
+  OTHER = "OSTATNÍ",
+}
+
+export enum SubjectType {
+  THEORY = "TEORIE",
+  PRACTICAL = "PRAKTICKÝ",
+  ELECTIVE = "VOLITELNÝ",
+}
 
 export type StreamWithCount = {
   id: string;
@@ -140,3 +196,75 @@ export type Student = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TeacherCreateProps = {
+  id: string;
+  title: string;
+  employeeId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  whatsappNumber: string;
+  nationality: string;
+  nationalId: string;
+  gender: string;
+  dateOfBirth: string;
+  contactMethod: string;
+  password: string;
+  qualification: string;
+  dateOfJoining: string;
+  designation: string;
+  departmentId: string;
+  departmentName: string;
+  mainSubject: string;
+  mainSubjectId: string[];
+  subjects: string[];
+  subjectIds: string[];
+  classIds: string[];
+  classes: string[];
+  experience: number;
+  occupation: string;
+  address: string;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Teacher ={
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  firstName: string;
+  lastName: string;
+  title: string;
+  email: string;
+  phone: string;
+  whatsappNumber: string;
+  dateOfBirth: string;
+  gender: string;
+  imageUrl: string;
+  nationalId: string;
+  password: string;
+  isActive: boolean;
+  lastLogin: string | null;
+  contactMethod: string;
+  role?: string | null;
+  employeeId: string;
+  dateOfJoining: Date;
+  designation: string;
+  departmentName: string;
+  departmentId: string;
+  mainSubject: string;
+  mainSubjectId: string;
+  qualification: string;
+  salary: number | null;
+  subjects: string[];
+  classes: string[];
+  classIds: string[];
+  address: string;
+  nationality: string;
+  experience: number;
+  bio?: string | null;
+  skills?: string[] | null;
+}

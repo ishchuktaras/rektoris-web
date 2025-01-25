@@ -1,43 +1,42 @@
 "use client";
 
 import DateColumn from "@/components/dashboard/DataTableColumns/DateColumn";
-
 import SortableColumn from "@/components/dashboard/DataTableColumns/SortableColumn";
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/dashboard/DataTableColumns/ActionColumn";
-import { Parent } from "@/types/types";
+import { Teacher } from "@/types/types";
 import Image from "next/image";
-import { ParentInfoModal } from "@/components/dashboard/modals/parent-info-modal";
+import { TeacherInfoModal } from "@/components/dashboard/modals/teacher-info-modal";
 
-export const columns: ColumnDef<Parent>[] = [
+export const columns: ColumnDef<Teacher>[] = [
   {
     accessorKey: "user",
-    header: "Name / Relationship",
+    header: "Jméno / ID zaměstnance",
     cell: ({ row }) => {
-      const parent = row.original;
+      const teacher = row.original;
       return (
         <div className="flex items-center gap-2">
           <div className="h-14 w-14 relative rounded-full overflow-hidden">
-            {parent.imageUrl ? (
+            {teacher.imageUrl ? (
               <Image
-                src={parent.imageUrl}
-                alt={`${parent.firstName} ${parent.lastName}`}
+                src={teacher.imageUrl}
+                alt={`${teacher.firstName} ${teacher.lastName}`}
                 fill
                 className="object-cover"
               />
             ) : (
               <div className="w-full h-full bg-purple-600 flex items-center justify-center text-white text-lg">
-                {parent.firstName[0]}
-                {parent.lastName[0]}
+                {teacher.firstName[0]}
+                {teacher.lastName[0]}
               </div>
             )}
           </div>
           <div className="">
             <h2 className="font-medium capitalize">
-              {parent.firstName.toLowerCase()} {parent.lastName.toLowerCase()}
+              {teacher.firstName.toLowerCase()} {teacher.lastName.toLowerCase()}
             </h2>
             <p className="text-xs text-muted-foreground">
-              {parent.relationship}
+              {teacher.employeeId}{" "}
             </p>
           </div>
         </div>
@@ -46,13 +45,13 @@ export const columns: ColumnDef<Parent>[] = [
   },
   {
     accessorKey: "email-phone",
-    header: "Email / Phone Number",
+    header: "Email / Telefonní číslo",
     cell: ({ row }) => {
-      const parent = row.original;
+      const teacher = row.original;
       return (
         <div className="">
-          <h2 className="font-medium">{parent.email.toLowerCase()}</h2>
-          <p className="text-xs text-muted-foreground">{parent.phone}</p>
+          <h2 className="font-medium">{teacher.email.toLowerCase()}</h2>
+          <p className="text-xs text-muted-foreground">{teacher.phone}</p>
         </div>
       );
     },
@@ -60,22 +59,22 @@ export const columns: ColumnDef<Parent>[] = [
   {
     accessorKey: "nationality",
     header: ({ column }) => (
-      <SortableColumn column={column} title="Nationality" />
+      <SortableColumn column={column} title="Státní příslušnost" />
     ),
   },
   {
     accessorKey: "view",
-    header: "View Parent Info",
+    header: "Zobrazit informace",
     cell: ({ row }) => (
-      <ParentInfoModal
-        parent={row.original}
-        onEdit={(parent) => {
+      <TeacherInfoModal
+        teacher={row.original}
+        onEdit={(teacher) => {
           // Handle edit logic
-          console.log("Edit parent:", parent);
+          console.log("Upravit učitele:", teacher);
         }}
-        onDelete={(parent) => {
+        onDelete={(teacher) => {
           // Handle delete logic
-          console.log("Delete parent:", parent);
+          console.log("Smazat učitele:", teacher);
         }}
       />
     ),

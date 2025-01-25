@@ -48,11 +48,11 @@ export default function DepartmentListing({
     useState<Department[]>(initialDepartments);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-1">
       {/* Department List */}
       <Card className="md:col-span-1">
         <CardHeader>
-          <div className="flex items-center justify-between gap-2 px-4 py-2">
+          <div className="pb-1 border-b flex items-center justify-between gap-1 px-1 py-1">
             <div className="flex items-center gap-2">
               <School className="h-6 w-6" />
               <h2 className="text-xl font-semibold">Oddělení</h2>
@@ -62,12 +62,6 @@ export default function DepartmentListing({
         </CardHeader>
         <CardContent>
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Oddělení</TableHead>
-                <TableHead>Akce</TableHead>
-              </TableRow>
-            </TableHeader>
             <TableBody>
               {departments.map((dept) => (
                 <TableRow
@@ -98,14 +92,14 @@ export default function DepartmentListing({
         <CardHeader>
           <CardTitle>
             {selectedDepartment
-              ? `Odděleni ${selectedDepartment.name} Podrobnosti`
+              ? `${selectedDepartment.name}`
               : "Vyberte oddělení"}
           </CardTitle>
         </CardHeader>
         <CardContent>
           {selectedDepartment ? (
-            <div className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <div className="grid md:grid-cols-2 gap-2">
                 {/* Department Info */}
                 <Card>
                   <CardHeader>
@@ -114,7 +108,7 @@ export default function DepartmentListing({
                   <CardContent>
                     <div className="space-y-2">
                       <p>
-                        <strong>Odděleni</strong> {selectedDepartment.name}
+                        <strong>Název:</strong> {selectedDepartment.name}
                       </p>
                       <p>
                         <strong>Vytvořeno:</strong>{" "}

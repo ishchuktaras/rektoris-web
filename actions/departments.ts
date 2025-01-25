@@ -1,7 +1,7 @@
 "use server"
 
 import axios from "axios";
-import { Department, DepartmentCreateProps } from "@/types/types";
+import { Department, DepartmentBrief, DepartmentCreateProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL|| "";
@@ -33,6 +33,16 @@ export async function getAllDepartments (){
     const response = await api.get('/departments');
     const departments = response.data;
   return departments as Department[];
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getBriefDepartments (){
+  try {
+    const response = await api.get('/departments/brief');
+    const departments = response.data;
+  return departments as DepartmentBrief[];
   } catch (error) {
     console.log(error)
   }

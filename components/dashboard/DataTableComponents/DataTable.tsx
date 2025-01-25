@@ -148,7 +148,7 @@ export default function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && "vybraný"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="">

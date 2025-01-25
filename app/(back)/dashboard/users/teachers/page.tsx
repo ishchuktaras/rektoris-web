@@ -1,14 +1,11 @@
 import React from "react";
 import { columns } from "./columns";
-
 import DataTable from "@/components/dashboard/DataTableComponents/DataTable";
-
-import { getAllParents } from "@/actions/parents";
+import { getAllTeachers } from "@/actions/teachers";
 import TableHeader from "@/components/dashboard/Tables/TableHeader";
 
- 
 export default async function page() {
-  const teachers= (await getAllParents()) || [];
+  const teachers = (await getAllTeachers()) || [];
   return (
     <div className="p-8">
       <TableHeader
@@ -16,7 +13,7 @@ export default async function page() {
         linkTitle="Přidat učitele"
         href="/dashboard/users/teachers/new"
         data={teachers}
-        model="teacher"
+        model="Učitel"
       />
       <div className="py-8">
         <DataTable data={teachers} columns={columns} />
@@ -24,4 +21,3 @@ export default async function page() {
     </div>
   );
 }
-

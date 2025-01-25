@@ -10,65 +10,31 @@ import ImageInput from "@/components/FormInputs/ImageInput";
 import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
+import FormMultipleSelectInput from "@/components/FormInputs/FormMultipleSelectInput";
 import { europeanCountries } from "@/components/data/countries";
-import { createParent } from "@/actions/parents";
 import { useRouter } from "next/navigation";
+import { TeacherCreateProps } from "@/types/types";
+import { createTeacher } from "@/actions/teachers";
+import { generateRollNumber } from "@/lib/generateRollNo";
 
-export type SelectOptionProps = {
+type TeacherFormProps = {
+  editingId?: string | undefined;
+  initialData?: any | undefined | null;
+  classes: DataOption[];
+  departments: DataOption[];
+  subjects: DataOption[];
+};
+export type DataOption = {
   label: string;
   value: string;
 };
-type SingleStudentFormProps = {
-  editingId?: string | undefined;
-  initialData?: any | undefined | null;
-};
-
-export type ParentProps = {
-  title: string;
-  firstName: string;
-  lastName: string;
-  relationship: string;
-  email: string;
-  nationalId: string;
-  gender: string;
-  dateOfBirth: string;
-  phone: string;
-  nationality: string;
-  whatsappNumber: string;
-  imageUrl: string;
-  contactMethod: string;
-  occupation: string;
-  address: string;
-  password: string;
-};
-
 export default function TeacherForm({
   editingId,
   initialData,
-}: SingleStudentFormProps) {
-  // Relationships
-  const relationships = [
-    {
-      label: "Otec",
-      value: "father",
-    },
-    {
-      label: "Matka",
-      value: "mother",
-    },
-    {
-      label: "Zákonný zástupce",
-      value: "legalGuardian",
-    },
-    {
-      label: "Jiný",
-      value: "other",
-    },
-  ];
-
-  const [selectedRelationship, setSelectedRelationship] = useState<any>(
-    relationships[2]
-  );
+  classes,
+  departments,
+  subjects,
+}: TeacherFormProps) {
   // Titles
   const titles = [
     {
@@ -97,88 +63,6 @@ export default function TeacherForm({
     {
       label: "WhatsApp",
       value: "whatsapp",
-    },
-  ];
-
-  const subjects = [
-    {
-      label: "Český jazyk a literatura",
-      value: "czech_language",
-    },
-    {
-      label: "Matematika",
-      value: "mathematics",
-    },
-    {
-      label: "Fyzika",
-      value: "physics",
-    },
-    {
-      label: "Chemie",
-      value: "chemistry",
-    },
-    {
-      label: "Biologie",
-      value: "biology",
-    },
-    {
-      label: "Dějepis",
-      value: "history",
-    },
-    {
-      label: "Zeměpis",
-      value: "geography",
-    },
-    {
-      label: "Anglický jazyk",
-      value: "english",
-    },
-    {
-      label: "Německý jazyk",
-      value: "german",
-    },
-    {
-      label: "Informatika",
-      value: "informatics",
-    },
-    {
-      label: "Tělesná výchova",
-      value: "physical_education",
-    },
-    {
-      label: "Hudební výchova",
-      value: "music",
-    },
-    {
-      label: "Výtvarná výchova",
-      value: "art",
-    },
-    {
-      label: "Občanská výchova",
-      value: "civics",
-    },
-    {
-      label: "Pracovní činnosti",
-      value: "work_activities",
-    },
-    {
-      label: "Základy společenských věd",
-      value: "social_science",
-    },
-    {
-      label: "Ekonomie",
-      value: "economics",
-    },
-  ];
-
-  const classes = [
-    {
-      label: "Třída 1",
-      value: "class_1",
-    },
-    {
-      label: "Třída 2",
-      value: "class_2",
     },
   ];
 
@@ -220,58 +104,36 @@ export default function TeacherForm({
       value: "StateLanguageExam",
     },
   ];
+  const [selectedQualifications, setSelectedQualifications] = useState<any>(
+    qualifications[0]
+  );
 
-  const departments = [
-    {
-      label: "Matematika",
-      value: "mathematics",
-    },
-    {
-      label: "Přírodní vědy",
-      value: "natural_sciences",
-    },
-    {
-      label: "Společenské vědy",
-      value: "social_sciences",
-    },
-    {
-      label: "Cizí jazyky",
-      value: "foreign_languages",
-    },
-    {
-      label: "Informatika",
-      value: "computer_science",
-    },
-    {
-      label: "Praktické předměty",
-      value: "practical_science",
-    },
-  ];
   const [selectedMethod, setSelectedMethod] = useState<any>(contactMethods[0]);
 
   const [selectedDepartment, setSelectedDepartment] = useState<any>(
     departments[0]
   );
 
-  const [selectedSubject, setSelectedSubject] = useState<any>(subjects[0]);
+  const [selectedSubjects, setSelectedSubjects] = useState<any>([subjects[0]]);
+  // console.log(selectedSubjects);
 
-  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(
-    subjects[0]
-  );
+  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(subjects[0]);
 
-  const [qualification, setQualification] = useState<any>(subjects[0]);
-
-  const [selectedClass, setSelectedClass] = useState<any>(classes[0]);
+  const [selectedClasses, setSelectedClasses] = useState<any>([classes[3]]);
 
   // Genders
   const genders = [
     {
       label: "Muž",
-      value: "Male",
+      value: "MALE",
     },
     {
       label: "Žena",
-      value: "Female",
+      value: "FEMALE",
+    },
+    {
+      label: "JINÉ",
+      value: "OTHER",
     },
   ];
 
@@ -292,73 +154,64 @@ export default function TeacherForm({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ParentProps>({
+  } = useForm<TeacherCreateProps>({
     defaultValues: {
       firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      whatsappNumber: "",
     },
   });
-
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const initialImage =
     initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveParent(data: ParentProps) {
+  async function saveTeacher(data: TeacherCreateProps) {
     try {
-      // Add validation
-      const requiredFields: (keyof ParentProps)[] = [
-        "firstName",
-        "lastName",
-        "email",
-        "phone",
-        "password",
-      ];
-      const missingFields = requiredFields.filter(
-        (field) => !data[field as keyof ParentProps]
-      );
-
-      if (missingFields.length > 0) {
-        toast.error(`Missing required fields: ${missingFields.join(", ")}`);
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
-      // Validate date format
-      const dateOfBirth = new Date(data.dateOfBirth);
-      if (isNaN(dateOfBirth.getTime())) {
-        toast.error("Invalid date format");
+      data.employeeId = generateRollNumber();
+      data.imageUrl = imageUrl;
+      data.title = selectedTitle.value;
+      data.gender = selectedGender.value;
+      data.nationality = selectedNationality.label;
+      data.contactMethod = selectedMethod.value;
+      data.departmentId = selectedDepartment.value;
+      data.departmentName = selectedDepartment.label;
+      data.mainSubject = selectedMainSubject.label;
+      data.mainSubjectId = selectedMainSubject.value;
+      data.subjects = selectedSubjects.map((item: any) => item.label);
+      data.classIds = selectedClasses.map((item: any) => item.value);
+      data.classes = selectedClasses.map((item: any) => item.label);
+      data.experience = Number(data.experience);
+      data.phone = data.phone?.trim();
+      data.whatsappNumber = data.whatsappNumber?.trim();
+      data.email = data.email?.toLowerCase().trim();
+      data.qualification = selectedQualifications.value;
+console.log(data);
+      if (editingId) {
+        // await updateTeacher(editingId, data);
+        // setLoading(false);
+        // toast.success("Učitel úspěšně aktualizován!");
+        // reset();
+        // router.push("/dashboard/users/teachers");
+        // setImageUrl("/placecholder.svg");
+      } else {
+        // console.log(data);
+        const res = await createTeacher(data);
         setLoading(false);
-        return;
+        toast.success("Učitel úspěšně vytvořen!");
+        reset();
+        // setImageUrl("/placecholder.svg");
+        router.push("/dashboard/users/teachers");
       }
-      // Make sure all required fields are in the correct format
-      const formattedData = {
-        ...data,
-        imageUrl: imageUrl || "/images/profile_placeholder.png",
-        title: selectedTitle.value,
-        relationship: selectedRelationship.value,
-        gender: selectedGender.value,
-        nationality: selectedNationality.label,
-        contactMethod: selectedMethod.value,
-        // Ensure phone number format is consistent
-        phone: data.phone?.trim(),
-        whatsappNumber: data.whatsappNumber?.trim(),
-        // Ensure email is lowercase
-        email: data.email?.toLowerCase().trim(),
-      };
-
-      const res = await createParent(formattedData);
-
-      toast.success("Successfuly Created!");
-      reset();
-      router.push("/dashboard/users/parents");
-      // setImageUrl("/placecholder.svg");
-      // router.push("/dashboard/")
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Failed to create parent"
+        error instanceof Error
+          ? error.message
+          : "Vytvoření učitele se nezdařilo"
       );
     } finally {
       setLoading(false);
@@ -366,7 +219,7 @@ export default function TeacherForm({
   }
 
   return (
-    <form className="" onSubmit={handleSubmit(saveParent)}>
+    <form className="" onSubmit={handleSubmit(saveTeacher)}>
       <FormHeader
         href="/teachers"
         parent="users"
@@ -374,7 +227,6 @@ export default function TeacherForm({
         editingId={editingId}
         loading={loading}
       />
-
       <div className="grid grid-cols-12 gap-6 py-8">
         <div className="lg:col-span-12 col-span-full space-y-3">
           <div className="grid gap-6">
@@ -470,14 +322,7 @@ export default function TeacherForm({
               <TextInput
                 register={register}
                 errors={errors}
-                label="Datum připojení"
-                name="dateOfJoining"
-                type="date"
-              />
-              <TextInput
-                register={register}
-                errors={errors}
-                label="Označení"
+                label="Funkce / Pozice"
                 name="designation"
                 placeholder="např. Vedoucí oddělení"
               />
@@ -489,44 +334,41 @@ export default function TeacherForm({
                 href="/dashboard/academics/departments/new"
                 toolTipText="Vytvořit nové oddělení"
               />
+              <FormMultipleSelectInput
+                label="Třídy"
+                options={classes}
+                option={selectedClasses}
+                setOption={setSelectedClasses}
+                href="/dashboard/academics/classes"
+                toolTipText="Přidat novou třídu"
+              />
             </div>
             <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
               <FormSelectInput
                 label="Kvalifikace"
-                options={subjects}
-                option={selectedMainSubject}
-                setOption={setSelectedMainSubject}
-                href="/dashboard/academics/departments/new"
-                toolTipText="Přidat nový předmět"
+                options={qualifications}
+                option={selectedQualifications}
+                setOption={setSelectedQualifications}
               />
               <FormSelectInput
                 label="Hlavní předmět"
                 options={subjects}
                 option={selectedMainSubject}
                 setOption={setSelectedMainSubject}
-                href="/dashboard/academics/departments/new"
+                href="/dashboard/academics/subjects"
                 toolTipText="Přidat nový předmět"
               />
-              {/* Multi Select */}
-              <FormSelectInput
-                label="Třídy"
-                options={classes}
-                option={selectedClass}
-                setOption={setSelectedClass}
-                href="/dashboard/academics/departments/new"
-                toolTipText="Přidat novou třídu"
+              <FormMultipleSelectInput
+                label="Předměty"
+                options={subjects}
+                option={selectedSubjects}
+                setOption={setSelectedSubjects}
+                href="/dashboard/academics/subjects"
+                toolTipText="Přidat nový předmět"
               />
             </div>
             <div className="grid md:grid-cols-2 gap-3">
               <div className="space-y-3">
-                <FormSelectInput
-                  label="Předměty"
-                  options={subjects}
-                  option={selectedSubject}
-                  setOption={setSelectedSubject}
-                  href="/dashboard/academics/departments/new"
-                  toolTipText="Přidat nový předmět"
-                />
                 <div className="grid gap-3">
                   <TextInput
                     register={register}
@@ -545,6 +387,13 @@ export default function TeacherForm({
                     name="address"
                   />
                 </div>
+                <TextInput
+                  register={register}
+                  errors={errors}
+                  label="Datum připojení"
+                  name="dateOfJoining"
+                  type="date"
+                />
               </div>
               <div className="grid">
                 <ImageInput

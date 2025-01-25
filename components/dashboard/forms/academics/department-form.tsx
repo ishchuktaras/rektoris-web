@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { DepartmentCreateProps } from "@/types/types";
-import { createClass } from "@/actions/classes";
 import { createDepartment } from "@/actions/departments";
 
 export type DepartmentProps = {
