@@ -41,11 +41,11 @@ export async function getAllClasses (){
 
 export async function getBriefClasses(): Promise<ClassBrief[]> {
   try {
-    const response = await api.get('/classes/brief');
-    return response.data || []; // Ensure array is always returned
+    const response = await api.get(`${BASE_API_URL}/classes/brief`);
+    return response.data || [];
   } catch (error) {
     console.error('Failed to fetch brief classes:', error);
-    return []; // Return empty array on error
+    return [];
   }
 }
 
