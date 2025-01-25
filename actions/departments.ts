@@ -38,13 +38,13 @@ export async function getAllDepartments (){
   }
 }
 
-export async function getBriefDepartments (){
+export async function getBriefDepartments(): Promise<DepartmentBrief[]> {
   try {
     const response = await api.get('/departments/brief');
-    const departments = response.data;
-  return departments as DepartmentBrief[];
+    return response.data || []; // Ensure array is always returned
   } catch (error) {
-    console.log(error)
+    console.error('Failed to fetch brief departments:', error);
+    return []; // Return empty array on error
   }
 }
 

@@ -41,13 +41,13 @@ export async function getAllSubjects() {
   }
 }
 
-export async function getBriefSubjects() {
+export async function getBriefSubjects(): Promise<SubjectBrief[]> {
   try {
     const response = await api.get("/subjects/brief");
-    const subjects = response.data;
-    return subjects as SubjectBrief[];
+    return response.data || []; // Ensure array is always returned
   } catch (error) {
-    console.log(error);
+    console.error('Failed to fetch brief subjects:', error);
+    return []; // Return empty array on error
   }
 }
 

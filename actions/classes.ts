@@ -39,13 +39,13 @@ export async function getAllClasses (){
   }
 }
 
-export async function getBriefClasses (){
+export async function getBriefClasses(): Promise<ClassBrief[]> {
   try {
     const response = await api.get('/classes/brief');
-    const classes = response.data;
-  return classes as ClassBrief[];
+    return response.data || []; // Ensure array is always returned
   } catch (error) {
-    console.log(error)
+    console.error('Failed to fetch brief classes:', error);
+    return []; // Return empty array on error
   }
 }
 
