@@ -52,6 +52,8 @@ export default function CustomCarousel() {
             <Image
               src={item.image}
               alt={`Slide ${index + 1}`}
+              width={500}
+              height={500}
               className="object-cover w-full h-full"
             />
             <div className="absolute inset-0 bg-purple-900/50" />
