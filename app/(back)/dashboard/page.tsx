@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-
 import {
   Bar,
   BarChart,
@@ -11,11 +10,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import {
   Table,
   TableBody,
@@ -25,7 +22,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import {
   ArrowRight,
   DollarSign,

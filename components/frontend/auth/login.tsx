@@ -9,12 +9,15 @@ import CustomCarousel from "../custom-carousel";
 import Logo from "@/components/logo";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import { Mail, Lock, LogIn } from "lucide-react";
-export type RegisterInputProps = {
-  fullName: string;
+import { loginUser } from "@/actions/auth";
+import { useUserSession } from "@/store/auth";
+import { User } from "@/types/types";
+
+export type loginInputProps = {  
   email: string;
-  password: string;
-  phone: string;
+  password: string;  
 };
+
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -22,11 +25,29 @@ export default function Login() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegisterInputProps>();
+  } = useForm<loginInputProps>();
+  const {setUser} = useUserSession();
   const router = useRouter();
-  async function onSubmit(data: RegisterInputProps) {
-    console.log(data);
+  async function onSubmit(data: loginInputProps) {
+    try {
+      setIsLoading(true);
+      const sessionData = await loginUser(data);      
+      // Save the Data in Zustand
+      setUser(sessionData?.user as User);
+      const role = sessionData?.user.role;
+      // Route the User according to the Role
+      setIsLoading(false);
+      if (role === "SUPER_ADMIN") {
+        router.push("/school-onboarding");
+      }else{
+        router.push("/dashboard");
+      }     
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
   }
+
   return (
     <div className="w-full lg:grid h-screen lg:min-h-[600px] lg:grid-cols-2 relative ">
       <div className="flex items-center justify-center py-12">
@@ -39,23 +60,22 @@ export default function Login() {
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
             <TextInput
-              label="Email Address"
+              label="E-mailová adresa"
               register={register}
               name="email"
               type="email"
               errors={errors}
-              placeholder="Eg. johndoe@gmail.com"
+              placeholder="Např. johndoe@gmail.com"
               icon={Mail}
             />
 
-            <PasswordInput
-              label="Password"
+            <TextInput
+              label="Heslo"
               register={register}
               name="password"
               type="password"
               errors={errors}
               placeholder="******"
-              forgotPasswordLink="/forgot-password"
               icon={Lock}
             />
 
@@ -74,3 +94,5 @@ export default function Login() {
     </div>
   );
 }
+
+

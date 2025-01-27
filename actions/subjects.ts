@@ -4,16 +4,8 @@ import axios from "axios";
 import { SubjectCreateProps, Subject, SubjectBrief } from "@/types/types";
 import { revalidatePath } from "next/cache";
 import { response } from "express";
-
-const BASE_API_URL = process.env.API_URL || "";
-const api = axios.create({
-  baseURL: BASE_API_URL,
-  timeout: 5000,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
+import { api } from "@/lib/api";
+import { BASE_API_URL } from "@/lib/api";
 
 export async function createSubject(data: SubjectCreateProps) {
   try {

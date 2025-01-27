@@ -4,17 +4,7 @@ import axios from "axios";
 import { Student } from "@/types/types";
 import { StudentProps } from "@/components/dashboard/forms/students/single-student-form";
 import { revalidatePath } from "next/cache";
-
-const BASE_API_URL = process.env.API_URL|| "";
-
-const api = axios.create({
-  baseURL: BASE_API_URL,
-  timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  }
-});
+import { api } from "@/lib/api";
 
 export async function createStudent(data: StudentProps) {
   try {

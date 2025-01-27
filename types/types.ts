@@ -268,3 +268,16 @@ export type Teacher ={
   bio?: string | null;
   skills?: string[] | null;
 }
+
+export interface User {
+  id: string;
+  email: string;
+  role: "SUPER_ADMIN" | "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
+  name: string;
+  phone: string | null;
+  image: string | null;
+  schoolId: string | null;
+  schoolName: string | null;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -15,9 +15,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
-
 import SubmitButton from "../FormInputs/SubmitButton";
-
 import PhoneInput from "../FormInputs/PhoneInput";
 import { europeanCountries } from "../data/countries";
 import FormSelectInput from "../FormInputs/FormSelectInput";
