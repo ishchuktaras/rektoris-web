@@ -26,7 +26,6 @@ export default function SchoolOnboardingForm() {
     },
   });
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const initialImage = "/images/logo.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
@@ -37,9 +36,11 @@ export default function SchoolOnboardingForm() {
       data.logo = imageUrl;
       console.log(data);
       const res = await createSchool(data);
+
       console.log(res);
       setLoading(false)
       toast.success("Škola byla úspěšně vytvořena!");
+      router.push(`/school-admin/${res.id}?name=${res.name}`)
     } catch (error) {
       setLoading(false);
       console.log(error);

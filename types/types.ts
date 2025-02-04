@@ -231,7 +231,7 @@ export type TeacherCreateProps = {
   updatedAt: string;
 };
 
-export type Teacher ={
+export type Teacher = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -267,7 +267,7 @@ export type Teacher ={
   experience: number;
   bio?: string | null;
   skills?: string[] | null;
-}
+};
 
 export interface User {
   id: string;
@@ -281,3 +281,10 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export type School = {
+  id: string;
+  name: string;
+  logo: string | null;
+  slug: string;
+};
