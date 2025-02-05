@@ -16,13 +16,13 @@ import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { ClassCreateProps } from "@/types/types";
 import { createClass } from "@/actions/classes";
+import { useSchoolStore } from "@/store/school";
 
 export type ClassProps = {
   name: string;
 };
 
 export default function ClassForm({
-  userId,
   initialContent,
   editingId,
 }: {
@@ -42,9 +42,10 @@ export default function ClassForm({
   });
 
   const [loading, setLoading] = useState(false);
-
+  const { school } = useSchoolStore();
   async function saveClass(data: ClassCreateProps) {
     // data.userId = userId;
+    data.schoolId = school?.id ?? "";
     try {
       setLoading(true);
       if (editingId) {

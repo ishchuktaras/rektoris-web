@@ -16,17 +16,16 @@ import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { DepartmentCreateProps } from "@/types/types";
 import { createDepartment } from "@/actions/departments";
+import { useSchoolStore } from "@/store/school";
 
 export type DepartmentProps = {
   name: string;
 };
 
 export default function DepartmentForm({
-  userId,
   initialContent,
   editingId,
 }: {
-  userId?: string;
   initialContent?: string;
   editingId?: string;
 }) {
@@ -42,9 +41,10 @@ export default function DepartmentForm({
   });
 
   const [loading, setLoading] = useState(false);
-
+  const { school } = useSchoolStore();
   async function saveDepartment(data: DepartmentCreateProps) {
     // data.userId = userId;
+    data.schoolId=school?.id ?? ""
     try {
       setLoading(true);
       if (editingId) {

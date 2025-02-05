@@ -19,9 +19,11 @@ export type Contact = {
 
 export type ClassCreateProps = {
   title: string;
+  schoolId: string;
 };
 export type DepartmentCreateProps = {
   name: string;
+  schoolId: string;
 };
 
 export type SubjectCreateProps = {
@@ -39,6 +41,7 @@ export type SubjectCreateProps = {
 export type StreamCreateProps = {
   title: string;
   classId: string;
+  schoolId: string;
 };
 
 export type Class = {
@@ -292,7 +295,7 @@ export type School = {
 export type UserCreateProps = {
   email: string;
   password: string;
-  role: "SUPER_ADMIN" | "ADMIN" | "TEACHER" | "STUDENT" | "PARENT"  
+  role: "SUPER_ADMIN" | "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
   name: string;
   phone?: string;
   image?: string;

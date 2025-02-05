@@ -22,7 +22,8 @@ import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { StreamCreateProps } from "@/types/types";
 import { createStream } from "@/actions/classes";
- 
+import { useSchoolStore } from "@/store/school";
+
 export default function StreamForm({
   classId,
   initialContent,
@@ -42,17 +43,18 @@ export default function StreamForm({
       title: initialContent || "",
     },
   });
- 
+
   const [loading, setLoading] = useState(false);
- 
+  const { school } = useSchoolStore();
   async function saveStream(data: StreamCreateProps) {
     data.classId = classId;
+    data.schoolId = school?.id ?? "";
     try {
       setLoading(true);
       if (editingId) {
         // await updateFolderById(editingId, data);
         // setLoading(false);
-        
+
         toast.success("Updated Successfully!");
       } else {
         const res = await createStream(data);
@@ -65,7 +67,7 @@ export default function StreamForm({
       console.log(error);
     }
   }
- 
+
   return (
     <div>
       <div className="py-1">
@@ -102,7 +104,6 @@ export default function StreamForm({
                       name="title"
                       icon={Check}
                     />
-                    
                   </div>
                 </div>
                 <div className="py-3">

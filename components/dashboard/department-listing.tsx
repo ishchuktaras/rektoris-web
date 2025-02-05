@@ -63,25 +63,33 @@ export default function DepartmentListing({
         <CardContent>
           <Table>
             <TableBody>
-              {departments.map((dept) => (
-                <TableRow
-                  key={dept.id}
-                  onClick={() => setSelectedDepartment(dept)}
-                  className="cursor-pointer hover:bg-muted"
-                >
-                  <TableCell>Odděleni {dept.name}</TableCell>
-                  <TableCell>
-                    <div className="flex space-x-2">
-                      <Button variant="ghost" size="icon">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon">
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
-                    </div>
+              {departments.length === 0 ? (
+                <TableRow>
+                  <TableCell className="text-muted-foreground">
+                    Žádné oddělení
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                departments.map((dept) => (
+                  <TableRow
+                    key={dept.id}
+                    onClick={() => setSelectedDepartment(dept)}
+                    className="cursor-pointer hover:bg-muted"
+                  >
+                    <TableCell>{dept.name}</TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button variant="ghost" size="icon">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon">
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </CardContent>
