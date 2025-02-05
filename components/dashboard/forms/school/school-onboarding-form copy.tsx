@@ -71,7 +71,7 @@ export default function SchoolOnboardingForm() {
             </div>
             <div className="grid">
               <ImageInput
-                title="Přizpůsobte si logo"
+                title="Přizpůsobte si logo (500x150px)"
                 imageUrl={imageUrl}
                 setImageUrl={setImageUrl}
                 endpoint="schoolProfileLogo"

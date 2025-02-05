@@ -11,11 +11,13 @@ import PasswordInput from "@/components/FormInputs/PasswordInput";
 import { Mail, Lock, LogIn } from "lucide-react";
 import { loginUser } from "@/actions/auth";
 import { useUserSession } from "@/store/auth";
-import { User } from "@/types/types";
+import { School, User } from "@/types/types";
+import { getSchoolById } from "@/actions/schools";
+import { useSchoolStore } from "@/store/school";
 
-export type loginInputProps = {  
+export type loginInputProps = {
   email: string;
-  password: string;  
+  password: string;
 };
 
 export default function Login() {
@@ -26,22 +28,28 @@ export default function Login() {
     reset,
     formState: { errors },
   } = useForm<loginInputProps>();
-  const {setUser} = useUserSession();
+  const { setUser } = useUserSession();
+  const { setSchool } = useSchoolStore();
   const router = useRouter();
   async function onSubmit(data: loginInputProps) {
     try {
       setIsLoading(true);
-      const sessionData = await loginUser(data);      
+      const sessionData = await loginUser(data);
+      const role = sessionData?.user.role;
+      // Fetch the School
+      const school = (await getSchoolById(sessionData?.user.schoolId));
+      console.log(school)
+      setSchool(school as School);
       // Save the Data in Zustand
       setUser(sessionData?.user as User);
-      const role = sessionData?.user.role;
+
       // Route the User according to the Role
       setIsLoading(false);
       if (role === "SUPER_ADMIN") {
         router.push("/school-onboarding");
-      }else{
+      } else {
         router.push("/dashboard");
-      }     
+      }
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -94,5 +102,3 @@ export default function Login() {
     </div>
   );
 }
-
-

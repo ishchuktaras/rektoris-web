@@ -4,13 +4,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import TextInput from "@/components/FormInputs/TextInput";
-import ImageInput from "@/components/FormInputs/ImageInput";
 import toast from "react-hot-toast";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { Lock, Mail, Phone, Send, User } from "lucide-react";
-import { createSchool } from "@/actions/schools";
 import { UserCreateProps } from "@/types/types";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
+import { createUser } from "@/actions/users";
 
 export type SchoolProps = {
   name: string;
@@ -43,14 +42,14 @@ export default function SchoolAdminForm({
       setLoading(true);
       data.schoolId = schoolId;
       data.schoolName = schoolName;
-      data.role = "ADMIN"
+      data.role = "ADMIN";
       console.log(data);
-      const res = await createSchool(data);
-
+      const res = await createUser(data);
       console.log(res);
       setLoading(false);
-      toast.success("Škola byla úspěšně vytvořena!");
-      // router.push(`/school-admin/${res.id}?name=${res.name}`);
+      toast.success("Správce úspěšně vytvořen!");
+      res();
+      router.push("/dashboard");
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -64,7 +63,7 @@ export default function SchoolAdminForm({
           Vítejte ve {schoolName}
         </h1>
         <p className="leading-7 [&:not(:first-child)]:mt-2">
-        Vytvořte správce pro tuto školu
+          Vytvořte správce pro tuto školu
         </p>
       </div>
       <div className="grid grid-cols-12 gap-6 py-6">

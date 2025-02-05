@@ -275,9 +275,9 @@ export interface User {
   role: "SUPER_ADMIN" | "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
   name: string;
   phone: string | null;
-  image: string | null;
-  schoolId: string | null;
-  schoolName: string | null;
+  image?: string | null;
+  schoolId?: string | null;
+  schoolName?: string | null;
   createdAt: string;
   updatedAt: string;
 }
