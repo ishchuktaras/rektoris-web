@@ -6,20 +6,18 @@ import { useForm } from "react-hook-form";
 import FormHeader from "../FormHeader";
 import FormFooter from "../FormFooter";
 import TextInput from "@/components/FormInputs/TextInput";
-import TextArea from "@/components/FormInputs/TextAreaInput";
 import ImageInput from "@/components/FormInputs/ImageInput";
-
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
 import RadioInput from "@/components/FormInputs/RadioInput";
-
 import { generateStudentRegNumber } from "@/lib/generateRegNo";
 import { generateRollNumber } from "@/lib/generateRollNo";
 import toast from "react-hot-toast";
 import { Class } from "@/types/types";
 import { Parent } from "@/types/types";
 import { createStudent } from "@/actions/students";
+import { useSchoolStore } from "@/store/school";
 
 export type SelectOptionProps = {
   label: string;
@@ -60,6 +58,8 @@ export type StudentProps = {
   regNo: string;
   admissionDate: string;
   address: string;
+  schoolId: string;
+  schoolName: string;
 };
 
 export default function SingleStudentForm({
@@ -199,7 +199,7 @@ export default function SingleStudentForm({
       id: "SS" as const,
     },
   ];
-
+  const {school} = useSchoolStore();
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
@@ -208,6 +208,8 @@ export default function SingleStudentForm({
         setLoading(false);
         return;
       }
+      data.schoolId = school?.id ?? "";
+      data.schoolName=school?.name??"";
       data.imageUrl = imageUrl;
       data.name = `${data.firstName} ${data.lastName}`;
       data.parentId = selectedParent.value;

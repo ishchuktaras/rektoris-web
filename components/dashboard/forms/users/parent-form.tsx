@@ -13,6 +13,7 @@ import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { europeanCountries } from "@/components/data/countries";
 import { createParent } from "@/actions/parents";
 import { useRouter } from "next/navigation";
+import { useSchoolStore } from "@/store/school";
 
 export type SelectOptionProps = {
   label: string;
@@ -40,6 +41,8 @@ export type ParentProps = {
   occupation: string;
   address: string;
   password: string;
+  schoolId: string;
+  schoolName: string;
 };
 
 export default function ParentForm({
@@ -159,7 +162,7 @@ export default function ParentForm({
       );
 
       if (missingFields.length > 0) {
-        toast.error(`Missing required fields: ${missingFields.join(", ")}`);
+        toast.error(`Chybí povinná pole: ${missingFields.join(", ")}`);
         setLoading(false);
         return;
       }
@@ -175,6 +178,8 @@ export default function ParentForm({
       // Make sure all required fields are in the correct format
       const formattedData = {
         ...data,
+        schoolId: school?.id??"",
+        schoolName: school?.name??"",
         imageUrl: imageUrl || "/images/profile_placeholder.png",
         title: selectedTitle.value,
         relationship: selectedRelationship.value,
@@ -190,7 +195,7 @@ export default function ParentForm({
 
       const res = await createParent(formattedData);
 
-      toast.success("Successfuly Created!");
+      toast.success("Rodič úspěšně vytvořen!");
       reset();
       router.push("/dashboard/users/parents");
       // setImageUrl("/placecholder.svg");
@@ -203,7 +208,7 @@ export default function ParentForm({
       setLoading(false);
     }
   }
-
+const {school} = useSchoolStore()
   return (
     <form className="" onSubmit={handleSubmit(saveParent)}>
       <FormHeader
