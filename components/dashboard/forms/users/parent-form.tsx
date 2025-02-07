@@ -147,8 +147,11 @@ export default function ParentForm({
     initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
+  const { school } = useSchoolStore();
+
   async function saveParent(data: ParentProps) {
     try {
+      setLoading(true);
       // Add validation
       const requiredFields: (keyof ParentProps)[] = [
         "firstName",
@@ -171,44 +174,38 @@ export default function ParentForm({
       // Validate date format
       const dateOfBirth = new Date(data.dateOfBirth);
       if (isNaN(dateOfBirth.getTime())) {
-        toast.error("Invalid date format");
+        toast.error("Neplatný formát data");
         setLoading(false);
         return;
       }
       // Make sure all required fields are in the correct format
       const formattedData = {
         ...data,
-        schoolId: school?.id??"",
-        schoolName: school?.name??"",
+        dateOfBirth: new Date(data.dateOfBirth).toISOString(), // Convert to ISO string
+        schoolId: school?.id || "",
+        schoolName: school?.name || "",
         imageUrl: imageUrl || "/images/profile_placeholder.png",
         title: selectedTitle.value,
         relationship: selectedRelationship.value,
         gender: selectedGender.value,
         nationality: selectedNationality.label,
         contactMethod: selectedMethod.value,
-        // Ensure phone number format is consistent
         phone: data.phone?.trim(),
         whatsappNumber: data.whatsappNumber?.trim(),
-        // Ensure email is lowercase
         email: data.email?.toLowerCase().trim(),
       };
 
-      const res = await createParent(formattedData);
-
-      toast.success("Rodič úspěšně vytvořen!");
-      reset();
+      await createParent(formattedData);
+      router.refresh();
       router.push("/dashboard/users/parents");
-      // setImageUrl("/placecholder.svg");
-      // router.push("/dashboard/")
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Failed to create parent"
+        error instanceof Error ? error.message : "Nepodařilo se vytvořit rodiče"
       );
     } finally {
       setLoading(false);
     }
   }
-const {school} = useSchoolStore()
   return (
     <form className="" onSubmit={handleSubmit(saveParent)}>
       <FormHeader
