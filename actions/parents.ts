@@ -10,13 +10,13 @@ export async function createParent(data: ParentProps) {
   try {
     const res = await api.post("/parents", data);
     if (!res.data) {
-      throw new Error("No data returned from server");
+      throw new Error("Ze serveru se nevrátila žádná data");
     }
     revalidatePath("/dashboard/users/parents");
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || "Failed to create parent");
+      throw new Error(error.response?.data?.error || "Vytvoření rodiče se nezdařilo");
     }
     throw error;
   }

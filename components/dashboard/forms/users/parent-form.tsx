@@ -186,7 +186,7 @@ export default function ParentForm({
         schoolName: school?.name || "",
         imageUrl: imageUrl || "/images/profile_placeholder.png",
         title: selectedTitle.value,
-        relationship: selectedRelationship.value,
+        relationship: selectedRelationship.label,
         gender: selectedGender.value,
         nationality: selectedNationality.label,
         contactMethod: selectedMethod.value,
@@ -196,7 +196,8 @@ export default function ParentForm({
       };
 
       await createParent(formattedData);
-      router.refresh();
+      toast.success("Rodič úspěšně vytvořen!");
+      reset();
       router.push("/dashboard/users/parents");
     } catch (error) {
       toast.error(

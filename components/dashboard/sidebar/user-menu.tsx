@@ -72,22 +72,22 @@ export default function UserMenu() {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Sparkles />
-            Upgrade to Pro
+            Upgradujte na Pro
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <BadgeCheck />
-            Account
+            Účet
           </DropdownMenuItem>
           <DropdownMenuItem>
             <CreditCard />
-            Billing
+            Fakturace
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Bell />
-            Notifications
+            Oznámení
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
@@ -97,7 +97,7 @@ export default function UserMenu() {
             onClick={handleLogout}
           >
             <LogOut className="mr-2" />
-            Logout
+            Odhlášení
           </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>

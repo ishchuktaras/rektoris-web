@@ -89,7 +89,7 @@ export function StudentInfoModal({
                   {student.firstName} {student.lastName}
                 </h2>
                 <p className="text-xs text-gray-500">
-                  Registration No: {student.regNo}
+                Registrační číslo: {student.regNo}
                 </p>
               </div>
             </DialogTitle>

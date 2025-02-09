@@ -6,6 +6,13 @@ interface WelcomeBannerProps {
   userRole: string
   userSchool: string
 }
+const roleTranslations: Record<WelcomeBannerProps["userRole"], string> = {
+  SUPER_ADMIN: "Super administrátor",
+  ADMIN: "Administrátor",
+  TEACHER: "Učitel",
+  STUDENT: "Student",
+  PARENT: "Rodič",
+}
 
 export default function WelcomeBanner({ userName, userRole, userSchool }: WelcomeBannerProps) {
   return (
@@ -16,9 +23,9 @@ export default function WelcomeBanner({ userName, userRole, userSchool }: Welcom
         </AvatarFallback>
       </Avatar>
       <div className="space-y-0.5">
-        <h2 className="text-xl font-semibold tracking-tight">Welcome back, {userName}!</h2>
+        <h2 className="text-xl font-semibold tracking-tight">Vítejte zpět, {userName}!</h2>
         <p className="text-sm text-blue-100">
-          {userRole} at {userSchool}
+        {roleTranslations[userRole]} ve {userSchool}
         </p>
       </div>
     </div>
