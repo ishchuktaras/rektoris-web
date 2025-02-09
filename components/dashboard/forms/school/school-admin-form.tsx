@@ -27,6 +27,7 @@ export default function SchoolAdminForm({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<UserCreateProps>({
     defaultValues: {
       name: "",
@@ -48,7 +49,7 @@ export default function SchoolAdminForm({
       console.log(res);
       setLoading(false);
       toast.success("Správce úspěšně vytvořen!");
-      res();
+      reset();
       router.push("/dashboard");
     } catch (error) {
       setLoading(false);
@@ -99,6 +100,7 @@ export default function SchoolAdminForm({
                 label="Heslo správce"
                 name="password"
                 icon={Lock}
+                type="password"
               />
             </div>
           </div>

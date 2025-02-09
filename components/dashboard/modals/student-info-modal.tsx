@@ -89,7 +89,7 @@ export function StudentInfoModal({
                   {student.firstName} {student.lastName}
                 </h2>
                 <p className="text-xs text-gray-500">
-                Registrační číslo: {student.regNo}
+                  Registration No: {student.regNo}
                 </p>
               </div>
             </DialogTitle>
@@ -104,7 +104,7 @@ export function StudentInfoModal({
           </div>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 p-1">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-1 p-1">
           <InfoCard icon={Mail} label="Email" value={student.email} />
 
           <InfoCard icon={Phone} label="Phone" value={student.phone} />
@@ -194,7 +194,7 @@ interface InfoCardProps {
 
 function InfoCard({ icon: Icon, label, value }: InfoCardProps) {
   return (
-    <div className="bg-gray-50 rounded-lg p-4">
+    <div className="bg-gray-50 rounded-lg p-2">
       <div className="flex flex-col gap-1">
         <Icon className="h-5 w-5 text-purple-600" />
         <h3 className="text-sm font-medium text-gray-500">{label}</h3>

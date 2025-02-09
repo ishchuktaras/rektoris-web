@@ -13,6 +13,6 @@ export function getInitials(name: string | null | undefined): string {
   }
 }
  
-// Example usage
-const initials = getInitials("Muke John");
-console.log(initials); // Outputs: MJ
+// // Example usage
+// const initials = getInitials("Muke John");
+// console.log(initials); // Outputs: MJ

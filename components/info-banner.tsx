@@ -71,7 +71,7 @@ export function InfoBanner({
         }}
       >
         <X className="h-4 w-4" />
-        <span className="sr-only">Dismiss banner</span>
+        <span className="sr-only">Zavřít banner</span>
       </Button>
     </div>
   );

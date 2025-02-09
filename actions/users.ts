@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import { UserCreateProps } from "@/types/types";
-import { revalidatePath } from "next/cache";
 import { api } from "@/lib/api";
 
 export async function createUser(data:UserCreateProps) {

@@ -20,12 +20,11 @@ export async function createSubject(data: SubjectCreateProps) {
     }
     throw error;
   }
-  
 }
 
-export async function getAllSubjects() {
+export async function getAllSubjects(schoolId: string) {
   try {
-    const response = await api.get("/subjects");
+    const response = await api.get(`/subjects/school/${schoolId}`);
     const subjects = response.data;
     return subjects as Subject[];
   } catch (error) {
@@ -33,12 +32,14 @@ export async function getAllSubjects() {
   }
 }
 
-export async function getBriefSubjects(): Promise<SubjectBrief[]> {
+export async function getBriefSubjects(
+  schoolId: string
+): Promise<SubjectBrief[]> {
   try {
-    const response = await api.get(`${BASE_API_URL}/subjects/brief`);
+    const response = await api.get(`/subjects/brief/${schoolId}`);
     return response.data || [];
   } catch (error) {
-    console.error('Failed to fetch brief subjects:', error);
+    console.error("Failed to fetch brief subjects:", error);
     return [];
   }
 }

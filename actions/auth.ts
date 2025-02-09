@@ -2,7 +2,8 @@
 
 import { api } from "@/lib/api";
 import { cookies } from "next/headers";
-import { User } from "@/types/types";
+import { User, School } from "@/types/types";
+import { getSchoolById } from "./schools";
 
 interface UserData {
   user: {
@@ -27,16 +28,17 @@ interface SessionData {
   refreshToken: string;
 }
 
-export async function loginUser(data: { email: string; password: string })
-{
+export async function loginUser(data: { email: string; password: string }) {
   try {
     const response = await api.post("/login", data);
     const { user, token, refreshToken } = response.data.data;
-    const userData = response.data.data
+    const userData = response.data.data;
     await createServerSession(userData);
+    const school = await getSchoolById(userData?.user.schoolId);
+    await saveServerSchool(school as School);
     return response.data.data as SessionData;
   } catch (error) {
-    // throw new Error(error.message);
+    console.log(error)
   }
 }
 
@@ -73,6 +75,29 @@ export async function createServerSession(data: SessionData) {
     return { success: false, error: "Invalid session data" };
   }
 }
+
+export async function saveServerSchool(data: School) {
+  try {
+    const cookieStore = await cookies();
+    // Set user data in cookies
+    cookieStore.set("school", JSON.stringify(data), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Chyba uložení školy:", error);
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Nepodařilo se uložit školní data",
+    };
+  }
+}
+
 // Server action to logout and clear cookies
 export async function logout() {
   try {
@@ -93,9 +118,21 @@ export async function getServerUser() {
   const cookieStore = await cookies();
   const userCooke = cookieStore.get("user");
   if (!userCooke) return null;
-  try {    
+  try {
     const user = JSON.parse(userCooke.value);
     return user as User;
+  } catch {
+    return null;
+  }
+}
+
+export async function getServerSchool() {
+  const cookieStore = await cookies();
+  const userCooke = cookieStore.get("school");
+  if (!userCooke) return null;
+  try {
+    const school = JSON.parse(userCooke.value);
+    return school as School;
   } catch {
     return null;
   }

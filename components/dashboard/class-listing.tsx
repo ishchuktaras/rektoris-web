@@ -14,7 +14,6 @@ import {
   FolderPlus,
 } from "lucide-react";
 import Image from "next/image";
-
 import {
   Card,
   CardContent,
@@ -22,14 +21,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { cn } from "@/lib/utils";
 import ClassForm from "./forms/academics/class-form";
@@ -82,69 +79,81 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
         <div className="flex items-center justify-between gap-2 px-4 py-2">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-6 w-6" />
-            <h2 className="text-xl font-semibold">Classes</h2>
+            <h2 className="text-xl font-semibold">Třídy</h2>
           </div>
           <ClassForm />
         </div>
-        <div className="px-4 py-2">
-          <Input
-            placeholder="Search classes..."
-            className="h-9"
-            type="search"
-          />
-        </div>
-        <ScrollArea className="flex-1">
-          <div className="px-2 space-y-3">
-            {classes.map((classItem) => (
-              <div key={classItem.id} className="group relative">
-                <button
-                  onClick={() => setSelectedClass(classItem.id)}
-                  className={cn(
-                    "flex flex-col w-full items-start gap-1 rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                    selectedClass === classItem.id
-                      ? "bg-accent text-accent-foreground"
-                      : "hover:bg-muted text-muted-foreground"
-                  )}
-                >
-                  <div className="flex w-full items-center justify-between">
-                    <span className="font-medium">{classItem.title}</span>
-                    <span className="text-xs">
-                      {classItem.streams.length} streams
-                    </span>
+        {classes && classes.length > 0 ? (
+          <>
+            <div className="px-4 py-2">
+              <Input
+                placeholder="Search classes..."
+                className="h-9"
+                type="search"
+              />
+            </div>
+            <ScrollArea className="flex-1">
+              <div className="px-2 space-y-3">
+                {classes.map((classItem) => (
+                  <div key={classItem.id} className="group relative">
+                    <button
+                      onClick={() => setSelectedClass(classItem.id)}
+                      className={cn(
+                        "flex flex-col w-full items-start gap-1 rounded-lg px-3 py-2 text-left text-sm transition-colors",
+                        selectedClass === classItem.id
+                          ? "bg-accent text-accent-foreground"
+                          : "hover:bg-muted text-muted-foreground"
+                      )}
+                    >
+                      <div className="flex w-full items-center justify-between">
+                        <span className="font-medium">{classItem.title}</span>
+                        <span className="text-xs">
+                          {classItem.streams.length} streams
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Users className="h-4 w-4" />
+                        {classItem._count.students} studentů
+                      </div>
+                    </button>
+                    <div className="flex items-center gap-1">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7"
+                          >
+                            <Pencil className="h-3 w-3" />
+                            <span className="sr-only">Upravit třídu</span>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Upravit třídu</TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-destructive"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                            <span className="sr-only">Smazat třídu</span>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Smazat třídu</TooltipContent>
+                      </Tooltip>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Users className="h-4 w-4" />
-                    {classItem._count.students} students
-                  </div>
-                </button>
-                <div className="flex items-center gap-1">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-7 w-7">
-                        <Pencil className="h-3 w-3" />
-                        <span className="sr-only">Edit class</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Edit class</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7 text-destructive"
-                      >
-                        <Trash2 className="h-3 w-3" />
-                        <span className="sr-only">Delete class</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Delete class</TooltipContent>
-                  </Tooltip>
-                </div>
+                ))}
               </div>
-            ))}
+            </ScrollArea>
+          </>
+        ) : (
+          <div className="p4">
+            <h2>Žádné třídy</h2>
           </div>
-        </ScrollArea>
+        )}
       </div>
 
       {/* Main Content */}
@@ -154,14 +163,14 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="icon" className="h-8 w-8">
                 <ChevronLeft className="h-4 w-4" />
-                <span className="sr-only">Go back</span>
+                <span className="sr-only">Vraťte se</span>
               </Button>
               <div>
                 <h2 className="text-lg font-semibold">
                   {classes.find((c) => c.id === selectedClass)?.title}
                 </h2>
                 <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                  <span>Classes</span>
+                  <span>Třídy</span>
                   <span>/</span>
                   <span>
                     {classes.find((c) => c.id === selectedClass)?.title}
@@ -178,13 +187,13 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
                   <CardHeader className="pb-2">
                     <CardTitle>{section.title}</CardTitle>
                     <CardDescription>
-                      Class Teacher: Tarik Webdev
+                      Třídní učitel: Tarik Webdev
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <User className="h-4 w-4" />
-                      {section._count.students} students
+                      {section._count.students} studentů
                     </div>
                   </CardContent>
                   <div className="flex items-end gap-1">
@@ -192,10 +201,10 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
                       <TooltipTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-7 w-7">
                           <Pencil className="h-3 w-3" />
-                          <span className="sr-only">Edit section</span>
+                          <span className="sr-only">Upravit sekci</span>
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent>Edit section</TooltipContent>
+                      <TooltipContent>Upravit sekci</TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -205,10 +214,10 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
                           className="h-7 w-7 text-destructive"
                         >
                           <Trash2 className="h-3 w-3" />
-                          <span className="sr-only">Delete section</span>
+                          <span className="sr-only">Smazat sekci</span>
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent>Delete section</TooltipContent>
+                      <TooltipContent>Smazat sekci</TooltipContent>
                     </Tooltip>
                   </div>
                 </Card>
@@ -223,15 +232,16 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
                   width={512}
                   height={512}
                   className="w-36"
+                  priority
                 />
-                <p>No Streams</p>
+                <p>Žádné streamy</p>
               </div>
             </div>
           )}
         </div>
       ) : (
         <div className="">
-          <p>Select the Class to see the Details</p>
+          <p>Chcete-li zobrazit podrobnosti, vyberte třídu</p>
         </div>
       )}
     </div>

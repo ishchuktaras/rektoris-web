@@ -5,10 +5,11 @@ import DataTable from "@/components/dashboard/DataTableComponents/DataTable";
 
 import { getAllStudents } from "@/actions/students";
 import TableHeader from "@/components/dashboard/Tables/TableHeader";
+import { getServerSchool } from "@/actions/auth";
 
- 
 export default async function page() {
-  const students = (await getAllStudents()) || [];
+  const school = await getServerSchool();
+  const students = (await getAllStudents(school?.id ?? "")) || [];
   return (
     <div className="p-8">
       <TableHeader
@@ -24,4 +25,3 @@ export default async function page() {
     </div>
   );
 }
-

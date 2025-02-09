@@ -7,7 +7,6 @@ import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import CustomCarousel from "../custom-carousel";
 import Logo from "@/components/logo";
-import PasswordInput from "@/components/FormInputs/PasswordInput";
 import { Mail, Lock, LogIn } from "lucide-react";
 import { loginUser } from "@/actions/auth";
 import { useUserSession } from "@/store/auth";
@@ -25,7 +24,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<loginInputProps>();
   const { setUser } = useUserSession();

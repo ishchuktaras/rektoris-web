@@ -50,7 +50,7 @@ return (
             href={forgotPasswordLink}
             className="font-medium text-purple-600 hover:text-purple-500"
           >
-            Forgot password?
+            Zapomněli jste heslo?
           </Link>
         </div>
       )}
