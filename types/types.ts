@@ -232,6 +232,8 @@ export type TeacherCreateProps = {
   imageUrl: string;
   createdAt: string;
   updatedAt: string;
+  schoolId: string;
+  schoolName: string;
 };
 
 export type Teacher = {

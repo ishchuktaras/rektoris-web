@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { TeacherCreateProps } from "@/types/types";
 import { createTeacher } from "@/actions/teachers";
 import { generateRollNumber } from "@/lib/generateRollNo";
+import { useSchoolStore } from "@/store/school";
 
 type TeacherFormProps = {
   editingId?: string | undefined;
@@ -117,7 +118,9 @@ export default function TeacherForm({
   const [selectedSubjects, setSelectedSubjects] = useState<any>([subjects[0]]);
   // console.log(selectedSubjects);
 
-  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(subjects[0]);
+  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(
+    subjects[0]
+  );
 
   const [selectedClasses, setSelectedClasses] = useState<any>([classes[3]]);
 
@@ -168,10 +171,12 @@ export default function TeacherForm({
   const initialImage =
     initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
-
+  const { school } = useSchoolStore();
   async function saveTeacher(data: TeacherCreateProps) {
     try {
-      setLoading(true);
+      data.schoolId = school?.id || "";
+      data.schoolName = school?.name || "";
+      setLoading(true);      
       data.employeeId = generateRollNumber();
       data.imageUrl = imageUrl;
       data.title = selectedTitle.value;
@@ -190,7 +195,7 @@ export default function TeacherForm({
       data.whatsappNumber = data.whatsappNumber?.trim();
       data.email = data.email?.toLowerCase().trim();
       data.qualification = selectedQualifications.value;
-console.log(data);
+      console.log(data);
       if (editingId) {
         // await updateTeacher(editingId, data);
         // setLoading(false);

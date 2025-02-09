@@ -28,7 +28,7 @@ export async function createStudent(data: StudentProps) {
       if (error.response?.status === 409) {
         throw new Error(error.response.data.error);
       }
-      const message = error.response?.data?.error || "Failed to create Student";
+      const message = error.response?.data?.error || "Nepodařilo se vytvořit studenta";
       throw new Error(message);
     }
     throw error;
