@@ -87,7 +87,7 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
           <>
             <div className="px-4 py-2">
               <Input
-                placeholder="Search classes..."
+                placeholder="Hledat třídy..."
                 className="h-9"
                 type="search"
               />

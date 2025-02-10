@@ -23,11 +23,18 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  ArrowDownRight,
   ArrowRight,
+  ArrowUpRight,
+  BookOpen,
   DollarSign,
+  GraduationCap,
   LayoutDashboard,
   Package,
   ShoppingCart,
+  TrendingUp,
+  Users,
+  UsersRound,
 } from "lucide-react";
 import { Analytics } from "@/actions/analytics";
 
@@ -98,35 +105,78 @@ export default function DashboardDetails({
 }: {
   analytics: Analytics[];
 }) {
+  const getIcon = (title: string) => {
+    switch (title.toLowerCase()) {
+      case "students":
+        return <GraduationCap className="h-5 w-5 text-blue-600" />;
+      case "teachers":
+        return <Users className="h-5 w-5 text-green-600" />;
+      case "parents":
+        return <UsersRound className="h-5 w-5 text-purple-600" />;
+      case "classes":
+        return <BookOpen className="h-5 w-5 text-orange-600" />;
+      default:
+        return <Users className="h-5 w-5 text-gray-600" />;
+    }
+  };
+
+  const getCardBgColor = (title: string) => {
+    switch (title.toLowerCase()) {
+      case "students":
+        return "bg-blue-50";
+      case "teachers":
+        return "bg-green-50";
+      case "parents":
+        return "bg-purple-50";
+      case "classes":
+        return "bg-orange-50";
+      default:
+        return "bg-gray-50";
+    }
+  };
+
   return (
     <div className="space-y-6">
       {analytics.length > 0 && (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {analytics.map((item, i) => {
-            return (
-              <Card key={i}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    {item.title}
-                  </CardTitle>
-                  <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    {item.count.toLocaleString()}
+          {analytics.map((item, i) => (
+            <Card 
+              key={i}
+              className="hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  {item.title}
+                </CardTitle>
+                <div className={`p-2 rounded-full ${getCardBgColor(item.title)}`}>
+                  {getIcon(item.title)}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold">
+                      {item.count.toLocaleString()}
+                    </div>
                   </div>
-                  <Button
-                    variant="link"
-                    className="px-0 text-xs text-muted-foreground"
-                  >
-                    View Details
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
+                  <div className="flex justify-between items-center">
+                    <Button
+                      variant="ghost"
+                      className="text-xs hover:bg-gray-100 transition-colors px-4 py-2 h-8"
+                    >
+                      View Details
+                    </Button>
+                    <span className="text-xs text-muted-foreground">
+                    Celkový počet {item.title.toLowerCase()}
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       )}
+    
 
       {/* <div className="grid gap-4 md:grid-cols-2">
         <Card>
