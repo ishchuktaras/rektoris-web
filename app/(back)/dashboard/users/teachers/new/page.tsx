@@ -7,22 +7,30 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default async function AdmissionTabs() {
   const school = await getServerSchool();
-  const classesData = (await getBriefClasses(school?.id ?? "").catch(() => [])) || [];
-  const subjectsData = (await getBriefSubjects(school?.id ?? "").catch(() => [])) || [];
+
+  const classesData = await getBriefClasses(school?.id ?? "") ||[];
+
+  const subjectsData =
+    (await getBriefSubjects(school?.id ?? "").catch(() => [])) || [];
+ 
   const departmentsData =
     (await getBriefDepartments(school?.id ?? "").catch(() => [])) || [];
+ 
 
-  const classes = classesData.map((item) => ({
+  console.log("Classes before map:", classesData);
+  console.log("Subjects before map:", subjectsData);
+  console.log("Departments before map:", departmentsData);
+  const classes = (classesData || []).filter(Boolean).map((item) => ({
     value: item?.id || "",
     label: item?.title || "Nejmenovaná třída",
   }));
 
-  const subjects = subjectsData.map((item) => ({
+  const subjects = (subjectsData || []).filter(Boolean).map((item) => ({
     value: item?.id || "",
     label: item?.name || "Nejmenovaný předmět",
   }));
 
-  const departments = departmentsData.map((item) => ({
+  const departments = (departmentsData || []).filter(Boolean).map((item) => ({
     value: item?.id || "",
     label: item?.name || "Nejmenované oddělení",
   }));

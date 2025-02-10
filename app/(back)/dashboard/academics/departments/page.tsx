@@ -5,27 +5,17 @@ import React from "react";
 
 export default async function page() {
   const school = await getServerSchool();
-  const departments =
-    ((await getAllDepartments(school?.id??"")) ?? []).map((department) => ({
+  const departments = 
+    (await getAllDepartments(school?.id ?? ""))?.map(department => ({
       ...department,
-      createdAt: new Date(department.createdAt),
-      hodStartDate: department.hodStartDate
-        ? new Date(department.hodStartDate)
-        : undefined,
-      teachers: department.teachers.map((teacher) => ({
+      teachers: department.teachers.map(teacher => ({
         ...teacher,
-        name:
-          "name" in teacher && typeof teacher.name === "string"
-            ? teacher.name
-            : "Unknown",
+        name: (teacher as { name?: string }).name || "Unknown"
       })),
-      subjects: department.subjects.map((subject) => ({
+      subjects: department.subjects.map(subject => ({
         ...subject,
-        name:
-          "name" in subject && typeof subject.name === "string"
-            ? subject.name
-            : "Unknown",
-      })),
+        name: (subject as { name?: string }).name || "Unknown"
+      }))
     })) || [];
   return (
     <div>

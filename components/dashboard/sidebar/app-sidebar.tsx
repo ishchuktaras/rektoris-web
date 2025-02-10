@@ -1,5 +1,5 @@
 
-import React, { use } from "react";
+import React from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -48,7 +48,7 @@ export default function AppSidebar() {
       items: [
         {
           title: "Přehled",
-          url: "/dashboard/overview",
+          url: "/dashboard",
         },
       ],
     },
@@ -190,29 +190,29 @@ export default function AppSidebar() {
         },
       ],
     },
-    {
-      title: "Doprava",
-      url: "/transport",
-      icon: Bus,
-      items: [
-        {
-          title: "Trasy",
-          url: "/transport/routes",
-        },
-        {
-          title: "Sledování",
-          url: "/transport/tracking",
-        },
-        {
-          title: "Ovladače",
-          url: "/transport/drivers",
-        },
-        {
-          title: "Údržba",
-          url: "/transport/maintenance",
-        },
-      ],
-    },
+    // {
+    //   title: "Doprava",
+    //   url: "/transport",
+    //   icon: Bus,
+    //   items: [
+    //     {
+    //       title: "Trasy",
+    //       url: "/transport/routes",
+    //     },
+    //     {
+    //       title: "Sledování",
+    //       url: "/transport/tracking",
+    //     },
+    //     {
+    //       title: "Ovladače",
+    //       url: "/transport/drivers",
+    //     },
+    //     {
+    //       title: "Údržba",
+    //       url: "/transport/maintenance",
+    //     },
+    //   ],
+    // },
     {
       title: "Zdroje",
       url: "/resources",

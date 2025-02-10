@@ -35,21 +35,13 @@ export async function getAllDepartments(schoolId: string) {
   }
 }
 
-export async function getBriefDepartments(
-  schoolId: string
-): Promise<DepartmentBrief[]> {
+export async function getBriefDepartments(schoolId: string) {
   try {
     const response = await api.get(`/departments/brief/${schoolId}`);
-    return response.data || [];
+    const departments = response.data;
+    return departments as DepartmentBrief[];
   } catch (error) {
-    console.error("Failed to fetch brief departments:", error);
+    console.error("Nepodařilo se načíst breaf oddělení:", error);
     return [];
   }
 }
-
-// export async function deleteClass(id:string) {
-//   console.log("deleted",id);
-//   return {
-//     ok: true
-//   }
-// }

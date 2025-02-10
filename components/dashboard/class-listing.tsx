@@ -83,7 +83,7 @@ export default function ClassListing({ classes }: { classes: Class[] }) {
           </div>
           <ClassForm />
         </div>
-        {classes && classes.length > 0 ? (
+        {classes.length > 0 ? (
           <>
             <div className="px-4 py-2">
               <Input

@@ -6,8 +6,7 @@ import React from "react";
 
 export default async function page() {
   const school = await getServerSchool();
-  // console.log(school)
-  console.log(school);
+  console.log("School:", school);
   const classes = (await getAllClasses(school?.id??"")) || [];
   console.log("Získané třídy:", classes);
   return (

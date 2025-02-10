@@ -70,11 +70,11 @@ export default function DepartmentForm({
         <Dialog>
           <DialogTrigger asChild>
             {editingId ? (
-              <button title="Edit Class" className="text-purple-600">
+              <button title="Upravit oddělení" className="text-purple-600">
                 <Pencil className="w-4 h-4 " />
               </button>
             ) : (
-              <Button title="Vytvořit třídu" variant={"outline"} size="sm">
+              <Button title="Vytvořit oddělení" variant={"outline"} size="sm">
                 <Plus className="w-4 h-4 " />
               </Button>
             )}
@@ -82,7 +82,7 @@ export default function DepartmentForm({
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                {editingId ? "Edit Department" : "Přidat nové oddělení"}
+                {editingId ? "Upravit oddělení" : "Přidat nové oddělení"}
               </DialogTitle>
               {/* <DialogDescription>
                 Please Write your Comment here, with respect

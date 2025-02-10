@@ -40,10 +40,11 @@ export async function getAllClasses(schoolId: string) {
   }
 }
 
-export async function getBriefClasses(schoolId: string): Promise<ClassBrief[]> {
+export async function getBriefClasses(schoolId: string) {
   try {
     const response = await api.get(`/classes/brief/${schoolId}`);
-    return response.data || [];
+    const classes = response.data;
+    return classes as ClassBrief[];
   } catch (error) {
     console.error("Failed to fetch brief classes:", error);
     return [];

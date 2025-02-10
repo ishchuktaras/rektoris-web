@@ -11,9 +11,9 @@ import { getServerSchool } from "@/actions/auth";
 
 export default async function AdmissionTabs() {
   const school = await getServerSchool();
-  const classes = (await getAllClasses(school?.id??"")) || [];
-  const parents = (await getAllParents(school?.id??"")) || [];
-  const nextSequence = (await getStudentNextSequence(school?.id??"")) || 0;
+  const classes = (await getAllClasses(school?.id ?? "")) || [];
+  const parents = (await getAllParents(school?.id ?? "")) || [];
+  const nextSequence = (await getStudentNextSequence(school?.id ?? "")) || 0;
   return (
     <div className="w-full max-w-6xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Přijetí studenta</h1>

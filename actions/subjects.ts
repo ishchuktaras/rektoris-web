@@ -3,9 +3,8 @@
 import axios from "axios";
 import { SubjectCreateProps, Subject, SubjectBrief } from "@/types/types";
 import { revalidatePath } from "next/cache";
-import { response } from "express";
+
 import { api } from "@/lib/api";
-import { BASE_API_URL } from "@/lib/api";
 
 export async function createSubject(data: SubjectCreateProps) {
   try {
@@ -32,21 +31,13 @@ export async function getAllSubjects(schoolId: string) {
   }
 }
 
-export async function getBriefSubjects(
-  schoolId: string
-): Promise<SubjectBrief[]> {
+export async function getBriefSubjects(schoolId: string) {
   try {
     const response = await api.get(`/subjects/brief/${schoolId}`);
-    return response.data || [];
+    const subjects = response.data;
+    return subjects as SubjectBrief[];
   } catch (error) {
     console.error("Failed to fetch brief subjects:", error);
     return [];
   }
 }
-
-// export async function deleteClass(id:string) {
-//   console.log("deleted",id);
-//   return {
-//     ok: true
-//   }
-// }
