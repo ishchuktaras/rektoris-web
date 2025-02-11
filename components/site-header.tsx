@@ -270,7 +270,7 @@ export default function SiteHeader() {
                   className="w-full"
                   onClick={() => setOpen(false)}
                 >
-                  Přihlaste se
+                  <Link href={"/login"}>Přihlaste se</Link>
                 </Button>
                 <Button className="w-full" onClick={() => setOpen(false)}>
                   <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>

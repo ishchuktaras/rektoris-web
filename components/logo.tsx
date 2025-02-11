@@ -18,19 +18,19 @@ export default function Logo({
   if (variant === "light") {
     return (
       <Link href={"/"} className="flex items-center space-x-2">
-        <div className="bg-[#884DEE] rounded-full p-1 md:hidden">
+        {/* <div className="bg-[#884DEE] rounded-full p-1 md:hidden">
           <span className="text-white font-bold text-xl">
             <GraduationCap
               className={cn("w-6 h-6", size === "lg" && "w-10 h-10")}
             />
           </span>
-        </div>
+        </div> */}
         <Image
           alt={school?.name ?? "School Pro"}
           src={school?.logo ?? "/images/logo.png"}
-          width={500}
-          height={150}
-          className="w-44"
+          width={400}
+          height={120}
+          className="w-24"
         />
       </Link>
     );
