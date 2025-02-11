@@ -8,32 +8,32 @@ import { Card, CardContent } from "@/components/ui/card";
 export default async function AdmissionTabs() {
   const school = await getServerSchool();
 
-  const classesData = await getBriefClasses(school?.id ?? "") ||[];
+  const classesData = (await getBriefClasses(school?.id ?? "")) || [];
 
   const subjectsData =
     (await getBriefSubjects(school?.id ?? "").catch(() => [])) || [];
- 
+
   const departmentsData =
     (await getBriefDepartments(school?.id ?? "").catch(() => [])) || [];
- 
 
-  console.log("Classes before map:", classesData);
-  console.log("Subjects before map:", subjectsData);
-  console.log("Departments before map:", departmentsData);
-  const classes = (classesData || []).filter(Boolean).map((item) => ({
-    value: item?.id || "",
-    label: item?.title || "Nejmenovaná třída",
-  }));
-
-  const subjects = (subjectsData || []).filter(Boolean).map((item) => ({
-    value: item?.id || "",
-    label: item?.name || "Nejmenovaný předmět",
-  }));
-
-  const departments = (departmentsData || []).filter(Boolean).map((item) => ({
-    value: item?.id || "",
-    label: item?.name || "Nejmenované oddělení",
-  }));
+  const classes = classesData.map((item) => {
+    return {
+      label: item.title,
+      value: item.id,
+    };
+  });
+  const subjects = subjectsData.map((item) => {
+    return {
+      label: item.name,
+      value: item.id,
+    };
+  });
+  const departments = classesData.map((item) => {
+    return {
+      label: item.title,
+      value: item.id,
+    };
+  });
 
   return (
     <div className="w-full max-w-5xl mx-auto p-6">

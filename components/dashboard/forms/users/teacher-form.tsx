@@ -116,13 +116,11 @@ export default function TeacherForm({
   );
 
   const [selectedSubjects, setSelectedSubjects] = useState<any>([subjects[0]]);
-  // console.log(selectedSubjects);
+  console.log(selectedSubjects);
 
-  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(
-    subjects[0]
-  );
+  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(subjects[0]);
 
-  const [selectedClasses, setSelectedClasses] = useState<any>([classes[3]]);
+  const [selectedClasses, setSelectedClasses] = useState<any>([classes[0]]);
 
   // Genders
   const genders = [
@@ -176,7 +174,7 @@ export default function TeacherForm({
     try {
       data.schoolId = school?.id || "";
       data.schoolName = school?.name || "";
-      setLoading(true);      
+      setLoading(true);
       data.employeeId = generateRollNumber();
       data.imageUrl = imageUrl;
       data.title = selectedTitle.value;
@@ -213,13 +211,8 @@ export default function TeacherForm({
         router.push("/dashboard/users/teachers");
       }
     } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Vytvoření učitele se nezdařilo"
-      );
-    } finally {
       setLoading(false);
+      console.log(error);
     }
   }
 
@@ -348,29 +341,38 @@ export default function TeacherForm({
                 toolTipText="Přidat novou třídu"
               />
             </div>
-            <div className="grid lg:grid-cols-3  md:grid-cols-2 gap-3">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
               <FormSelectInput
                 label="Kvalifikace"
                 options={qualifications}
                 option={selectedQualifications}
                 setOption={setSelectedQualifications}
               />
-              <FormSelectInput
-                label="Hlavní předmět"
-                options={subjects}
-                option={selectedMainSubject}
-                setOption={setSelectedMainSubject}
-                href="/dashboard/academics/subjects"
-                toolTipText="Přidat nový předmět"
-              />
-              <FormMultipleSelectInput
-                label="Předměty"
-                options={subjects}
-                option={selectedSubjects}
-                setOption={setSelectedSubjects}
-                href="/dashboard/academics/subjects"
-                toolTipText="Přidat nový předmět"
-              />
+
+              {subjects && subjects.length > 0 ? (
+                <>
+                  <FormSelectInput
+                    label="Hlavní předmět"
+                    options={subjects}
+                    option={selectedMainSubject}
+                    setOption={setSelectedMainSubject}
+                    href="/dashboard/academics/subjects"
+                    toolTipText="Přidat nový předmět"
+                  />
+                  <FormMultipleSelectInput
+                    label="Předměty"
+                    options={subjects}
+                    option={selectedSubjects}
+                    setOption={setSelectedSubjects}
+                    href="/dashboard/academics/subjects"
+                    toolTipText="Přidat nový předmět"
+                  />
+                </>
+              ) : (
+                <div>
+                  <p>Nejsou k dispozici žádné předměty</p>
+                </div>
+              )}
             </div>
             <div className="grid md:grid-cols-2 gap-3">
               <div className="space-y-3">

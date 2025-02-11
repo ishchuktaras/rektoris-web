@@ -1,38 +1,38 @@
-"use server"
+"use server";
 
 import axios from "axios";
 import { Teacher, TeacherCreateProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
 import { api } from "@/lib/api";
 
-export async function createTeacher(data:TeacherCreateProps) {
+export async function createTeacher(data: TeacherCreateProps) {
   try {
-      const res = await api.post('/teachers', data);
-      revalidatePath("/dashboard/users/teachers");
-  return res.data;
+    const response = await api.post("/teachers", data);
+    revalidatePath("/dashboard/users/teachers");
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-       const message = error.response?.data?.message || "Nepodařilo vytvořit Učitele";
+      const message =
+        error.response?.data?.message || "Nepodařilo vytvořit Učitele";
       throw new Error(message);
     }
     throw error;
   }
 }
 
-export async function deleteTeacher(id:string) {
-  console.log("smazáno",id);
+export async function deleteTeacher(id: string) {
+  console.log("smazáno", id);
   return {
-    ok: true
-  }
+    ok: true,
+  };
 }
 
-export async function getAllTeachers(schoolId:string){
+export async function getAllTeachers(schoolId: string) {
   try {
     const response = await api.get(`/teachers/school/${schoolId}`);
     const teachers = response.data;
-  return teachers as Teacher[];
+    return teachers as Teacher[];
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
-
