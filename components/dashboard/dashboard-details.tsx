@@ -23,10 +23,9 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  ArrowDownRight,
   ArrowRight,
-  ArrowUpRight,
   BookOpen,
+  Building2,
   DollarSign,
   GraduationCap,
   LayoutDashboard,
@@ -36,7 +35,7 @@ import {
   Users,
   UsersRound,
 } from "lucide-react";
-import { Analytics } from "@/actions/analytics";
+import { Analytics as AnalyticsData } from "@/actions/analytics";
 
 const salesData = [
   { name: "Sun", value: 0 },
@@ -100,83 +99,80 @@ const recentOrders = [
   },
 ];
 
+interface AnalyticsItem {
+  title: string;
+  count: number;
+  trend?: number;
+}
+
 export default function DashboardDetails({
   analytics,
 }: {
-  analytics: Analytics[];
+  analytics: AnalyticsItem[];
 }) {
+  // Helper function to get the appropriate icon
   const getIcon = (title: string) => {
     switch (title.toLowerCase()) {
       case "students":
-        return <GraduationCap className="h-5 w-5 text-blue-600" />;
+        return <GraduationCap className="h-5 w-5 text-blue-500" />;
       case "teachers":
-        return <Users className="h-5 w-5 text-green-600" />;
+        return <Users className="h-5 w-5 text-green-500" />;
       case "parents":
-        return <UsersRound className="h-5 w-5 text-purple-600" />;
+        return <UsersRound className="h-5 w-5 text-purple-500" />;
       case "classes":
-        return <BookOpen className="h-5 w-5 text-orange-600" />;
+        return <BookOpen className="h-5 w-5 text-orange-500" />;
+      case "departments":
+        return <Building2 className="h-5 w-5 text-rose-500" />;
       default:
-        return <Users className="h-5 w-5 text-gray-600" />;
+        return null;
     }
   };
 
-  const getCardBgColor = (title: string) => {
-    switch (title.toLowerCase()) {
-      case "students":
-        return "bg-blue-50";
-      case "teachers":
-        return "bg-green-50";
-      case "parents":
-        return "bg-purple-50";
-      case "classes":
-        return "bg-orange-50";
-      default:
-        return "bg-gray-50";
-    }
+  // Helper function to get trend color
+  const getTrendColor = (trend: number = 0) => {
+    if (trend > 0) return "text-green-600";
+    if (trend < 0) return "text-red-600";
+    return "text-gray-600";
   };
 
   return (
-    <div className="space-y-6">
-      {analytics.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {analytics.map((item, i) => (
-            <Card 
-              key={i}
-              className="hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
-            >
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  {item.title}
-                </CardTitle>
-                <div className={`p-2 rounded-full ${getCardBgColor(item.title)}`}>
-                  {getIcon(item.title)}
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {analytics.map((item, i) => (
+        <Card
+          key={i}
+          className="transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
+        >
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-gray-600">
+              {item.title}
+            </CardTitle>
+            <div className="rounded-full p-2 bg-gray-50">
+              {getIcon(item.title)}
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-baseline justify-between">
+                <div className="text-2xl font-bold">
+                  {item.count.toLocaleString()}
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="text-3xl font-bold">
-                      {item.count.toLocaleString()}
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <Button
-                      variant="ghost"
-                      className="text-xs hover:bg-gray-100 transition-colors px-4 py-2 h-8"
-                    >
-                      View Details
-                    </Button>
-                    <span className="text-xs text-muted-foreground">
-                    Celkový počet {item.title.toLowerCase()}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
-    
+                {item.trend !== undefined && (
+                  <span className={`text-sm ${getTrendColor(item.trend)}`}>
+                    {item.trend > 0 ? "+" : ""}
+                    {item.trend}%
+                  </span>
+                )}
+              </div>
+              <Button
+                variant="ghost"
+                className="px-0 text-xs text-blue-600 hover:text-blue-700 hover:bg-transparent"
+              >
+                View Details →
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
 
       {/* <div className="grid gap-4 md:grid-cols-2">
         <Card>

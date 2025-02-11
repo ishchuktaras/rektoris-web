@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 export type Analytics = {
   title: string;
   count: number;
+  trend?: number;
 };
 
 export async function getAllAnalytics(schoolId: string) {

@@ -22,11 +22,12 @@ export default function WelcomeBanner({ userName, userRole, userSchool }: Welcom
           <User className="h-5 w-5" />
         </AvatarFallback>
       </Avatar>
-      <div className="space-y-0.5">
+      <div className="space-y-1">
         <h2 className="text-xl font-semibold tracking-tight">Vítejte zpět, {userName}!</h2>
         <p className="text-sm text-blue-100">
         {roleTranslations[userRole]} ve {userSchool}
         </p>
+        <p className="text-sm text-blue-100">Získejte přehled o všem, co se dnes děje ve vaší škole.</p>
       </div>
     </div>
   )
