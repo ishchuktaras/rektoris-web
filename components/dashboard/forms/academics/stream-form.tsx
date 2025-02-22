@@ -55,11 +55,11 @@ export default function StreamForm({
         // await updateFolderById(editingId, data);
         // setLoading(false);
 
-        toast.success("Updated Successfully!");
+        toast.success("Aktualizováno úspěšně!");
       } else {
         const res = await createStream(data);
         setLoading(false);
-        toast.success("Successfully Created!");
+        toast.success("Stream úspěšně vytvořen!");
         reset();
       }
     } catch (error) {

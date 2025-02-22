@@ -21,6 +21,7 @@ export type ClassCreateProps = {
   title: string;
   schoolId: string;
 };
+
 export type DepartmentCreateProps = {
   name: string;
   schoolId: string;
@@ -236,7 +237,7 @@ export type TeacherCreateProps = {
   schoolName: string;
 };
 
-export type Teacher = {
+export interface Teacher {
   id: string;
   createdAt: Date;
   updatedAt: Date;

@@ -28,9 +28,9 @@ export default function Logo({
         <Image
           alt={school?.name ?? "School Pro"}
           src={school?.logo ?? "/images/logo.png"}
-          width={400}
-          height={120}
-          className="w-24"
+          width={500}
+          height={150}
+          className={cn("w-28", size === "lg" && "w-40")}
         />
       </Link>
     );
@@ -47,7 +47,7 @@ export default function Logo({
           src={school?.logo ?? "/images/logo.png"}
           width={500}
           height={150}
-          className="w-44"
+          className={cn("w-28", size === "lg" && "w-40")}
         />
       </Link>
     );

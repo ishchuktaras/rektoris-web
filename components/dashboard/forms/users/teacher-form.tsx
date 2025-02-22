@@ -116,9 +116,11 @@ export default function TeacherForm({
   );
 
   const [selectedSubjects, setSelectedSubjects] = useState<any>([subjects[0]]);
-  console.log(selectedSubjects);
+  // console.log(selectedSubjects);
 
-  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(subjects[0]);
+  const [selectedMainSubject, setSelectedMainSubject] = useState<any>(
+    subjects[0]
+  );
 
   const [selectedClasses, setSelectedClasses] = useState<any>([classes[0]]);
 
@@ -131,10 +133,6 @@ export default function TeacherForm({
     {
       label: "Žena",
       value: "FEMALE",
-    },
-    {
-      label: "JINÉ",
-      value: "OTHER",
     },
   ];
 
@@ -192,7 +190,7 @@ export default function TeacherForm({
       data.phone = data.phone?.trim();
       data.whatsappNumber = data.whatsappNumber?.trim();
       data.email = data.email?.toLowerCase().trim();
-      data.qualification = selectedQualifications.value;
+      data.qualification = selectedQualifications.label;
       console.log(data);
       if (editingId) {
         // await updateTeacher(editingId, data);
@@ -348,31 +346,22 @@ export default function TeacherForm({
                 option={selectedQualifications}
                 setOption={setSelectedQualifications}
               />
-
-              {subjects && subjects.length > 0 ? (
-                <>
-                  <FormSelectInput
-                    label="Hlavní předmět"
-                    options={subjects}
-                    option={selectedMainSubject}
-                    setOption={setSelectedMainSubject}
-                    href="/dashboard/academics/subjects"
-                    toolTipText="Přidat nový předmět"
-                  />
-                  <FormMultipleSelectInput
-                    label="Předměty"
-                    options={subjects}
-                    option={selectedSubjects}
-                    setOption={setSelectedSubjects}
-                    href="/dashboard/academics/subjects"
-                    toolTipText="Přidat nový předmět"
-                  />
-                </>
-              ) : (
-                <div>
-                  <p>Nejsou k dispozici žádné předměty</p>
-                </div>
-              )}
+              <FormSelectInput
+                label="Hlavní předmět"
+                options={subjects}
+                option={selectedMainSubject}
+                setOption={setSelectedMainSubject}
+                href="/dashboard/academics/subjects"
+                toolTipText="Přidat nový předmět"
+              />
+              <FormMultipleSelectInput
+                label="Předměty"
+                options={subjects}
+                option={selectedSubjects}
+                setOption={setSelectedSubjects}
+                href="/dashboard/academics/subjects"
+                toolTipText="Přidat nový předmět"
+              />
             </div>
             <div className="grid md:grid-cols-2 gap-3">
               <div className="space-y-3">

@@ -28,9 +28,9 @@ export default async function AdmissionTabs() {
       value: item.id,
     };
   });
-  const departments = classesData.map((item) => {
+  const departments = departmentsData.map((item) => {
     return {
-      label: item.title,
+      label: item.name,
       value: item.id,
     };
   });

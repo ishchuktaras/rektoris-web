@@ -7,9 +7,9 @@ import { api } from "@/lib/api";
 
 export async function createTeacher(data: TeacherCreateProps) {
   try {
-    const response = await api.post("/teachers", data);
+    const res = await api.post("/teachers", data);
     revalidatePath("/dashboard/users/teachers");
-    return response.data;
+    return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const message =

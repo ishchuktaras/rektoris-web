@@ -51,12 +51,11 @@ export default function ClassForm({
       if (editingId) {
         // await updateFolderById(editingId, data);
         // setLoading(false);
-
-        toast.success("Updated Successfully!");
+        toast.success("Aktualizováno úspěšně!");
       } else {
         const res = await createClass(data);
         setLoading(false);
-        toast.success("Successfully Created!");
+        toast.success("Třída úspěšně vytvořena!");
         reset();
       }
     } catch (error) {

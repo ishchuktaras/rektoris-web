@@ -81,20 +81,20 @@ export const columns: ColumnDef<Teacher>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date Created",
+    header: "Datum vytvoření",
     cell: ({ row }) => <DateColumn row={row} accessorKey="createdAt" />,
   },
   {
     id: "actions",
-    header: "Actions",
+    header: "Akce",
     cell: ({ row }) => {
-      const parent = row.original;
+      const teacher = row.original;
       return (
         <ActionColumn
           row={row}
-          model="parent"
+          model="teacher"
           editEndpoint={`#`}
-          id={parent.id.toString()}
+          id={teacher.id.toString()}
         />
       );
     },
