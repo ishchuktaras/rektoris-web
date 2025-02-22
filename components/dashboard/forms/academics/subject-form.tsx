@@ -35,12 +35,10 @@ export type SubjectProps = {
 };
 
 export default function SubjectForm({
-  userId,
   initialContent,
   editingId,
   departments,
 }: {
-  userId?: string;
   initialContent?: SubjectProps;
   editingId?: string;
   departments: DepartmentOption[];
@@ -119,13 +117,9 @@ export default function SubjectForm({
       label: "PRAKTICKÝ",
       value: "PRACTICAL",
     },
-    {
-      label: "VOLITELNÝ",
-      value: "ELECTIVE",
-    },
   ];
 
-  const [selectedTypes, setSelectedTypes] = useState<any>(types[2]);
+  const [selectedTypes, setSelectedTypes] = useState<any>(types[0]);
 
   const optional = [
     {
@@ -184,8 +178,8 @@ export default function SubjectForm({
     data.departmentName = selectedDepartment.label;
     data.category = selectedCategory.value;
     data.type = selectedTypes.value;
-    data.passingMarks=Number(data.passingMarks);
-    data.totalMarks=Number(data.totalMarks);
+    data.passingMarks = Number(data.passingMarks);
+    data.totalMarks = Number(data.totalMarks);
     try {
       setLoading(true);
       if (editingId) {

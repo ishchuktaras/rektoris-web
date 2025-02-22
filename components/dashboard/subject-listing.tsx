@@ -41,6 +41,27 @@ export default function SubjectListing({
 }) {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [subjects, setSubjects] = useState<Subject[]>(initialSubjects);
+  // Translate category and type values
+const translateValue = (value: string): string => {
+  const translations: Record<string, string> = {
+    // Categories
+    CORE: "ZÁKLADNÍ",
+    ELECTIVE: "VOLITELNÝ",
+    ADDITIONAL: "DODATEČNÝ",
+    VOCATIONAL: "ODBORNÝ",
+    LANGUAGE: "JAZYK",
+    SCIENCE: "VĚDA",
+    ARTS: "UMĚNÍ",
+    COMMERCE: "OBCHOD",
+    EXTRA_CURRUCULAR: "MIMOŠKOLNÍ",
+    OTHER: "OSTATNÍ",
+    // Types
+    THEORY: "TEORIE",
+    PRACTICAL: "PRAKTICKÝ",
+  }
+
+  return translations[value] || value
+}
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2">
@@ -116,11 +137,11 @@ export default function SubjectListing({
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Kategorie:</span>
-                    <span>{selectedSubject.category}</span>
+                    <span>{translateValue(selectedSubject.category)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Typ:</span>
-                    <span>{selectedSubject.type}</span>
+                    <span>{translateValue(selectedSubject.type)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Oddělení:</span>
