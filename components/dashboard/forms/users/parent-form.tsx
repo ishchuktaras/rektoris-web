@@ -23,7 +23,6 @@ type SingleStudentFormProps = {
   editingId?: string | undefined;
   initialData?: any | undefined | null;
 };
-
 export type ParentProps = {
   title: string;
   firstName: string;
@@ -44,7 +43,6 @@ export type ParentProps = {
   schoolId: string;
   schoolName: string;
 };
-
 export default function ParentForm({
   editingId,
   initialData,
@@ -68,7 +66,6 @@ export default function ParentForm({
       value: "other",
     },
   ];
-
   const [selectedRelationship, setSelectedRelationship] = useState<any>(
     relationships[2]
   );
@@ -83,11 +80,9 @@ export default function ParentForm({
       value: "Mrs",
     },
   ];
-
   const [selectedTitle, setSelectedTitle] = useState<any>(titles[0]);
 
   // Contact Methods
-
   const contactMethods = [
     {
       label: "Telefon",
@@ -102,9 +97,7 @@ export default function ParentForm({
       value: "whatsapp",
     },
   ];
-
   const [selectedMethod, setSelectedMethod] = useState<any>(contactMethods[0]);
-
   // Genders
   const genders = [
     {
@@ -116,19 +109,14 @@ export default function ParentForm({
       value: "Female",
     },
   ];
-
   const [selectedGender, setlectedGender] = useState<any>(genders[0]);
-
   // Nationalities
-
   const initialCountryCode = "CZ";
   const initialCountry = europeanCountries.find(
     (item) => item.countryCode === initialCountryCode
   );
-
   const [selectedNationality, setSelectedNationality] =
     useState<any>(initialCountry);
-
   const {
     register,
     handleSubmit,
@@ -139,16 +127,12 @@ export default function ParentForm({
       firstName: "",
     },
   });
-
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const initialImage =
     initialData?.imageUrl || "/images/profile_placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
-
   const { school } = useSchoolStore();
-
   async function saveParent(data: ParentProps) {
     try {
       setLoading(true);
@@ -163,13 +147,11 @@ export default function ParentForm({
       const missingFields = requiredFields.filter(
         (field) => !data[field as keyof ParentProps]
       );
-
       if (missingFields.length > 0) {
         toast.error(`Chybí povinná pole: ${missingFields.join(", ")}`);
         setLoading(false);
         return;
       }
-
       setLoading(true);
       // Validate date format
       const dateOfBirth = new Date(data.dateOfBirth);
@@ -194,7 +176,6 @@ export default function ParentForm({
         whatsappNumber: data.whatsappNumber?.trim(),
         email: data.email?.toLowerCase().trim(),
       };
-
       await createParent(formattedData);
       toast.success("Rodič úspěšně vytvořen!");
       reset();

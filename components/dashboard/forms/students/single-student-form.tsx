@@ -199,7 +199,7 @@ export default function SingleStudentForm({
       id: "SS" as const,
     },
   ];
-  const {school} = useSchoolStore();
+  const { school } = useSchoolStore();
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
@@ -208,8 +208,13 @@ export default function SingleStudentForm({
         setLoading(false);
         return;
       }
+      if (!selectedStream) {
+        toast.error("Prosím, Vyberte Stream");
+        setLoading(false);
+        return;
+      }
       data.schoolId = school?.id ?? "";
-      data.schoolName=school?.name??"";
+      data.schoolName = school?.name ?? "";
       data.imageUrl = imageUrl;
       data.name = `${data.firstName} ${data.lastName}`;
       data.parentId = selectedParent.value;

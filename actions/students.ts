@@ -37,7 +37,7 @@ export async function createStudent(data: StudentProps) {
 }
 
 export async function deleteStudent(id: string) {
-  console.log("deleted", id);
+  console.log("smazáno", id);
   return {
     ok: true,
   };
