@@ -11,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { Edit, School, Trash2, AlertTriangle, AlertCircle } from "lucide-react";
 import DepartmentForm from "./forms/academics/department-form";
 
@@ -65,7 +64,7 @@ export default function DepartmentListing({
             <TableBody>
               {departments.length === 0 ? (
                 <TableRow>
-                  <TableCell className="text-muted-foreground">
+                  <TableCell className="text-muted-foreground p-4">
                     Žádné oddělení
                   </TableCell>
                 </TableRow>
@@ -120,7 +119,7 @@ export default function DepartmentListing({
                       </p>
                       <p>
                         <strong>Vytvořeno:</strong>{" "}
-                        {selectedDepartment.createdAt.toLocaleDateString()}
+                        {selectedDepartment.createdAt.toLocaleString()}
                       </p>
 
                       {/* HOD Details */}
@@ -172,7 +171,7 @@ export default function DepartmentListing({
                           {selectedDepartment.budget ? (
                             <div className="space-y-2">
                               <div>
-                                <span className="font-semibold">Amount: </span>
+                                <span className="font-semibold">Množství: </span>
                                 <span>
                                   ${selectedDepartment.budget.toLocaleString()}
                                 </span>

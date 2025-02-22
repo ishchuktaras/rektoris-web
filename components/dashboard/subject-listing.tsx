@@ -55,7 +55,8 @@ export default function SubjectListing({
             <SubjectForm departments={departments} />
           </div>
         </CardHeader>
-        <CardContent>
+        {subjects.length>0 ? (
+          <CardContent>
           <Table>
             <TableBody>
               {subjects.map((subject) => (
@@ -80,6 +81,11 @@ export default function SubjectListing({
             </TableBody>
           </Table>
         </CardContent>
+        ):(
+          <div className="p-4">
+            <h2>Žádné předměty</h2>
+          </div>
+        )}
       </Card>
 
       {/* Subject Details */}

@@ -26,7 +26,6 @@ export default function ClassForm({
   initialContent,
   editingId,
 }: {
-  userId?: string;
   initialContent?: string;
   editingId?: string;
 }) {
