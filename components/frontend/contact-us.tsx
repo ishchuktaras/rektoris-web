@@ -274,7 +274,7 @@ export const ContactUs: React.FC = () => {
                       <h3 className="font-semibold">Navštivte nás</h3>
                     </div>
                     <p className="ml-7">
-                      Nad Plovárnou 3767-8, 58601 Jihlava, Česká republika
+                      58601 Jihlava, Česká republika
                     </p>
                   </div>
                 </CardContent>
