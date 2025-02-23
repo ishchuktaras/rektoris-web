@@ -7,15 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default async function AdmissionTabs() {
   const school = await getServerSchool();
-
   const classesData = (await getBriefClasses(school?.id ?? "")) || [];
-
   const subjectsData =
     (await getBriefSubjects(school?.id ?? "").catch(() => [])) || [];
-
   const departmentsData =
     (await getBriefDepartments(school?.id ?? "").catch(() => [])) || [];
-
   const classes = classesData.map((item) => {
     return {
       label: item.title,

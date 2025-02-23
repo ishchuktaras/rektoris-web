@@ -64,7 +64,7 @@ export default function DepartmentListing({
             <TableBody>
               {departments.length === 0 ? (
                 <TableRow>
-                  <TableCell className="text-muted-foreground p-4">
+                  <TableCell className="text-lg text-muted-foreground p-4">
                     Žádné oddělení
                   </TableCell>
                 </TableRow>

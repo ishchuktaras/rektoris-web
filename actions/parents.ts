@@ -16,7 +16,9 @@ export async function createParent(data: ParentProps) {
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || "Vytvoření rodiče se nezdařilo");
+      throw new Error(
+        error.response?.data?.error || "Vytvoření rodiče se nezdařilo"
+      );
     }
     throw error;
   }
@@ -29,7 +31,7 @@ export async function deleteParent(id: string) {
   };
 }
 
-export async function getAllParents(schoolId:string) {
+export async function getAllParents(schoolId: string) {
   try {
     const response = await api.get(`/parents/school/${schoolId}`);
     const parents = response.data;

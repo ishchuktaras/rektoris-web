@@ -10,11 +10,11 @@ export default async function page() {
       ...department,
       teachers: department.teachers.map(teacher => ({
         ...teacher,
-        name: (teacher as { name?: string }).name || "Unknown"
+        name: (teacher as { name?: string }).name || "Neznámý"
       })),
       subjects: department.subjects.map(subject => ({
         ...subject,
-        name: (subject as { name?: string }).name || "Unknown"
+        name: (subject as { name?: string }).name || "Neznámý"
       }))
     })) || [];
   return (

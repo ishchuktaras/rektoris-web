@@ -1,41 +1,15 @@
 "use client";
 
 import React from "react";
-import {
-  Bar,
-  BarChart,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-} from "recharts";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ArrowRight,
   BookOpen,
   Building2,
-  DollarSign,
   GraduationCap,
-  LayoutDashboard,
-  Package,
-  ShoppingCart,
-  TrendingUp,
   Users,
   UsersRound,
 } from "lucide-react";
-import { Analytics as AnalyticsData } from "@/actions/analytics";
 
 const salesData = [
   { name: "Sun", value: 0 },
@@ -99,7 +73,7 @@ const recentOrders = [
   },
 ];
 
-interface AnalyticsItem {
+interface Analytics {
   title: string;
   count: number;
   trend?: number;
@@ -108,7 +82,7 @@ interface AnalyticsItem {
 export default function DashboardDetails({
   analytics,
 }: {
-  analytics: AnalyticsItem[];
+  analytics: Analytics[];
 }) {
   // Helper function to get the appropriate icon
   const getIcon = (title: string) => {
@@ -167,7 +141,7 @@ export default function DashboardDetails({
                 variant="ghost"
                 className="px-0 text-xs text-blue-600 hover:text-blue-700 hover:bg-transparent"
               >
-                View Details →
+                Zobrazit podrobnosti →
               </Button>
             </div>
           </CardContent>

@@ -13,8 +13,8 @@ export default async function page() {
   return (
     <div className="p-8">
       <TableHeader
-        title="Students"
-        linkTitle="Add Student"
+        title="Studenti"
+        linkTitle="Přidat studenta"
         href="/dashboard/students/new"
         data={students}
         model="student"

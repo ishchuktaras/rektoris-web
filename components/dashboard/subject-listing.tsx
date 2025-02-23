@@ -70,7 +70,7 @@ const translateValue = (value: string): string => {
         <CardHeader>
           <div className="pb-1 border-b flex items-center justify-between gap-1 px-1 py-1">
             <div className="flex items-center gap-2">
-              <Book className="h-6 w-6" />
+              <Book className="h-5 w-5" />
               <h2 className="text-xl font-semibold">Předměty</h2>
             </div>
             <SubjectForm departments={departments} />
@@ -103,7 +103,7 @@ const translateValue = (value: string): string => {
           </Table>
         </CardContent>
         ):(
-          <div className="p-4">
+          <div className="text-muted-foreground p-4">
             <h2>Žádné předměty</h2>
           </div>
         )}
