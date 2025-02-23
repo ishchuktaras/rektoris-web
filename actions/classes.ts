@@ -10,13 +10,19 @@ import {
 } from "@/types/types";
 import { api } from "@/lib/api";
 import { revalidatePath } from "next/cache";
-import { BASE_API_URL } from "@/lib/api";
 
 export async function createClass(data: ClassCreateProps) {
   try {
+    // Validate data before sending
+    if (!data.schoolId || !data.title) {
+      throw new Error("Chybí povinné údaje");
+    }
     const response = await api.post("/classes", data);
+    if (response.data.error) {
+      throw new Error(response.data.error);
+    }
     revalidatePath("/dashboard/academics/classes");
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const message =
@@ -73,9 +79,9 @@ export async function createStream(data: StreamCreateProps) {
   }
 }
 
-export async function getAllStreams() {
+export async function getAllStreams(schoolId: string) {
   try {
-    const response = await api.get("/streams");
+    const response = await api.get(`/streams/school/${schoolId}`);
     const streams = response.data;
     return streams as Stream[];
   } catch (error) {

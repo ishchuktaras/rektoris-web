@@ -6,9 +6,9 @@ import React from "react";
 
 export default async function page() {
   const school = await getServerSchool();
-  console.log("School:", school);
+  console.log(school);
   const classes = (await getAllClasses(school?.id??"")) || [];
-  console.log("Získané třídy:", classes);
+  // console.log("Získané třídy:", classes);
   return (
     <div>
       <ClassListing classes={classes} />

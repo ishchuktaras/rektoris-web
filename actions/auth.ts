@@ -71,8 +71,8 @@ export async function createServerSession(data: SessionData) {
 
     return { success: true };
   } catch (error) {
-    console.error("Session creation error", error);
-    return { success: false, error: "Invalid session data" };
+    console.error("Chyba při vytváření relace", error);
+    return { success: false, error: "Neplatná data relace" };
   }
 }
 
@@ -108,8 +108,8 @@ export async function logout() {
     cookieStore.delete("refreshToken");
     return { success: true };
   } catch (error) {
-    console.error("Logout error", error);
-    return { success: false, error: "Logout failed" };
+    console.error("Chyba při odhlášení", error);
+    return { success: false, error: "Odhlášení se nezdařilo" };
   }
 }
 
