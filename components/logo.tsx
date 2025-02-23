@@ -26,7 +26,7 @@ export default function Logo({
           </span>
         </div> */}
         <Image
-          alt={school?.name ?? "School Pro"}
+          alt={school?.name ?? "Rektor|IS"}
           src={school?.logo ?? "/images/logo.png"}
           width={500}
           height={150}
@@ -37,13 +37,13 @@ export default function Logo({
   } else {
     return (
       <Link href={"/"} className="flex items-center space-x-2">
-        <div className="bg-white rounded-full p-1 md:hidden">
+        {/* <div className="bg-white rounded-full p-1 md:hidden">
           <span className="text-[#884DEE] font-bold text-xl">
             <GraduationCap />
           </span>
-        </div>
+        </div> */}
         <Image
-          alt={school?.name ?? "School Pro"}
+          alt={school?.name ?? "Rektor|IS"}
           src={school?.logo ?? "/images/logo.png"}
           width={500}
           height={150}
