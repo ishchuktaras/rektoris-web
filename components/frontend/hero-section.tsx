@@ -18,7 +18,7 @@ export default function HeroSection() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Button size="lg" variant="outline" className="h-12 px-6">
-            Zobrazit vše moduly
+            <Link href={"/grid-features"}>Zobrazit vše moduly</Link>
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

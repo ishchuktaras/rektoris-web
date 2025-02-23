@@ -256,7 +256,7 @@ export default function SiteHeader() {
                 Ceny
               </Link>
               <Link
-                href="/how-it-works"
+                href="/help"
                 className="px-4 py-2 text-lg font-medium hover:bg-accent"
                 onClick={() => setOpen(false)}
               >
@@ -273,7 +273,7 @@ export default function SiteHeader() {
                   <Link href={"/login"}>Přihlaste se</Link>
                 </Button>
                 <Button className="w-full" onClick={() => setOpen(false)}>
-                  <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>
+                  <Link href={"/contact-us"}>Demo</Link>
                 </Button>
               </div>
             </div>
