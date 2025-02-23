@@ -124,7 +124,7 @@ export default function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="container flex flex-col items-center justify-center gap-4 py-6 text-center text-sm md:h-16 md:flex-row md:py-0">
           <div className="text-white/60">
-            Copyright@{new Date().getFullYear()} Všechna práva vyhrazena Škola Pro
+            Copyright@{new Date().getFullYear()} Všechna práva vyhrazena Rektor|IS
           </div>
         </div>
       </div>
