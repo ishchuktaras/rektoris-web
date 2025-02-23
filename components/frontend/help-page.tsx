@@ -8,9 +8,6 @@ import { Input } from '@/components/ui/input';
 const HelpPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
-  
-
-
 
   interface Article {
     id: number;

@@ -66,7 +66,7 @@ export default function Login() {
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
             <TextInput
-              label="E-mailová adresa"
+              label="e-mailová adresa"
               register={register}
               name="email"
               type="email"

@@ -30,7 +30,7 @@ export default function Logo({
           src={school?.logo ?? "/images/logo.png"}
           width={500}
           height={150}
-          className={cn("w-28", size === "lg" && "w-40")}
+          className={cn("w-32", size === "lg" && "w-40")}
         />
       </Link>
     );
@@ -47,7 +47,7 @@ export default function Logo({
           src={school?.logo ?? "/images/logo.png"}
           width={500}
           height={150}
-          className={cn("w-28", size === "lg" && "w-40")}
+          className={cn("w-32", size === "lg" && "w-40")}
         />
       </Link>
     );
