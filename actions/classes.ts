@@ -66,6 +66,11 @@ export async function deleteClass(id: string) {
 
 export async function createStream(data: StreamCreateProps) {
   try {
+
+     // Validate data before sending
+     if (!data.schoolId || !data.title) {
+      throw new Error("Chybí povinné údaje");
+    }
     const response = await api.post("/streams", data);
     revalidatePath("/dashboard/academics/classes");
     return response.data;
