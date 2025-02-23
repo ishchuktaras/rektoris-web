@@ -12,7 +12,7 @@ export default function page() {
         </div>
       <SectionHeader
         title=""
-        heading="Transformujte vaši školu s  systémem Škola Pro"
+        heading="Transformujte vaši školu s  systémem Rektor|IS"
         description="Objevte moderní řešení pro efektivní správu vaší vzdělávací instituce. Náš systém je navržen tak, aby vyhověl potřebám škol všech velikostí."
       />
       </div>

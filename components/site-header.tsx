@@ -190,7 +190,7 @@ export default function SiteHeader() {
             <Link href={"/login"}>Přihlaste se</Link>
           </Button>
           <Button>
-            <Link href={"/contact-us"}>Kontaktujte nás pro demo</Link>
+            <Link href={"/contact-us"}>Demo</Link>
           </Button>
         </div>
 

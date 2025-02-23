@@ -43,7 +43,7 @@ export function ErrorPageLayout({ statusCode, title, description, icon: Icon, sh
       </main>
       <footer className="py-6 text-center border-t">
         <p className="text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Všechna práva vyhrazena Škola Pro
+          © {new Date().getFullYear()} Všechna práva vyhrazena Rektor|IS
         </p>
       </footer>
     </div>

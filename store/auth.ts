@@ -29,7 +29,7 @@ export const useUserSession = create<userSessionStore>()(
           // Set user data in local store
           set({ user: userData });   
         } catch (error) {
-          console.error("Session creation error", error);
+          console.error("Chyba při vytváření relace", error);
           // Optionally handle error (e.g. show notification)
         }
       },
@@ -43,10 +43,10 @@ export const useUserSession = create<userSessionStore>()(
             // Reset user in local store
             set({ user: null });
           } else {
-            throw new Error("Logout failed");
+            throw new Error("Odhlášení se nezdařilo");
           }
         } catch (error) {
-          console.error("Session clear error", error);
+          console.error("Chyba vymazání relace", error);
           // Optionally handle error (e.g. show notification)
         }
       },

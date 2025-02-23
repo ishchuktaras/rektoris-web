@@ -68,33 +68,33 @@ const HelpPage = () => {
   const faqs: Faq[] = [
     {
       id: 'faq-1',
-      question: 'Co je Škola Pro?',
+      question: 'Co je Rektor|IS?',
       answer: 'Škola Pro je online systém pro správu školy, který vám umožní spravovat přijímací řízení, informace o studentech, rozvrhy a klasifikaci kdykoliv a odkudkoliv.'
     },
     {
       id: 'faq-2',
-      question: 'Jak Škola Pro podporuje náš vzdělávací systém?',
+      question: 'Jak Rektor|IS podporuje náš vzdělávací systém?',
       answer: 'Škola Pro podporuje různé typy vzdělávacích systémů. Kritéria hodnocení, úrovně tříd, rozvrhy a vysvědčení lze přizpůsobit během několika minut. Vše si můžete vyzkoušet během 30denního zkušebního období.'
     },
     {
       id: 'faq-3',
-      question: 'Jaký software potřebuji pro spuštění Škola Pro?',
+      question: 'Jaký software potřebuji pro spuštění Rektor|IS?',
       answer: 'Potřebujete pouze webový prohlížeč podporující HTML5, jako je Google Chrome, Mozilla Firefox nebo Microsoft Edge. Není nutná žádná dodatečná instalace.'
     },
     {
       id: 'faq-4',
-      question: 'Můžu nainstalovat Škola Pro na vlastní servery?',
+      question: 'Můžu nainstalovat Rektor|IS na vlastní servery?',
       answer: 'V současné době poskytujeme pouze online verzi našeho softwaru. Tímto způsobem můžeme garantovat dostupnost našich serverů, poskytovat podporu všem uživatelům a zajistit průběžné aktualizace efektivním způsobem.'
     },
     {
       id: 'faq-5',
       question: 'Jak mohu integrovat data naší školy?',
-      answer: 'Škola Pro poskytuje průvodce, který vám pomůže s importem vašich současných dat. Vaše soubory musí být ve formátu Microsoft Excel (.xls).'
+      answer: 'Rektor|IS poskytuje průvodce, který vám pomůže s importem vašich současných dat. Vaše soubory musí být ve formátu Microsoft Excel (.xls).'
     },
     {
       id: 'faq-6',
       question: 'Nabízíte technickou podporu?',
-      answer: 'Naše technická podpora vám pomůže s jakýmkoliv technickým problémem. Podpora je poskytována během týdne prostřednictvím e-mailu (podpora@skolapro.cz), telefonu i živého chatu během pracovních dnů. Tato služba je zcela zdarma.'
+      answer: 'Naše technická podpora vám pomůže s jakýmkoliv technickým problémem. Podpora je poskytována během týdne prostřednictvím e-mailu (podpora@rektoris.cz), telefonu i živého chatu během pracovních dnů. Tato služba je zcela zdarma.'
     },
     {
       id: 'faq-7',
@@ -137,7 +137,7 @@ const HelpPage = () => {
             {filteredArticles.map(article => {
               const IconComponent = article.icon;
               return (
-                <Card key={article.id} className="cursor-pointer group hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200">
+                <Card key={article.id} className="cursor-pointer group hover:shadow-xl transition-all duration-300 border-2 hover:border-skolablue-200">
                   <CardHeader>
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-blue-50 group-hover:bg-blue-100 transition-colors">
@@ -191,7 +191,7 @@ const HelpPage = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">podpora@skola.cz</p>
+                <p className="text-gray-600">podpora@rektoris.cz</p>
                 <p className="text-sm text-muted-foreground mt-2">Odpovíme do 24 hodin</p>
               </CardContent>
             </Card>

@@ -91,7 +91,7 @@ export const ContactUs: React.FC = () => {
       const res = await createContact(data);
       console.log(res);
       setLoading(false);
-      toast.success("Your request was succesfully Submitted!");
+      toast.success("Vaše žádost byla úspěšně odeslána!");
     } catch (error) {
       setLoading(false);
       console.log(error);

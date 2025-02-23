@@ -16,12 +16,12 @@ function generateUniqueSequence(): number {
   export function generateStudentRegNumber(options: RegNumberOptions): string {
     // Validate school code is exactly 2 uppercase letters
     if (!/^[A-Z]{2}$/.test(options.schoolCode)) {
-      throw new Error('School code must be exactly 2 uppercase letters');
+      throw new Error('Kód školy musí obsahovat přesně 2 velká písmena');
     }
   
     // Validate sponsorship type
     if (!['PS', 'SS'].includes(options.sponsorshipType)) {
-      throw new Error('Invalid sponsorship type. Must be either PS or SS');
+      throw new Error('Neplatný typ sponzorství. Musí být buď PS nebo SS');
     }
   
     const sequence = options.sequence || generateUniqueSequence();

@@ -1,25 +1,12 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import * as XLSX from "xlsx";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
-//import { ExcelCategoryProps, ProductProps, SelectOption } from "@/types/types";
-import {
-  Check,
-  CloudUpload,
-  Delete,
-  File,
-  ListFilter,
-  Loader2,
-  PlusCircle,
-  Search,
-  X,
-} from "lucide-react";
+import { Check, CloudUpload, Loader2, PlusCircle, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { RiFileExcel2Line } from "react-icons/ri";
-//import { SiMicrosoftexcel } from "react-icons/si";
-import Select from "react-tailwindcss-select";
 import {
   Options,
   SelectValue,
@@ -34,10 +21,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { formatBytes } from "@/lib/formatBytes";
 import { generateSlug } from "@/lib/generateSlug";
-
 import toast from "react-hot-toast";
 import exportDataToExcel from "@/lib/exportDataToExcel";
 
@@ -263,7 +248,6 @@ export default function TableHeader({
             variant="outline"
             className="h-8 gap-1"
           >
-            
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Export
             </span>
@@ -289,15 +273,15 @@ export default function TableHeader({
                   <DialogHeader>
                     <DialogTitle>Excel Upload</DialogTitle>
                     <DialogDescription className="text-xs">
-                      You can Bring all your Data from excel, Please Download
-                      the Sample file First to Make Sure you have Data Columns
-                      Named Correctly
+                      Všechna svá data můžete přenést z aplikace Excel, stáhněte
+                      si je ukázkový soubor Nejprve se ujistěte, že máte sloupce
+                      dat Pojmenováno správně
                     </DialogDescription>
                   </DialogHeader>
                   <div className="h-60 w-full rounded-md border flex items-center justify-center">
                     <Button disabled className="items-center">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Syncing Data Please wait ...
+                      Synchronizace dat Čekejte prosím...
                     </Button>
                   </div>
                   {!loading && (
@@ -308,7 +292,7 @@ export default function TableHeader({
                           variant={"outline"}
                           type="button"
                         >
-                          Stop Preview
+                          Zastavit náhled
                         </Button>
                       ) : (
                         <Button
@@ -316,11 +300,11 @@ export default function TableHeader({
                           variant={"outline"}
                           type="button"
                         >
-                          Preview
+                          Náhled
                         </Button>
                       )}
                       <Button onClick={saveData} type="button">
-                        Save Data
+                        Uložit data
                       </Button>
                     </DialogFooter>
                   )}
@@ -332,9 +316,9 @@ export default function TableHeader({
                       <DialogHeader>
                         <DialogTitle>Excel Upload</DialogTitle>
                         <DialogDescription className="text-xs">
-                          You can Bring all your Data from excel, Please
-                          Download the Sample file First to Make Sure you have
-                          Data Columns Required
+                          Můžete si přinést všechna svá data z excelu, prosím
+                          Nejprve si stáhněte ukázkový soubor, abyste se
+                          ujistili, že máte Sloupce dat jsou povinné
                         </DialogDescription>
                       </DialogHeader>
                       <div className="h-72 w-full rounded-md border flex items-center justify-center flex-col">
@@ -342,7 +326,7 @@ export default function TableHeader({
                           <Check />
                         </div>
                         <h2 className="text-xs pt-2 px-8 text-center">
-                          Data Synced Successfully. You can close the Window
+                          Data byla úspěšně synchronizována. Okno můžete zavřít
                         </h2>
                       </div>
 
@@ -363,9 +347,9 @@ export default function TableHeader({
                       <DialogHeader>
                         <DialogTitle>Excel Upload</DialogTitle>
                         <DialogDescription className="text-xs">
-                          You can Bring all your Data from excel, Please
-                          Download the Sample file First to Make Sure you have
-                          Data Columns Required
+                          Můžete si přinést všechna svá data z excelu, prosím
+                          Nejprve si stáhněte ukázkový soubor, abyste se
+                          ujistili, že máte Sloupce dat jsou povinné
                         </DialogDescription>
                       </DialogHeader>
                       {preview && jsonData ? (
@@ -378,7 +362,7 @@ export default function TableHeader({
                         <div className="grid gap-4 py-4">
                           <Button asChild variant="outline">
                             <Link href={excelDownload} download>
-                              Download {model} Sample Data
+                              Stáhnout {model} Ukázková data
                             </Link>
                           </Button>
 
@@ -392,15 +376,15 @@ export default function TableHeader({
 
                                 <p className="lg:mb-2 text-sm text-gray-500 dark:text-gray-400">
                                   <span className="font-semibold">
-                                    Click to upload
+                                    Kliknutím nahrajete
                                   </span>{" "}
                                   <span className="hidden lg:inline">
                                     {" "}
-                                    or drag and drop
+                                    nebo přetáhněte
                                   </span>
                                 </p>
                                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                                  Only Excel Files (.xlsx)
+                                  Pouze soubory Excel (.xlsx)
                                 </p>
                               </div>
                               <input
@@ -446,7 +430,7 @@ export default function TableHeader({
                             variant={"outline"}
                             type="button"
                           >
-                            Stop Preview
+                            Zastavit náhled
                           </Button>
                         ) : (
                           <Button
@@ -454,11 +438,11 @@ export default function TableHeader({
                             variant={"outline"}
                             type="button"
                           >
-                            Preview
+                            Náhled
                           </Button>
                         )}
                         <Button onClick={saveData} type="button">
-                          Save Data
+                        Uložit data
                         </Button>
                       </DialogFooter>
                     </DialogContent>
