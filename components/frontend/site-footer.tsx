@@ -48,7 +48,7 @@ export default function SiteFooter() {
           <div className="space-y-4">
             <h3 className="text-lg font-bold">Kontaktujte nás</h3>
             <div className="space-y-2 text-sm">
-              <p>support@skola-pro.com</p>
+              <p>support@rektoris.com</p>
               <p>+420 123 456 789</p>
               <p>Masarykovo Nám. 4321, 586 01 Jihlava 1.</p>
             </div>

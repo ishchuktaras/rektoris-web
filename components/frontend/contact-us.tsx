@@ -254,7 +254,7 @@ export const ContactUs: React.FC = () => {
                       <h3 className="font-semibold">Napište nám</h3>
                     </div>
                     <div className="space-y-1 ml-7">
-                      <p>skola-pro@com.cz</p>
+                      <p>rektoris@com.cz</p>
                     </div>
                   </div>
 
