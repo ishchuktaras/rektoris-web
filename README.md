@@ -1,6 +1,6 @@
-Škola pro
+Rektor|IS
 📚 O projektu
-Škola pro je komplexní systém pro správu školy, který umožňuje efektivní řízení vzdělávacího procesu. Tento systém je navržen tak, aby usnadnil každodenní administrativní úkoly, zlepšil komunikaci mezi učiteli, studenty a rodiči, a poskytl přehledné nástroje pro správu školní agendy.
+Rektor|IS je komplexní systém pro správu školy, který umožňuje efektivní řízení vzdělávacího procesu. Tento systém je navržen tak, aby usnadnil každodenní administrativní úkoly, zlepšil komunikaci mezi učiteli, studenty a rodiči, a poskytl přehledné nástroje pro správu školní agendy.
 
 ⭐ Hlavní funkce
 
@@ -60,7 +60,7 @@ Pravidelné bezpečnostní audity
 GDPR compliance
 
 
-# Škola Pro - Technická dokumentace
+# Rektor|IS - Technická dokumentace
 
 ## 1. Systémové požadavky
 
