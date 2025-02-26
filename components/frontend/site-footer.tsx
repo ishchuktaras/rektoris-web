@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
@@ -5,6 +7,7 @@ import Link from "next/link";
 import Logo from "../logo";
 
 export default function SiteFooter() {
+  const [open, setOpen] = React.useState(false);
   return (
     <footer className="w-full bg-[#884DEE] text-white">
       <div className="container px-4 py-16 md:px-6">
@@ -12,7 +15,10 @@ export default function SiteFooter() {
           <div className="space-y-4">
             <Logo variant="dark" />
             <p className="text-sm text-white/90">
-              Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči.
+              Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one
+              softwarem pro správu škol. Navrženo pro zvýšení efektivity a
+              zlepšení komunikace mezi administrátory, učiteli, studenty a
+              rodiči.
             </p>
             <div className="flex space-x-4">
               <Link
@@ -57,16 +63,20 @@ export default function SiteFooter() {
             <div className="space-y-4">
               <h3 className="text-lg font-bold">Odkazy</h3>
               <nav className="flex flex-col space-y-2 text-sm">
-                <Link className="hover:underline" href="#">
+                <Link className="hover:underline" href="/">
                   Home
                 </Link>
-                <Link className="hover:underline" href="#">
+                <Link className="hover:underline" href="/help">
                   Nejčastější dotazy
                 </Link>
-                <Link className="hover:underline" href="#">
+                <Link
+                  className="hover:underline"
+                  href="/pricing"
+                  onClick={() => setOpen(false)}
+                >
                   Ceny
                 </Link>
-                <Link className="hover:underline" href="#">
+                <Link className="hover:underline" href="/grid-features">
                   Moduly
                 </Link>
                 <Link className="hover:underline" href="/school-onboarding">
@@ -83,7 +93,7 @@ export default function SiteFooter() {
                 <Link className="hover:underline" href="#">
                   O nás
                 </Link>
-                <Link className="hover:underline" href="#">
+                <Link className="hover:underline" href="/contact-us">
                   Kontaktujte nás
                 </Link>
                 <Link className="hover:underline" href="#">
@@ -100,10 +110,7 @@ export default function SiteFooter() {
                 placeholder="Enter email.."
                 type="email"
               />
-              <Button
-                className="border border-white"
-                type="submit"
-              >
+              <Button className="border border-white" type="submit">
                 Přihlaste se k odběru
                 <svg
                   className="ml-2 h-4 w-4"
@@ -124,7 +131,8 @@ export default function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="container flex flex-col items-center justify-center gap-4 py-6 text-center text-sm md:h-16 md:flex-row md:py-0">
           <div className="text-white/60">
-            Copyright@{new Date().getFullYear()} Všechna práva vyhrazena Rektor|IS
+            Copyright@{new Date().getFullYear()} Všechna práva vyhrazena
+            Rektor|IS
           </div>
         </div>
       </div>

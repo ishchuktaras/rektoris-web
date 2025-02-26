@@ -118,7 +118,7 @@ export default function SiteHeader() {
                     <div className="flex items-center justify-between mb-4 pb-2 border-b">
                       <h4 className="text-lg font-medium">Moduly</h4>
                       <Link
-                        href="/features"
+                        href="/grid-features"
                         className="text-sm text-[#884DEE] hover:underline"
                       >
                         Zobrazit vše
@@ -152,13 +152,20 @@ export default function SiteHeader() {
                     <div className="mt-6 pt-4 border-t">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-medium mb-1">Get started</h4>
+                          <h4 className="font-medium mb-1">
+                            Transformujte vaši školu s systémem Rektor|IS
+                          </h4>
                           <p className="text-sm text-muted-foreground">
-                            Their food sources have decreased, and their numbers
+                            Objevte moderní řešení pro efektivní správu vaší
+                            vzdělávací instituce. Náš systém je navržen tak, aby
+                            vyhověl potřebám škol všech velikostí.
                           </p>
                         </div>
-                        <Button asChild variant="secondary">
-                          <Link href="/contact-us">Get started</Link>
+                        <Button
+                          className="w-24"
+                          onClick={() => setOpen(false)}
+                        >
+                          <Link href={"/contact-us"}>Demo</Link>
                         </Button>
                       </div>
                     </div>
@@ -189,7 +196,7 @@ export default function SiteHeader() {
           <Button asChild variant="ghost">
             <Link href={"/login"}>Přihlaste se</Link>
           </Button>
-          <Button>
+          <Button className="w-full" onClick={() => setOpen(false)}>
             <Link href={"/contact-us"}>Demo</Link>
           </Button>
         </div>
