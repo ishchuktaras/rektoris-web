@@ -13,7 +13,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Škola Pro - Komplexní řešení pro správu škol",
+  title: "Rektor|IS - Komplexní řešení pro správu škol",
   description:
     "Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči",
 };
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className}>
-        <meta name="apple-mobile-web-app-title" content="Škola Pro" />
+        <meta name="apple-mobile-web-app-title" content="Rektor|IS" />
         <Toaster position="top-center" reverseOrder={false} />
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {children}
