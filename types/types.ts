@@ -273,12 +273,12 @@ export interface Teacher {
   experience: number;
   bio?: string | null;
   skills?: string[] | null;
-};
+}
 
 export interface User {
   id: string;
   email: string;
-  role: "SUPER_ADMIN" | "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
+  role: UserRoles;
   name: string;
   phone: string | null;
   image?: string | null;
@@ -298,10 +298,18 @@ export type School = {
 export type UserCreateProps = {
   email: string;
   password: string;
-  role: "SUPER_ADMIN" | "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
+  role: UserRoles;
   name: string;
   phone?: string;
   image?: string;
   schoolId?: string;
   schoolName?: string;
 };
+
+export type UserRoles =
+  | "SUPER_ADMIN"
+  | "ADMIN"
+  | "TEACHER"
+  | "PARENT"
+  | "STUDENT"
+  | "SECRETARY"

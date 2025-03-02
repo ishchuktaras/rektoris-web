@@ -22,7 +22,6 @@ import {
 import {
   BarChart2,
   BookOpen,
-  Bus,
   ChevronRight,
   DollarSign,
   GraduationCap,
