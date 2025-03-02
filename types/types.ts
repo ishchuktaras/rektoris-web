@@ -37,6 +37,7 @@ export type SubjectCreateProps = {
   departmentName: string;
   passingMarks: number;
   totalMarks: number;
+  schoolId: string;
 };
 
 export type StreamCreateProps = {

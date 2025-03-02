@@ -18,6 +18,7 @@ import SelectInput from "@/components/FormInputs/FormSelectInput";
 import { SubjectCreateProps } from "@/types/types";
 import { createSubject } from "@/actions/subjects";
 import { DepartmentOption } from "../../subject-listing";
+import { useSchoolStore } from "@/store/school";
 
 export type SubjectProps = {
   name: string;
@@ -172,14 +173,16 @@ export default function SubjectForm({
   );
 
   const [loading, setLoading] = useState(false);
+  const { school } = useSchoolStore();
 
   async function saveSubject(data: SubjectCreateProps) {
+    data.schoolId = school?.id ?? "";
     data.departmentId = selectedDepartment.value;
     data.departmentName = selectedDepartment.label;
     data.category = selectedCategory.value;
     data.type = selectedTypes.value;
-    data.passingMarks = Number(data.passingMarks);
-    data.totalMarks = Number(data.totalMarks);
+    data.passingMarks = Number(data.passingMarks) || 0;
+    data.totalMarks = Number(data.totalMarks) || 0;
     try {
       setLoading(true);
       if (editingId) {
