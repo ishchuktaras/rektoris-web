@@ -6,6 +6,7 @@ errors: any;
 label: string;
 name: string;
 helperText?: string;
+placeholder?: string
 };
 export default function TextArea({
 register,
