@@ -138,7 +138,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2816%29.jpg-rfiLq2SELJAzhpGkd4inPST21igBx6.jpeg"
+                    src="/admin_dashboard.jpg"
                     alt="RektorIS Dashboard"
                     width={600}
                     height={400}
@@ -182,7 +182,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2815%29.jpg-kA0GLToLjECbZD0Br5ZIwtlQUmTXbx.jpeg"
+                    src="/student_form.jpg"
                     alt="RektorIS Student Management"
                     width={600}
                     height={400}
@@ -220,7 +220,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2811%29.jpg-CWqgKFJOtckTqQiypB8AwINHAm88kU.jpeg"
+                    src="/teacher_card.jpg"
                     alt="RektorIS Class Management"
                     width={600}
                     height={400}
