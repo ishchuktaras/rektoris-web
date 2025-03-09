@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,7 +13,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 import {
   Book,
   Calendar,
@@ -24,22 +24,29 @@ import {
   BookOpen,
   Shield,
   Menu,
-} from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-import Image from "next/image"
-import Logo from "../logo"
+} from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import Image from "next/image";
+import Logo from "../logo";
 
 const modules = [
   {
     title: "Evidence žáků",
     href: "/student-records",
-    description: "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
+    description:
+      "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
     icon: Book,
   },
   {
     title: "Rozvrh hodin",
     href: "/class-schedule",
-    description: "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
+    description:
+      "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
     icon: Calendar,
   },
   {
@@ -52,50 +59,59 @@ const modules = [
   {
     title: "Klasifikace a hodnocení",
     href: "/grading-system",
-    description: "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
+    description:
+      "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
     icon: GraduationCap,
   },
   {
     title: "Komunikační platforma",
     href: "/communication",
-    description: "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
+    description:
+      "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
     icon: MessageSquare,
   },
   {
     title: "Ekonomická agenda",
     href: "/financial-management",
-    description: "Správa školních poplatků, stipendií, rozpočtu a finančních transakcí školy.",
+    description:
+      "Správa školních poplatků, stipendií, rozpočtu a finančních transakcí školy.",
     icon: DollarSign,
   },
   {
     title: "Správa učebních materiálů",
     href: "/learning-resources",
-    description: "Centralizovaná evidence učebnic, studijních materiálů a knihovního fondu.",
+    description:
+      "Centralizovaná evidence učebnic, studijních materiálů a knihovního fondu.",
     icon: BookOpen,
   },
   {
     title: "Bezpečnost a přístupová práva",
     href: "/security-access",
-    description: "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
+    description:
+      "Komplexní bezpečnostní systém s řízením přístupových práv pro různé uživatelské role.",
     icon: Shield,
   },
-]
+];
 
 export function SiteHeaderClient() {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6 md:gap-10">
-         <Logo />
+          <Logo />
           <nav className="hidden md:flex gap-6">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>Domů</NavigationMenuLink>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Domů
+                    </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -109,7 +125,9 @@ export function SiteHeaderClient() {
                           key={module.title}
                           title={module.title}
                           href={module.href}
-                          icon={<module.icon className="h-5 w-5 text-[#884DEE]" />}
+                          icon={
+                            <module.icon className="h-5 w-5 text-[#884DEE]" />
+                          }
                         >
                           {module.description}
                         </ListItem>
@@ -118,18 +136,39 @@ export function SiteHeaderClient() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
+                  <Link href="/benefits" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Benefity
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <Link href="/pricing" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>Ceník</NavigationMenuLink>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Ceník
+                    </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>O nás</NavigationMenuLink>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      O nás
+                    </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/contact-us" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>Kontakt</NavigationMenuLink>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Kontakt
+                    </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -164,7 +203,7 @@ export function SiteHeaderClient() {
                     href="/"
                     className={cn(
                       "flex items-center gap-2 text-lg font-medium",
-                      pathname === "/" ? "text-[#884DEE]" : "text-foreground",
+                      pathname === "/" ? "text-[#884DEE]" : "text-foreground"
                     )}
                     onClick={() => setIsOpen(false)}
                   >
@@ -187,10 +226,24 @@ export function SiteHeaderClient() {
                     </div>
                   </div>
                   <Link
+                    href="/benefits"
+                    className={cn(
+                      "flex items-center gap-2 text-lg font-medium",
+                      pathname === "/benefits"
+                        ? "text-[#884DEE]"
+                        : "text-foreground"
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Benefity
+                  </Link>
+                  <Link
                     href="/pricing"
                     className={cn(
                       "flex items-center gap-2 text-lg font-medium",
-                      pathname === "/pricing" ? "text-[#884DEE]" : "text-foreground",
+                      pathname === "/pricing"
+                        ? "text-[#884DEE]"
+                        : "text-foreground"
                     )}
                     onClick={() => setIsOpen(false)}
                   >
@@ -200,7 +253,9 @@ export function SiteHeaderClient() {
                     href="/about"
                     className={cn(
                       "flex items-center gap-2 text-lg font-medium",
-                      pathname === "/about" ? "text-[#884DEE]" : "text-foreground",
+                      pathname === "/about"
+                        ? "text-[#884DEE]"
+                        : "text-foreground"
                     )}
                     onClick={() => setIsOpen(false)}
                   >
@@ -210,7 +265,9 @@ export function SiteHeaderClient() {
                     href="/contact-us"
                     className={cn(
                       "flex items-center gap-2 text-lg font-medium",
-                      pathname === "/contact" ? "text-[#884DEE]" : "text-foreground",
+                      pathname === "/contact"
+                        ? "text-[#884DEE]"
+                        : "text-foreground"
                     )}
                     onClick={() => setIsOpen(false)}
                   >
@@ -223,7 +280,10 @@ export function SiteHeaderClient() {
                       Přihlásit se
                     </Link>
                   </Button>
-                  <Button className="w-full bg-[#884DEE] hover:bg-[#7a45d4]" asChild>
+                  <Button
+                    className="w-full bg-[#884DEE] hover:bg-[#7a45d4]"
+                    asChild
+                  >
                     <Link href="/contact-us" onClick={() => setIsOpen(false)}>
                       Vyzkoušet zdarma
                     </Link>
@@ -235,7 +295,7 @@ export function SiteHeaderClient() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -249,7 +309,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className,
+            className
           )}
           {...props}
         >
@@ -257,11 +317,12 @@ const ListItem = React.forwardRef<
             {icon}
             <div className="text-sm font-medium leading-none">{title}</div>
           </div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
-
+  );
+});
+ListItem.displayName = "ListItem";
