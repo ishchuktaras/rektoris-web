@@ -96,9 +96,9 @@ export default function SiteFooter() {
                 <Link className="hover:underline" href="/contact-us">
                   Kontaktujte nás
                 </Link>
-                <Link className="hover:underline" href="#">
+                {/* <Link className="hover:underline" href="#">
                   Products
-                </Link>
+                </Link> */}
               </nav>
             </div>
           </div>

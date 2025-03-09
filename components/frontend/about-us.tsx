@@ -88,7 +88,7 @@ export default function AboutUs() {
               odpovídal potřebám moderních vzdělávacích institucí. Po důkladné
               analýze existujících řešení a konzultacích s řediteli škol,
               učiteli a administrativními pracovníky jsme identifikovali klíčové
-              problémy a začali vyvíjet platformu, která je řeší komplexn��m a
+              problémy a začali vyvíjet platformu, která je řeší komplexním a
               uživatelsky přívětivým způsobem.
             </p>
             <p className="text-gray-500 dark:text-gray-400">
