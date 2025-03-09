@@ -356,50 +356,124 @@ export default function Pricing() {
                   ))}
                 </div>
               ) : (
-                <div className="mt-8 overflow-x-auto -mx-4 sm:mx-0">
-                  <div className="min-w-[800px] px-4 sm:px-0">
-                    <table className="w-full border-collapse">
-                      <thead>
-                        <tr>
-                          <th className="text-left p-4 bg-gray-50">Funkce</th>
-                          {plans.map((plan) => (
-                            <th key={plan.id} className="p-4 text-center bg-gray-50">
-                              <div className="flex flex-col items-center">
-                                <span className="font-bold text-lg">{plan.name}</span>
-                                <span className="text-2xl font-bold mt-2">
-                                  {isAnnual ? plan.annualPrice : plan.monthlyPrice} Kč
-                                </span>
-                                <span className="text-sm text-gray-500">{!isAnnual && "/měsíc"}</span>
-                                {plan.popular && <Badge className="mt-2 bg-[#884DEE]">Nejoblíbenější</Badge>}
-                                <Button className="mt-4 w-full" variant={plan.popular ? "default" : "outline"} asChild>
-                                  <a href="/contact-us">Vybrat</a>
-                                </Button>
-                              </div>
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* Combine all features from all plans */}
-                        {Array.from(new Set(plans.flatMap((plan) => plan.features))).map((feature) => (
-                          <tr key={feature} className="border-b border-gray-200">
-                            <td className="p-4 flex items-center gap-2">
-                              {getFeatureIcon(feature)}
-                              <span>{feature}</span>
-                            </td>
+                <div className="mt-8">
+                  {/* Mobile-optimized table view */}
+                  <div className="block md:hidden">
+                    <div className="flex justify-end mb-2">
+                      <Button variant="outline" size="sm" className="rounded-full">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Filtrovat
+                      </Button>
+                    </div>
+
+                    <Tabs defaultValue={plans[0].id} className="w-full">
+                      <TabsList className="grid grid-cols-3 mb-4">
+                        {plans.map((plan) => (
+                          <TabsTrigger key={plan.id} value={plan.id} className="relative">
+                            {plan.name}
+                            {plan.popular && (
+                              <span className="absolute -top-2 right-0 w-2 h-2 bg-[#884DEE] rounded-full"></span>
+                            )}
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+
+                      {plans.map((plan) => (
+                        <TabsContent key={plan.id} value={plan.id} className="mt-0">
+                          <div className="text-center mb-6">
+                            <h3 className="text-xl font-bold">{plan.name}</h3>
+                            <div className="text-3xl font-bold mt-2">
+                              {isAnnual ? plan.annualPrice : plan.monthlyPrice} Kč
+                              <span className="text-sm font-normal text-gray-500 ml-1">{!isAnnual && "/měsíc"}</span>
+                            </div>
+                            {plan.popular && <Badge className="mt-2 bg-[#884DEE]">Nejoblíbenější</Badge>}
+                            <Button
+                              className="mt-4 w-full max-w-xs"
+                              variant={plan.popular ? "default" : "outline"}
+                              asChild
+                            >
+                              <a href="/contact-us">Vybrat</a>
+                            </Button>
+                          </div>
+
+                          <div className="space-y-1 mt-6">
+                            {Array.from(new Set(plans.flatMap((p) => p.features))).map((feature) => {
+                              const included = plan.features.some(
+                                (f) => f === feature || f.includes(feature.split(" ")[0]),
+                              )
+
+                              return (
+                                <div
+                                  key={feature}
+                                  className={`flex items-center p-3 border-b ${!included ? "opacity-50" : ""}`}
+                                >
+                                  <div className="mr-3">
+                                    {included ? (
+                                      <Check className="h-5 w-5 text-green-500" />
+                                    ) : (
+                                      <span className="text-gray-300">—</span>
+                                    )}
+                                  </div>
+                                  <span className="text-sm">{feature}</span>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </TabsContent>
+                      ))}
+                    </Tabs>
+                  </div>
+
+                  {/* Desktop table view - original table with scrolling */}
+                  <div className="hidden md:block overflow-x-auto -mx-4 sm:mx-0">
+                    <div className="min-w-[800px] px-4 sm:px-0">
+                      <table className="w-full border-collapse">
+                        <thead>
+                          <tr>
+                            <th className="text-left p-4 bg-gray-50">Funkce</th>
                             {plans.map((plan) => (
-                              <td key={`${plan.id}-${feature}`} className="p-4 text-center">
-                                {plan.features.some((f) => f === feature || f.includes(feature.split(" ")[0])) ? (
-                                  <Check className="mx-auto h-5 w-5 text-green-500" />
-                                ) : (
-                                  <span className="text-gray-300">—</span>
-                                )}
-                              </td>
+                              <th key={plan.id} className="p-4 text-center bg-gray-50">
+                                <div className="flex flex-col items-center">
+                                  <span className="font-bold text-lg">{plan.name}</span>
+                                  <span className="text-2xl font-bold mt-2">
+                                    {isAnnual ? plan.annualPrice : plan.monthlyPrice} Kč
+                                  </span>
+                                  <span className="text-sm text-gray-500">{!isAnnual && "/měsíc"}</span>
+                                  {plan.popular && <Badge className="mt-2 bg-[#884DEE]">Nejoblíbenější</Badge>}
+                                  <Button
+                                    className="mt-4 w-full"
+                                    variant={plan.popular ? "default" : "outline"}
+                                    asChild
+                                  >
+                                    <a href="/contact-us">Vybrat</a>
+                                  </Button>
+                                </div>
+                              </th>
                             ))}
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {/* Combine all features from all plans */}
+                          {Array.from(new Set(plans.flatMap((plan) => plan.features))).map((feature) => (
+                            <tr key={feature} className="border-b border-gray-200">
+                              <td className="p-4 flex items-center gap-2">
+                                {getFeatureIcon(feature)}
+                                <span>{feature}</span>
+                              </td>
+                              {plans.map((plan) => (
+                                <td key={`${plan.id}-${feature}`} className="p-4 text-center">
+                                  {plan.features.some((f) => f === feature || f.includes(feature.split(" ")[0])) ? (
+                                    <Check className="mx-auto h-5 w-5 text-green-500" />
+                                  ) : (
+                                    <span className="text-gray-300">—</span>
+                                  )}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               )}
