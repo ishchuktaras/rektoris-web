@@ -1,17 +1,18 @@
-"use client";
+"use client"
 
-import { Book, Calendar, GraduationCap, MessageSquare, CheckCircle } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
-import SectionHeader from "./section-header";
+import { Book, Calendar, GraduationCap, MessageSquare, CheckCircle } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Image from "next/image"
+import SectionHeader from "./section-header"
+import { useState, useEffect } from "react"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 const features = [
   {
     tab: "Žáci",
     icon: Book,
     title: "Evidence žáků",
-    description:
-      "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
+    description: "Komplexní správa osobních údajů, studijních výsledků a docházky všech studentů.",
     href: "/student-records",
     subFeatures: [
       "Osobní profily studentů",
@@ -29,8 +30,7 @@ const features = [
     tab: "Rozvrh",
     icon: Calendar,
     title: "Rozvrh hodin",
-    description:
-      "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
+    description: "Intuitivní vytváření a správa rozvrhů, přiřazování učeben a sledování harmonogramů výuky.",
     href: "/class-schedule",
     subFeatures: [
       "Tvorba týdenních rozvrhů",
@@ -48,8 +48,7 @@ const features = [
     tab: "Známky",
     icon: GraduationCap,
     title: "Klasifikace a hodnocení",
-    description:
-      "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
+    description: "Elektronický systém zadávání známek, generování vysvědčení a sledování prospěchu studentů.",
     href: "/grading-system",
     subFeatures: [
       "Elektronický systém známkování",
@@ -67,8 +66,7 @@ const features = [
     tab: "Komunikace",
     icon: MessageSquare,
     title: "Komunikační platforma",
-    description:
-      "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
+    description: "Propojení školy, rodičů a žáků prostřednictvím bezpečného komunikačního rozhraní.",
     href: "/communication",
     subFeatures: [
       "Zprávy mezi uživateli",
@@ -82,42 +80,76 @@ const features = [
     ],
     image: "/images/communication_portal.jpg",
   },
-];
+]
 
 export default function TabbedFeatures() {
+  const isMobile = useMediaQuery("(max-width: 768px)")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const tabItems = [
+    { value: "dashboard", label: "Dashboard" },
+    { value: "students", label: "Studenti" },
+    { value: "teachers", label: "Učitelé" },
+    { value: "classes", label: "Třídy" },
+    { value: "subjects", label: "Předměty" },
+    { value: "departments", label: "Oddělení" },
+  ]
+
   return (
     <section
       id="modules"
       className="relative w-full min-h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-300 to-white px-4"
     >
       <div className="container px-4 md:px-6">
-      <SectionHeader 
-            title="Moduly systému"
-            heading="Podívejte se do RektorIS"
-            headingHighlight="Prozkoumejte klíčové moduly našeho systému"
-            description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
-          />
+        <SectionHeader
+          title="Moduly systému"
+          heading="Podívejte se do RektorIS"
+          headingHighlight="Prozkoumejte klíčové moduly našeho systému"
+          description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
+        />
         <div className="mx-auto py-12">
           <Tabs defaultValue="dashboard" className="w-full">
-            <TabsList className="w-full max-w-3xl mx-auto grid grid-cols-3 md:grid-cols-6">
-              <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-              <TabsTrigger value="students">Studenti</TabsTrigger>
-              <TabsTrigger value="teachers">Učitelé</TabsTrigger>
-              <TabsTrigger value="classes">Třídy</TabsTrigger>
-              <TabsTrigger value="subjects">Předměty</TabsTrigger>
-              <TabsTrigger value="departments">Oddělení</TabsTrigger>
-            </TabsList>
-            <TabsContent
-              value="dashboard"
-              className="p-4 mt-6 border rounded-lg"
-            >
+            {mounted && (
+              <>
+                {isMobile ? (
+                  <div className="grid grid-cols-2 gap-1 max-w-md mx-auto mb-4">
+                    {tabItems.map((tab) => (
+                      <TabsList key={tab.value} className="h-auto p-0 bg-transparent">
+                        <TabsTrigger
+                          value={tab.value}
+                          className="w-full h-8 rounded-lg bg-white shadow-sm border border-gray-100 hover:bg-gray-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                        >
+                          {tab.label}
+                        </TabsTrigger>
+                      </TabsList>
+                    ))}
+                  </div>
+                ) : (
+                  <TabsList className="w-full max-w-3xl mx-auto flex justify-center mb-6 bg-white rounded-lg p-1 shadow-sm">
+                    {tabItems.map((tab) => (
+                      <TabsTrigger
+                        key={tab.value}
+                        value={tab.value}
+                        className="flex-1 py-3 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                      >
+                        {tab.label}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                )}
+              </>
+            )}
+            <TabsContent value="dashboard" className="p-6 mt-2 border rounded-lg bg-white shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
                   <h3 className="text-2xl font-bold">Přehledný dashboard</h3>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Začněte každý den s jasným přehledem o tom, co se děje ve
-                    vaší škole. Dashboard poskytuje na první pohled
-                    nejdůležitější metriky a informace.
+                    Začněte každý den s jasným přehledem o tom, co se děje ve vaší škole. Dashboard poskytuje na první
+                    pohled nejdůležitější metriky a informace.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2">
@@ -126,9 +158,7 @@ export default function TabbedFeatures() {
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
-                      <span>
-                        Přehledné statistiky studentů, učitelů, rodičů a tříd
-                      </span>
+                      <span>Přehledné statistiky studentů, učitelů, rodičů a tříd</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
@@ -136,7 +166,7 @@ export default function TabbedFeatures() {
                     </li>
                   </ul>
                 </div>
-                <div className="flex-1">
+                <div className="flex-2">
                   <Image
                     src="/admin_dashboard.jpg"
                     alt="RektorIS Dashboard"
@@ -147,36 +177,26 @@ export default function TabbedFeatures() {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent
-              value="students"
-              className="p-4 mt-6 border rounded-lg"
-            >
+            <TabsContent value="students" className="p-6 mt-2 border rounded-lg bg-white shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
                   <h3 className="text-2xl font-bold">Správa studentů</h3>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Kompletní databáze studentů s možností detailní správy
-                    osobních údajů, akademických výsledků a docházky.
+                    Kompletní databáze studentů s možností detailní správy osobních údajů, akademických výsledků a
+                    docházky.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
-                      <span>
-                        Detailní profily s fotografiemi a kontaktními údaji
-                      </span>
+                      <span>Detailní profily s fotografiemi a kontaktními údaji</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
-                      <span>
-                        Unikátní registrační čísla a sledování přijímacího
-                        procesu
-                      </span>
+                      <span>Unikátní registrační čísla a sledování přijímacího procesu</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
-                      <span>
-                        Přiřazení do tříd a streamů s možností filtrace
-                      </span>
+                      <span>Přiřazení do tříd a streamů s možností filtrace</span>
                     </li>
                   </ul>
                 </div>
@@ -191,15 +211,13 @@ export default function TabbedFeatures() {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="classes" className="p-4 mt-6 border rounded-lg">
+            <TabsContent value="classes" className="p-6 mt-2 border rounded-lg bg-white shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
-                  <h3 className="text-2xl font-bold">
-                    Organizace tříd a streamů
-                  </h3>
+                  <h3 className="text-2xl font-bold">Organizace tříd a streamů</h3>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Přehledná hierarchická struktura ročníků, tříd a streamů
-                    umožňuje efektivní organizaci vzdělávacího procesu.
+                    Přehledná hierarchická struktura ročníků, tříd a streamů umožňuje efektivní organizaci vzdělávacího
+                    procesu.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2">
@@ -208,9 +226,7 @@ export default function TabbedFeatures() {
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
-                      <span>
-                        Přiřazení třídních učitelů a sledování počtu studentů
-                      </span>
+                      <span>Přiřazení třídních učitelů a sledování počtu studentů</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
@@ -229,16 +245,12 @@ export default function TabbedFeatures() {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent
-              value="departments"
-              className="p-4 mt-6 border rounded-lg"
-            >
+            <TabsContent value="departments" className="p-6 mt-2 border rounded-lg bg-white shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
                   <h3 className="text-2xl font-bold">Správa oddělení</h3>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Organizační struktura školy rozdělená do přehledných
-                    oddělení s vlastní správou předmětů a učitelů.
+                    Organizační struktura školy rozdělená do přehledných oddělení s vlastní správou předmětů a učitelů.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2">
@@ -247,9 +259,7 @@ export default function TabbedFeatures() {
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
-                      <span>
-                        Specializované výukové plány pro každé oddělení
-                      </span>
+                      <span>Specializované výukové plány pro každé oddělení</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-primary" />
@@ -268,16 +278,12 @@ export default function TabbedFeatures() {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent
-              value="subjects"
-              className="p-4 mt-6 border rounded-lg"
-            >
+            <TabsContent value="subjects" className="p-6 mt-2 border rounded-lg bg-white shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
                   <h3 className="text-2xl font-bold">Správa předmětů</h3>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Detailní konfigurace předmětů včetně typu, kategorie,
-                    bodového systému a požadavků na výuku.
+                    Detailní konfigurace předmětů včetně typu, kategorie, bodového systému a požadavků na výuku.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2">
@@ -305,16 +311,13 @@ export default function TabbedFeatures() {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent
-              value="teachers"
-              className="p-4 mt-6 border rounded-lg"
-            >
+            <TabsContent value="teachers" className="p-6 mt-2 border rounded-lg bg-white shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
                   <h3 className="text-2xl font-bold">Správa učitelů</h3>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Komplexní evidence pedagogických pracovníků včetně
-                    kvalifikace, kontaktních údajů a přiřazení k předmětům.
+                    Komplexní evidence pedagogických pracovníků včetně kvalifikace, kontaktních údajů a přiřazení k
+                    předmětům.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2">
@@ -346,5 +349,6 @@ export default function TabbedFeatures() {
         </div>
       </div>
     </section>
-  );
+  )
 }
+
