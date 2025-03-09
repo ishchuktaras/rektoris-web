@@ -9,7 +9,8 @@ export default function HeroSection() {
       <div className="container max-w-6xl mx-auto text-center space-y-8">
         <SectionHeader
           title="Vítejte ve Rektor|IS"
-          heading="Komplexní řešení pro správu škol"
+          heading="Rektor|IS"
+          headingHighlight="Komplexní řešení pro správu škol"
           description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
         />
         <div className="flex flex-wrap items-center justify-center gap-4">

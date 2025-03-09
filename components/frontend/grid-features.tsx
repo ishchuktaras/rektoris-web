@@ -14,6 +14,7 @@ import {
   Shield,
   UserCheck,
   Users,
+  BarChart3,
 } from "lucide-react";
 
 const features = [
@@ -85,134 +86,75 @@ const features = [
 
 export default function GridFeatures() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
-      <div className="container max-w-6xl mx-auto px-4 md:px-6">
-        {/* Header */}
+    <section
+      id="features"
+      className="relative w-full min-h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-300 to-white px-4"
+    >
+      <div className="container px-4 md:px-6">
         <SectionHeader
-          title="Moduly"
-          heading="Komplexní řešení pro správu škol"
-          description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
+          title="Hlavní funkce"
+          heading="Naše funkce"
+          headingHighlight="Vše, co potřebujete pro správu školy"
+          description="Rektor|IS nabízí širokou škálu funkcí pro efektivní správu škol a vzdělávacích institucí. Od evidence studentů až po komunikační nástroje, vše na jednom místě."
         />
-        {/* Feature Cards */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[0].title}</CardTitle>
-              <p className="text-muted-foreground">{features[0].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[0].image}
-                width={600}
-                height={400}
-                alt={features[0].title}
-                className="rounded w-full"
-              />
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <GraduationCap className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-bold">Studentský management</h3>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
+                Komplexní evidence studentů s unikátními registračními čísly,
+                profily a přiřazením do tříd.
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[1].title}</CardTitle>
-              <p className="text-muted-foreground">{features[1].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[1].image}
-                width={600}
-                height={400}
-                alt={features[1].title}
-                className="rounded w-full"
-              />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <Users className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-bold">Personální management</h3>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
+                Správa učitelů včetně kvalifikace, zkušeností a přiřazení k
+                předmětům a třídám.
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[2].title}</CardTitle>
-              <p className="text-muted-foreground">{features[2].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[2].image}
-                width={600}
-                height={400}
-                alt={features[2].title}
-                className="rounded w-full"
-              />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <Book className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-bold">Správa předmětů</h3>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
+                Detailní konfigurace předmětů s bodovým systémem, teoretickou a
+                praktickou částí.
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[3].title}</CardTitle>
-              <p className="text-muted-foreground">{features[3].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[3].image}
-                width={600}
-                height={400}
-                alt={features[3].title}
-                className="rounded w-full"
-              />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <Calendar className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-bold">Třídní správa</h3>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
+                Hierarchická organizace ročníků, tříd a streamů s přiřazením
+                třídních učitelů.
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[4].title}</CardTitle>
-              <p className="text-muted-foreground">{features[4].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[4].image}
-                width={600}
-                height={400}
-                alt={features[4].title}
-                className="rounded w-full"
-              />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <BarChart3 className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-bold">Přehledný dashboard</h3>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
+                Centrální přehled s klíčovými metrikami a rychlým přístupem k
+                nejdůležitějším funkcím.
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[5].title}</CardTitle>
-              <p className="text-muted-foreground">{features[5].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[5].image}
-                width={600}
-                height={400}
-                alt={features[5].title}
-                className="rounded w-full"
-              />
-            </CardContent>
-          </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[6].title}</CardTitle>
-              <p className="text-muted-foreground">{features[6].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[6].image}
-                width={600}
-                height={400}
-                alt={features[6].title}
-                className="rounded w-full"
-              />
-            </CardContent>
-          </Card>
-          <Card className="border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>{features[7].title}</CardTitle>
-              <p className="text-muted-foreground">{features[7].description}</p>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={features[7].image}
-                width={600}
-                height={400}
-                alt={features[7].title}
-                className="rounded w-full"
-              />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <MessageSquare className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-bold">Komunikační nástroje</h3>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
+                Vícekanálová komunikace mezi školou, učiteli, studenty a rodiči.
+              </p>
             </CardContent>
           </Card>
         </div>

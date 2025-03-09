@@ -20,11 +20,12 @@ export default function AboutUs() {
     >
       <div className="max-w-6xl mx-auto p-6 space-y-12">
         {/* Header */}
-               <SectionHeader
-                 title="O nás"
-                 heading="Kdo stojí za RektorIS"
-                 description="Tým odborníků s vášní pro vzdělávání a technologie."
-               />
+        <SectionHeader
+          title="O nás"
+          heading="O nás"
+          headingHighlight="Kdo stojí za RektorIS"
+          description="Tým odborníků s vášní pro vzdělávání a technologie."
+        />
 
         <div className="grid gap-8 py-12 md:grid-cols-2">
           <div className="space-y-6">

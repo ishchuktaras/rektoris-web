@@ -1,11 +1,8 @@
 "use client";
 
-import { Book, Calendar, GraduationCap, MessageSquare } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Book, Calendar, GraduationCap, MessageSquare, CheckCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Link from "next/link";
 import SectionHeader from "./section-header";
 
 const features = [
@@ -89,76 +86,265 @@ const features = [
 
 export default function TabbedFeatures() {
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-16">
-      {/* Header */}
-      <div className="py-8">
-        <SectionHeader
-          title="Základní moduly"
-          heading="Komplexní řešení pro správu škol"
-          description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
-        />
+    <section
+      id="modules"
+      className="relative w-full min-h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-300 to-white px-4"
+    >
+      <div className="container px-4 md:px-6">
+      <SectionHeader 
+            title="Moduly systému"
+            heading="Podívejte se do RektorIS"
+            headingHighlight="Prozkoumejte klíčové moduly našeho systému"
+            description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
+          />
+        <div className="mx-auto py-12">
+          <Tabs defaultValue="dashboard" className="w-full">
+            <TabsList className="w-full max-w-3xl mx-auto grid grid-cols-3 md:grid-cols-6">
+              <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+              <TabsTrigger value="students">Studenti</TabsTrigger>
+              <TabsTrigger value="teachers">Učitelé</TabsTrigger>
+              <TabsTrigger value="classes">Třídy</TabsTrigger>
+              <TabsTrigger value="subjects">Předměty</TabsTrigger>
+              <TabsTrigger value="departments">Oddělení</TabsTrigger>
+            </TabsList>
+            <TabsContent
+              value="dashboard"
+              className="p-4 mt-6 border rounded-lg"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-2xl font-bold">Přehledný dashboard</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Začněte každý den s jasným přehledem o tom, co se děje ve
+                    vaší škole. Dashboard poskytuje na první pohled
+                    nejdůležitější metriky a informace.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Personalizované uvítání pro každého uživatele</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>
+                        Přehledné statistiky studentů, učitelů, rodičů a tříd
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Rychlý přístup k detailním informacím</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <Image
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2816%29.jpg-rfiLq2SELJAzhpGkd4inPST21igBx6.jpeg"
+                    alt="RektorIS Dashboard"
+                    width={600}
+                    height={400}
+                    className="rounded-xl shadow-lg border"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent
+              value="students"
+              className="p-4 mt-6 border rounded-lg"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-2xl font-bold">Správa studentů</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Kompletní databáze studentů s možností detailní správy
+                    osobních údajů, akademických výsledků a docházky.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>
+                        Detailní profily s fotografiemi a kontaktními údaji
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>
+                        Unikátní registrační čísla a sledování přijímacího
+                        procesu
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>
+                        Přiřazení do tříd a streamů s možností filtrace
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <Image
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2815%29.jpg-kA0GLToLjECbZD0Br5ZIwtlQUmTXbx.jpeg"
+                    alt="RektorIS Student Management"
+                    width={600}
+                    height={400}
+                    className="rounded-xl shadow-lg border"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="classes" className="p-4 mt-6 border rounded-lg">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-2xl font-bold">
+                    Organizace tříd a streamů
+                  </h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Přehledná hierarchická struktura ročníků, tříd a streamů
+                    umožňuje efektivní organizaci vzdělávacího procesu.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Intuitivní správa ročníků a tříd</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>
+                        Přiřazení třídních učitelů a sledování počtu studentů
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Flexibilní organizace streamů v rámci tříd</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <Image
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2811%29.jpg-CWqgKFJOtckTqQiypB8AwINHAm88kU.jpeg"
+                    alt="RektorIS Class Management"
+                    width={600}
+                    height={400}
+                    className="rounded-xl shadow-lg border"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent
+              value="departments"
+              className="p-4 mt-6 border rounded-lg"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-2xl font-bold">Správa oddělení</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Organizační struktura školy rozdělená do přehledných
+                    oddělení s vlastní správou předmětů a učitelů.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Přiřazení předmětů a učitelů k oddělením</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>
+                        Specializované výukové plány pro každé oddělení
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Přehledná struktura pro efektivní organizaci</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <Image
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2813%29.jpg-GEs5LaAD55zhrT6bSbl1v4NXbjMR5I.jpeg"
+                    alt="RektorIS Department Management"
+                    width={600}
+                    height={400}
+                    className="rounded-xl shadow-lg border"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent
+              value="subjects"
+              className="p-4 mt-6 border rounded-lg"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-2xl font-bold">Správa předmětů</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Detailní konfigurace předmětů včetně typu, kategorie,
+                    bodového systému a požadavků na výuku.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Komplexní nastavení s kódy a kategoriemi</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Definice teoretické a praktické části výuky</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Bodový systém pro hodnocení studentů</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <Image
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2812%29.jpg-3eA2UOELQbFIswj7adUNGH698BOrBD.jpeg"
+                    alt="RektorIS Subject Management"
+                    width={600}
+                    height={400}
+                    className="rounded-xl shadow-lg border"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent
+              value="teachers"
+              className="p-4 mt-6 border rounded-lg"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-2xl font-bold">Správa učitelů</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Komplexní evidence pedagogických pracovníků včetně
+                    kvalifikace, kontaktních údajů a přiřazení k předmětům.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Detailní profily s profesními informacemi</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Evidence kvalifikace a délky praxe</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span>Přiřazení k třídám, předmětům a oddělením</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <Image
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2819%29.jpg-TT7PbznWugy2B7ediLkhfe2AjIe6xM.jpeg"
+                    alt="RektorIS Teacher Management"
+                    width={600}
+                    height={400}
+                    className="rounded-xl shadow-lg border"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
-      <Tabs defaultValue={features[0].tab.toLowerCase()} className=" w-full space-y-8">
-        <TabsList className="grid w-full grid-cols-4" >
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <TabsTrigger
-                key={feature.tab}
-                value={feature.tab.toLowerCase()}
-                className="w-full data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center gap-2"
-              >
-                <Icon className="h-4 w-4" />
-                {feature.tab}
-              </TabsTrigger>
-            );
-          })}
-        </TabsList>
-        {features.map((feature) => (
-          <TabsContent
-            key={feature.tab}
-            value={feature.tab.toLowerCase()}
-            className="space-y-8"
-          >
-            <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-8">
-                <h2 className="text-3xl font-bold tracking-tight">
-                  {feature.title}
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  {feature.description}
-                </p>
-                <Card>
-                  <CardContent className="grid gap-4 p-6">
-                    {feature.subFeatures.map((subFeature, idx) => (
-                      <div key={idx} className="flex items-center gap-4">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                          {idx + 1}
-                        </div>
-                        <span>{subFeature}</span>
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-                <Button asChild>
-                  <Link href={feature.href}>
-                    Další informace o {feature.title}
-                  </Link>
-                </Button>
-              </div>
-              <div className="relative aspect-square overflow-auto rounded-xl bg-muted lg:aspect-square">
-                <Image
-                  src={feature.image}
-                  alt={`${feature.title} illustration`}
-                  className="object-cover"
-                  fill
-                  priority
-                />
-              </div>
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
-    </div>
+    </section>
   );
 }
