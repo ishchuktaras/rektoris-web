@@ -5,7 +5,12 @@ import React from "react";
 export default function page() {
   return (
     <div className="py-12">
-      <SectionHeader title="Sekce nápovědy" heading="Jak vám můžeme pomoci?" description="Najděte rychle odpovědi pomocí našich obsáhlých průvodců a často kladených otázek. Procházejte naši znalostní databázi nebo vyhledejte konkrétní témata a získejte podporu, kterou potřebujete." />
+      <SectionHeader
+        title="Potřebujete pomoc?"
+        heading="Nápověda"
+        headingHighlight="Potřebujete pomoc?"
+        description="Najděte odpovědi na vaše otázky v naší nápovědě. Pokud zde nenajdete odpověď na vaši otázku, neváhejte nás kontaktovat."
+      />
       <HelpPage />
     </div>
   );
