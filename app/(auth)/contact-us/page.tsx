@@ -8,13 +8,14 @@ export default function page() {
     <div className="py-14">
       <div className="py-6">
         <div className="flex items-center justify-center pb-8">
-          <Logo size="lg"/>
+          <Logo size="lg" />
         </div>
-      <SectionHeader
-        title=""
-        heading="Transformujte vaši školu s  systémem Rektor|IS"
-        description="Objevte moderní řešení pro efektivní správu vaší vzdělávací instituce. Náš systém je navržen tak, aby vyhověl potřebám škol všech velikostí."
-      />
+        <SectionHeader
+          title="Kontaktujte nás"
+          heading="Kontaktujte nás"
+          headingHighlight="Transformujte vaši školu s systémem Rektor|IS"
+          description="Zefektivněte provoz vaší vzdělávací instituce s naším all-in-one softwarem pro správu škol. Navrženo pro zvýšení efektivity a zlepšení komunikace mezi administrátory, učiteli, studenty a rodiči."
+        />
       </div>
       <ContactUs />
     </div>

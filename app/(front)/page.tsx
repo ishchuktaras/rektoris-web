@@ -13,7 +13,6 @@ export default function Home() {
     <main className="">
       <HeroSection />
       <LogoCloud />
-      {/* <DashboardPreview /> */}
       <GridFeatures />
       <TabbedFeatures />
       <Pricing />
