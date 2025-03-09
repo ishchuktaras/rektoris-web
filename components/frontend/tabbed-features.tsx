@@ -116,7 +116,7 @@ export default function TabbedFeatures() {
             {mounted && (
               <>
                 {isMobile ? (
-                  <div className="grid grid-cols-2 gap-1 max-w-md mx-auto mb-4">
+                  <div className="grid grid-cols-2 gap-1 max-w-md mx-auto mb-2">
                     {tabItems.map((tab) => (
                       <TabsList key={tab.value} className="h-auto p-0 bg-transparent">
                         <TabsTrigger
@@ -195,7 +195,7 @@ export default function TabbedFeatures() {
                       <span>Unikátní registrační čísla a sledování přijímacího procesu</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <CheckCircle className="h-5 w-5 text-primary" />u
                       <span>Přiřazení do tříd a streamů s možností filtrace</span>
                     </li>
                   </ul>
@@ -236,7 +236,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="/teacher_card.jpg"
+                    src="/class_page.jpg"
                     alt="RektorIS Class Management"
                     width={600}
                     height={400}
@@ -269,7 +269,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2813%29.jpg-GEs5LaAD55zhrT6bSbl1v4NXbjMR5I.jpeg"
+                    src="/department_list.jpg"
                     alt="RektorIS Department Management"
                     width={600}
                     height={400}
@@ -302,7 +302,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2812%29.jpg-3eA2UOELQbFIswj7adUNGH698BOrBD.jpeg"
+                    src="/subject_list.jpg"
                     alt="RektorIS Subject Management"
                     width={600}
                     height={400}
@@ -336,7 +336,7 @@ export default function TabbedFeatures() {
                 </div>
                 <div className="flex-1">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RektorIS%20-%20Komplexn%C3%AD%20%C5%99e%C5%A1en%C3%AD%20pro%20spr%C3%A1vu%20%C5%A1kol%2819%29.jpg-TT7PbznWugy2B7ediLkhfe2AjIe6xM.jpeg"
+                    src="/teacher_form.jpg"
                     alt="RektorIS Teacher Management"
                     width={600}
                     height={400}
