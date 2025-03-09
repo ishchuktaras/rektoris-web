@@ -1,5 +1,6 @@
 "use client";
 
+import AboutUs from "@/components/frontend/about-us";
 import GridFeatures from "@/components/frontend/grid-features";
 import HeroSection from "@/components/frontend/hero-section";
 import LogoCloud from "@/components/frontend/logo-cloud";
@@ -16,6 +17,7 @@ export default function Home() {
       <GridFeatures />
       <TabbedFeatures />
       <Pricing />
+      <AboutUs />
     </main>
   );
 }
