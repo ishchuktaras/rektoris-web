@@ -18,8 +18,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { User } from "@/types/types";
 import UserAvatar from "./UserAvatar";
+import { renderLogedInUserLinks } from "./PortalSidebar";
 
 export default function PortalHeader({ user }: { user: User }) {
+  const links = renderLogedInUserLinks (user.role);
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
       <Sheet>

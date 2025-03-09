@@ -1,16 +1,23 @@
-import Link from "next/link"
-import { AlertCircle, ArrowLeft, Lock } from "lucide-react"
+import Link from "next/link";
+import { AlertCircle, ArrowLeft, Lock } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface NotAuthorizedProps {
-  title?: string
-  description?: string
-  showBackButton?: boolean
-  showLoginButton?: boolean
-  backHref?: string
-  loginHref?: string
+  title?: string;
+  description?: string;
+  showBackButton?: boolean;
+  showLoginButton?: boolean;
+  backHref?: string;
+  loginHref?: string;
 }
 
 export default function NotAuthorized({
@@ -36,7 +43,8 @@ export default function NotAuthorized({
             <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500" />
             <div>
               <p>
-              Pokud se domníváte, že se jedná o chybu, kontaktujte svého administrátora nebo se zkuste přihlásit pomocí jiného účtu.
+                Pokud se domníváte, že se jedná o chybu, kontaktujte svého
+                administrátora nebo se zkuste přihlásit pomocí jiného účtu.
               </p>
             </div>
           </div>
@@ -52,12 +60,11 @@ export default function NotAuthorized({
           )}
           {showLoginButton && (
             <Button className="w-full sm:w-auto" asChild>
-              <Link href={loginHref}>Přihlaste se</Link>
+              <Link href="/login">Vraťte se na Dashboard</Link>
             </Button>
           )}
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }
-

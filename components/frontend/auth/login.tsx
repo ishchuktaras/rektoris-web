@@ -13,6 +13,7 @@ import { useUserSession } from "@/store/auth";
 import { School, User } from "@/types/types";
 import { getSchoolById } from "@/actions/schools";
 import { useSchoolStore } from "@/store/school";
+import PasswordInput from "@/components/FormInputs/PasswordInput";
 
 export type loginInputProps = {
   email: string;
@@ -35,8 +36,8 @@ export default function Login() {
       const sessionData = await loginUser(data);
       const role = sessionData?.user.role;
       // Fetch the School
-      const school = (await getSchoolById(sessionData?.user.schoolId));
-      console.log(school)
+      const school = await getSchoolById(sessionData?.user.schoolId);
+      console.log(school);
       setSchool(school as School);
       // Save the Data in Zustand
       setUser(sessionData?.user as User);
@@ -45,8 +46,10 @@ export default function Login() {
       setIsLoading(false);
       if (role === "SUPER_ADMIN") {
         router.push("/school-onboarding");
-      } else {
+      } else if (role === "ADMIN") {
         router.push("/dashboard");
+      } else {
+        router.push("/portal");
       }
     } catch (error) {
       setIsLoading(false);
@@ -75,7 +78,7 @@ export default function Login() {
               icon={Mail}
             />
 
-            <TextInput
+            {/* <TextInput
               label="Heslo"
               register={register}
               name="password"
@@ -83,6 +86,16 @@ export default function Login() {
               errors={errors}
               placeholder="******"
               icon={Lock}
+            /> */}
+
+            <PasswordInput
+              label="Heslo"
+              register={register}
+              name="password"
+              errors={errors}
+              placeholder="******"
+              icon={Lock}
+              forgotPasswordLink="/forgot-password"
             />
 
             <SubmitButton
