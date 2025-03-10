@@ -21,14 +21,14 @@ export default function Benefits() {
           />
 
           {/* Interactive Demo Component */}
-          <div className="mb-20">
+          <div className="mb-8">
             <InteractiveDemo />
           </div>
         </div>
       </section>
 
       {/* Animated Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-2">
             Klíčové funkce <span className="text-[#884DEE]">RektorIS</span>
@@ -42,14 +42,14 @@ export default function Benefits() {
       </section>
 
       {/* School Type Selector */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <SchoolTypeSelector />
         </div>
       </section>
 
       {/* ROI Calculator Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-2">
             Spočítejte si <span className="text-[#884DEE]">úspory</span>

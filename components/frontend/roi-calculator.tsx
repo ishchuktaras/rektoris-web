@@ -7,58 +7,65 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Calculator, Clock, DollarSign, Users, TrendingUp, FileText } from "lucide-react"
+import { Calculator, Clock, DollarSign, Users, TrendingUp, BookOpen } from "lucide-react"
 import { motion } from "framer-motion"
 
 export function ROICalculator() {
-  // Input state
+  // Basic school metrics
   const [students, setStudents] = useState(500)
   const [teachers, setTeachers] = useState(50)
   const [adminStaff, setAdminStaff] = useState(10)
-  const [paperworkHours, setPaperworkHours] = useState(20)
-  const [hourlyRate, setHourlyRate] = useState(250)
+
+  // Key management metrics
+  const [adminTime, setAdminTime] = useState(20) // Hours per month on admin tasks
+  const [hourlyRate, setHourlyRate] = useState(250) // Hourly cost in CZK
+  const [teacherFocus, setTeacherFocus] = useState(60) // % of time teachers can focus on teaching
 
   // Results state
-  const [monthlySavings, setMonthlySavings] = useState(0)
-  const [annualSavings, setAnnualSavings] = useState(0)
+  const [timeSavings, setTimeSavings] = useState(0)
+  const [costSavings, setCostSavings] = useState(0)
+  const [teachingImprovement, setTeachingImprovement] = useState(0)
   const [roi, setRoi] = useState(0)
-  const [paybackMonths, setPaybackMonths] = useState(0)
+
+  const [activeTab, setActiveTab] = useState("calculator")
 
   // Calculate results
   useEffect(() => {
     // Calculate time savings (hours per month)
     const totalStaff = teachers + adminStaff
-    const timeSavingsPerStaff = paperworkHours * 0.7 // Assume 70% reduction in paperwork time
-    const totalTimeSavings = totalStaff * timeSavingsPerStaff
+    const timeSaved = adminTime * 0.6 * totalStaff // 60% reduction in admin time
 
     // Calculate cost savings
-    const monthlyCostSavings = totalTimeSavings * hourlyRate
+    const monthlyCostSavings = timeSaved * hourlyRate
     const annualCostSavings = monthlyCostSavings * 10 // School year (10 months)
+
+    // Calculate teaching focus improvement
+    const potentialImprovement = 100 - teacherFocus // Room for improvement
+    const focusImprovement = potentialImprovement * 0.4 // 40% of potential improvement
 
     // Calculate ROI (based on typical annual cost of the system)
     const typicalAnnualCost = students <= 200 ? 29000 : students <= 500 ? 49000 : 79000
     const calculatedRoi = (annualCostSavings / typicalAnnualCost) * 100
 
-    // Calculate payback period in months
-    const paybackPeriod = typicalAnnualCost / monthlyCostSavings
-
-    setMonthlySavings(Math.round(monthlyCostSavings))
-    setAnnualSavings(Math.round(annualCostSavings))
+    setTimeSavings(Math.round(timeSaved))
+    setCostSavings(Math.round(annualCostSavings))
+    setTeachingImprovement(Math.round(focusImprovement))
     setRoi(Math.round(calculatedRoi))
-    setPaybackMonths(Math.round(paybackPeriod * 10) / 10) // Round to 1 decimal place
-  }, [students, teachers, adminStaff, paperworkHours, hourlyRate])
+  }, [students, teachers, adminStaff, adminTime, hourlyRate, teacherFocus])
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Calculator className="h-6 w-6 text-[#884DEE]" />
-          Kalkulačka návratnosti investice
+          Kalkulačka přínosů pro vedení školy
         </CardTitle>
-        <CardDescription>Vypočítejte, kolik času a peněz můžete ušetřit implementací systému RektorIS</CardDescription>
+        <CardDescription>
+          Zjistěte, jaké přínosy může mít systém RektorIS pro vaši školu z pohledu vedení
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="calculator" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="calculator">Kalkulačka</TabsTrigger>
             <TabsTrigger value="results">Výsledky</TabsTrigger>
@@ -66,6 +73,7 @@ export function ROICalculator() {
 
           <TabsContent value="calculator" className="space-y-6 pt-4">
             <div className="space-y-4">
+              {/* School Profile */}
               <div>
                 <div className="flex justify-between mb-2">
                   <Label htmlFor="students">Počet studentů: {students}</Label>
@@ -150,30 +158,31 @@ export function ROICalculator() {
                 </div>
               </div>
 
+              {/* Management Metrics */}
               <div>
                 <div className="flex justify-between mb-2">
-                  <Label htmlFor="paperworkHours">
-                    Průměrný počet hodin strávených administrativou (měsíčně na osobu): {paperworkHours}
+                  <Label htmlFor="adminTime">
+                    Průměrný čas strávený administrativou (hodin/měsíc/osoba): {adminTime}
                   </Label>
                   <span className="text-sm text-gray-500">(5-40)</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Clock className="h-5 w-5 text-gray-400" />
                   <Slider
-                    id="paperworkHours"
+                    id="adminTime"
                     min={5}
                     max={40}
                     step={1}
-                    value={[paperworkHours]}
-                    onValueChange={(value) => setPaperworkHours(value[0])}
+                    value={[adminTime]}
+                    onValueChange={(value) => setAdminTime(value[0])}
                     className="flex-1"
                   />
                   <Input
                     type="number"
-                    value={paperworkHours}
+                    value={adminTime}
                     onChange={(e) => {
                       const value = Number.parseInt(e.target.value)
-                      if (value >= 5 && value <= 40) setPaperworkHours(value)
+                      if (value >= 5 && value <= 40) setAdminTime(value)
                     }}
                     className="w-20"
                   />
@@ -207,9 +216,39 @@ export function ROICalculator() {
                   />
                 </div>
               </div>
+
+              <div>
+                <div className="flex justify-between mb-2">
+                  <Label htmlFor="teacherFocus">Současný podíl času učitelů věnovaný výuce (%): {teacherFocus}</Label>
+                  <span className="text-sm text-gray-500">(40-90%)</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <BookOpen className="h-5 w-5 text-gray-400" />
+                  <Slider
+                    id="teacherFocus"
+                    min={40}
+                    max={90}
+                    step={5}
+                    value={[teacherFocus]}
+                    onValueChange={(value) => setTeacherFocus(value[0])}
+                    className="flex-1"
+                  />
+                  <Input
+                    type="number"
+                    value={teacherFocus}
+                    onChange={(e) => {
+                      const value = Number.parseInt(e.target.value)
+                      if (value >= 40 && value <= 90) setTeacherFocus(value)
+                    }}
+                    className="w-20"
+                  />
+                </div>
+              </div>
             </div>
 
-            <Button className="w-full bg-[#884DEE] hover:bg-[#7a45d4]">Vypočítat úspory</Button>
+            <Button className="w-full bg-[#884DEE] hover:bg-[#7a45d4]" onClick={() => setActiveTab("results")}>
+              Vypočítat přínosy
+            </Button>
           </TabsContent>
 
           <TabsContent value="results" className="pt-4">
@@ -219,21 +258,19 @@ export function ROICalculator() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Clock className="h-5 w-5 text-[#884DEE]" />
-                      <h3 className="font-medium">Měsíční úspora</h3>
+                      <h3 className="font-medium">Úspora času</h3>
                     </div>
                     <motion.div
-                      key={monthlySavings}
+                      key={timeSavings}
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.3 }}
                       className="text-2xl font-bold text-[#884DEE]"
                     >
-                      {monthlySavings.toLocaleString()} Kč
+                      {timeSavings} hodin/měsíc
                     </motion.div>
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Odhadovaná měsíční úspora díky snížení administrativní zátěže
-                  </p>
+                  <p className="text-sm text-gray-500 mt-2">Celková měsíční úspora času pro všechny zaměstnance</p>
                 </CardContent>
               </Card>
 
@@ -241,20 +278,41 @@ export function ROICalculator() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <FileText className="h-5 w-5 text-[#884DEE]" />
-                      <h3 className="font-medium">Roční úspora</h3>
+                      <DollarSign className="h-5 w-5 text-[#884DEE]" />
+                      <h3 className="font-medium">Finanční úspora</h3>
                     </div>
                     <motion.div
-                      key={annualSavings}
+                      key={costSavings}
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.3 }}
                       className="text-2xl font-bold text-[#884DEE]"
                     >
-                      {annualSavings.toLocaleString()} Kč
+                      {costSavings.toLocaleString()} Kč/rok
                     </motion.div>
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">Celková roční úspora za školní rok (10 měsíců)</p>
+                  <p className="text-sm text-gray-500 mt-2">Roční finanční úspora díky efektivnější administrativě</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <BookOpen className="h-5 w-5 text-[#884DEE]" />
+                      <h3 className="font-medium">Zlepšení výuky</h3>
+                    </div>
+                    <motion.div
+                      key={teachingImprovement}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-2xl font-bold text-[#884DEE]"
+                    >
+                      +{teachingImprovement}%
+                    </motion.div>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-2">Očekávané zvýšení času věnovaného výuce</p>
                 </CardContent>
               </Card>
 
@@ -275,41 +333,29 @@ export function ROICalculator() {
                       {roi}%
                     </motion.div>
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">Návratnost investice za první rok používání</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Calculator className="h-5 w-5 text-[#884DEE]" />
-                      <h3 className="font-medium">Doba návratnosti</h3>
-                    </div>
-                    <motion.div
-                      key={paybackMonths}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-2xl font-bold text-[#884DEE]"
-                    >
-                      {paybackMonths} měsíců
-                    </motion.div>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-2">Doba, za kterou se investice do systému vrátí</p>
+                  <p className="text-sm text-gray-500 mt-2">Návratnost investice za první rok</p>
                 </CardContent>
               </Card>
             </div>
 
             <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <h3 className="font-medium mb-2">Shrnutí výsledků</h3>
+              <h3 className="font-medium mb-2">Shrnutí pro vedení školy</h3>
               <p className="text-sm text-gray-600 mb-4">
-                Na základě vašich údajů by implementace systému RektorIS mohla vaší škole ušetřit přibližně{" "}
-                <strong>{annualSavings.toLocaleString()} Kč ročně</strong>. Investice do systému se vám vrátí za{" "}
-                <strong>{paybackMonths} měsíců</strong> a roční návratnost investice (ROI) je <strong>{roi}%</strong>.
+                Na základě vašich údajů by implementace systému RektorIS mohla přinést:
+                <br />
+                <br />• <strong>Úsporu {timeSavings} hodin měsíčně</strong> pro vaše zaměstnance, což umožní soustředit
+                se na důležitější úkoly
+                <br />• <strong>Finanční úsporu {costSavings.toLocaleString()} Kč ročně</strong>, kterou můžete
+                investovat do rozvoje školy
+                <br />• <strong>Zvýšení času věnovaného výuce o {teachingImprovement}%</strong>, což povede k lepším
+                vzdělávacím výsledkům
+                <br />
+                <br />
+                Celková návratnost investice (ROI) je <strong>{roi}%</strong>, což znamená, že systém se vám rychle
+                zaplatí a začne přinášet hodnotu.
               </p>
               <div className="flex justify-center">
-                <Button className="bg-[#884DEE] hover:bg-[#7a45d4]">Získat detailní analýzu úspor</Button>
+                <Button className="bg-[#884DEE] hover:bg-[#7a45d4]">Získat detailní analýzu pro vedení</Button>
               </div>
             </div>
           </TabsContent>
