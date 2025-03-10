@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -53,7 +53,7 @@ interface SchoolOption {
   }[]
 }
 
-const schoolOptions: SchoolOption[] = [
+const schoolOptions: (Omit<SchoolOption, 'id'> & { id: Exclude<SchoolType, null> })[] = [
   {
     id: "elementary",
     title: "Základní školy",
@@ -370,10 +370,10 @@ export function SchoolTypeSelector() {
 
                   <div className="mt-6">
                     <Button
-                      className="w-full group"
+                      className="w-full group bg-[#884DEE] hover:bg-[#7a45d4] text-white"
                       style={{
-                        backgroundColor: selectedType === option.id ? option.color : "#f3f4f6",
-                        color: selectedType === option.id ? "white" : "black",
+                        backgroundColor: selectedType === option.id ? option.color : "#884DEE",
+                        color: "white",
                       }}
                     >
                       {selectedType === option.id ? "Vybráno" : "Vybrat a zobrazit detaily"}
@@ -392,7 +392,10 @@ export function SchoolTypeSelector() {
         <Button
           variant="outline"
           onClick={toggleCompare}
-          className={cn("transition-all", isComparing ? "bg-[#884DEE] text-white hover:bg-[#7a45d4]" : "")}
+          className={cn(
+            "transition-all",
+            isComparing ? "bg-[#884DEE] text-white hover:bg-[#7a45d4]" : "hover:bg-[#884DEE]/10",
+          )}
         >
           {isComparing ? "Skrýt srovnání" : "Porovnat všechny typy škol"}
         </Button>
@@ -425,7 +428,7 @@ export function SchoolTypeSelector() {
                         </div>
                       </div>
 
-                      <Button className="md:self-start" style={{ backgroundColor: option.color }}>
+                      <Button className="md:self-start bg-[#884DEE] hover:bg-[#7a45d4] text-white">
                         Získat nabídku
                       </Button>
                     </div>
@@ -521,161 +524,310 @@ export function SchoolTypeSelector() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.4 }}
-            className="mt-12 max-w-6xl mx-auto overflow-x-auto"
+            className="mt-12 max-w-6xl mx-auto"
           >
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <h3 className="text-xl font-bold mb-6">Srovnání řešení pro různé typy škol</h3>
 
-                <div className="min-w-[800px]">
-                  {/* Header Row */}
-                  <div className="grid grid-cols-5 gap-4 mb-6">
-                    <div className="p-3 font-medium">Funkce / Typ školy</div>
-                    {schoolOptions.map((option) => (
-                      <div
-                        key={option.id}
-                        className="p-3 text-white font-medium rounded-lg text-center"
-                        style={{ backgroundColor: option.color }}
-                      >
-                        <div className="flex items-center justify-center gap-2">
-                          <option.icon className="h-5 w-5" />
-                          <span>{option.title}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Feature Categories */}
-                  {[
-                    {
-                      category: "Základní funkce",
-                      features: ["Evidence studentů", "Rozvrh hodin", "Klasifikace", "Docházka", "Komunikace"],
-                    },
-                    {
-                      category: "Pokročilé funkce",
-                      features: [
-                        "Ekonomická agenda",
-                        "Přijímací řízení",
-                        "Maturitní/závěrečné zkoušky",
-                        "Integrace s externími systémy",
-                        "Analytické nástroje",
-                      ],
-                    },
-                    {
-                      category: "Specializované moduly",
-                      features: [
-                        "Věda a výzkum",
-                        "Kreditní systém",
-                        "Správa fakult a kateder",
-                        "Školní akce a výlety",
-                        "Správa kurzů a lekcí",
-                      ],
-                    },
-                  ].map((group, groupIdx) => (
-                    <div key={groupIdx} className="mb-8">
-                      <div className="grid grid-cols-5 gap-4 bg-gray-50 p-3 rounded-lg mb-2">
-                        <div className="font-medium">{group.category}</div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                      </div>
-
-                      {group.features.map((feature, featureIdx) => (
-                        <div key={featureIdx} className="grid grid-cols-5 gap-4 border-b py-3">
-                          <div className="p-2">{feature}</div>
-                          {schoolOptions.map((option) => {
-                            // Determine if feature is available based on school type
-                            let isAvailable = true
-                            let isPartial = false
-
-                            // Elementary schools don't have advanced features
-                            if (
-                              option.id === "elementary" &&
-                              (group.category === "Pokročilé funkce" || group.category === "Specializované moduly")
-                            ) {
-                              if (feature === "Školní akce a výlety") {
-                                isAvailable = true
-                              } else if (feature === "Ekonomická agenda" || feature === "Analytické nástroje") {
-                                isPartial = true
-                              } else {
-                                isAvailable = false
-                              }
-                            }
-
-                            // Secondary schools don't have university features
-                            if (option.id === "secondary" && group.category === "Specializované moduly") {
-                              if (
-                                feature === "Věda a výzkum" ||
-                                feature === "Kreditní systém" ||
-                                feature === "Správa fakult a kateder"
-                              ) {
-                                isAvailable = false
-                              }
-                            }
-
-                            // Language schools have specific features
-                            if (option.id === "language") {
-                              if (
-                                feature === "Maturitní/závěrečné zkoušky" ||
-                                feature === "Věda a výzkum" ||
-                                feature === "Kreditní systém" ||
-                                feature === "Správa fakult a kateder"
-                              ) {
-                                isAvailable = false
-                              } else if (feature === "Klasifikace") {
-                                isPartial = true
-                              } else if (feature === "Správa kurzů a lekcí") {
-                                isAvailable = true
-                              }
-                            }
-
-                            // University doesn't need elementary features
-                            if (option.id === "university" && feature === "Školní akce a výlety") {
-                              isPartial = true
-                            }
-
-                            return (
-                              <div key={option.id} className="p-2 text-center">
-                                {isAvailable ? (
-                                  isPartial ? (
-                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
-                                      Částečně
-                                    </Badge>
-                                  ) : (
-                                    <CheckCircle className="h-5 w-5 mx-auto" style={{ color: option.color }} />
-                                  )
-                                ) : (
-                                  <span className="text-gray-300">—</span>
-                                )}
-                              </div>
-                            )
-                          })}
-                        </div>
+                {/* Mobile comparison tabs */}
+                <div className="block md:hidden">
+                  <Tabs defaultValue={schoolOptions[0]?.id}>
+                    <TabsList className="grid grid-cols-4 mb-4">
+                      {schoolOptions.map((option) => (
+                        <TabsTrigger key={option.id} value={option.id} className="p-2">
+                          <option.icon className="h-5 w-5" style={{ color: option.color }} />
+                        </TabsTrigger>
                       ))}
-                    </div>
-                  ))}
+                    </TabsList>
 
-                  {/* Price Indication */}
-                  <div className="grid grid-cols-5 gap-4 mt-8 bg-gray-50 p-4 rounded-lg">
-                    <div className="font-medium">Cenová kategorie</div>
-                    <div className="text-center">
-                      <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Základní</Badge>
-                    </div>
-                    <div className="text-center">
-                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Střední</Badge>
-                    </div>
-                    <div className="text-center">
-                      <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Prémiová</Badge>
-                    </div>
-                    <div className="text-center">
-                      <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">Flexibilní</Badge>
-                    </div>
-                  </div>
+                    {schoolOptions.map((option) => (
+                      <TabsContent key={option.id} value={option.id}>
+                        <div className="bg-white rounded-lg overflow-hidden border mb-4">
+                          <div className="p-3 text-white" style={{ backgroundColor: option.color }}>
+                            <div className="flex items-center gap-2">
+                              <option.icon className="h-5 w-5" />
+                              <h4 className="font-medium">{option.title}</h4>
+                            </div>
+                          </div>
+
+                          {[
+                            {
+                              category: "Základní funkce",
+                              features: ["Evidence studentů", "Rozvrh hodin", "Klasifikace", "Docházka", "Komunikace"],
+                            },
+                            {
+                              category: "Pokročilé funkce",
+                              features: [
+                                "Ekonomická agenda",
+                                "Přijímací řízení",
+                                "Maturitní/závěrečné zkoušky",
+                                "Integrace s externími systémy",
+                                "Analytické nástroje",
+                              ],
+                            },
+                            {
+                              category: "Specializované moduly",
+                              features: [
+                                "Věda a výzkum",
+                                "Kreditní systém",
+                                "Správa fakult a kateder",
+                                "Školní akce a výlety",
+                                "Správa kurzů a lekcí",
+                              ],
+                            },
+                          ].map((group, groupIdx) => (
+                            <div key={groupIdx}>
+                              <div className="p-2 bg-gray-50 font-medium border-y">{group.category}</div>
+                              {group.features.map((feature, featureIdx) => {
+                                // Determine if feature is available
+                                let isAvailable = true
+                                let isPartial = false
+
+                                // Elementary schools
+                                if (
+                                  option.id === "elementary" &&
+                                  (group.category === "Pokročilé funkce" || group.category === "Specializované moduly")
+                                ) {
+                                  if (feature === "Školní akce a výlety") {
+                                    isAvailable = true
+                                  } else if (feature === "Ekonomická agenda" || feature === "Analytické nástroje") {
+                                    isPartial = true
+                                  } else {
+                                    isAvailable = false
+                                  }
+                                }
+
+                                // Secondary schools
+                                if (option.id === "secondary" && group.category === "Specializované moduly") {
+                                  if (
+                                    feature === "Věda a výzkum" ||
+                                    feature === "Kreditní systém" ||
+                                    feature === "Správa fakult a kateder"
+                                  ) {
+                                    isAvailable = false
+                                  }
+                                }
+
+                                // Language schools
+                                if (option.id === "language") {
+                                  if (
+                                    feature === "Maturitní/závěrečné zkoušky" ||
+                                    feature === "Věda a výzkum" ||
+                                    feature === "Kreditní systém" ||
+                                    feature === "Správa fakult a kateder"
+                                  ) {
+                                    isAvailable = false
+                                  } else if (feature === "Klasifikace") {
+                                    isPartial = true
+                                  } else if (feature === "Správa kurzů a lekcí") {
+                                    isAvailable = true
+                                  }
+                                }
+
+                                // University
+                                if (option.id === "university" && feature === "Školní akce a výlety") {
+                                  isPartial = true
+                                }
+
+                                return (
+                                  <div key={featureIdx} className="flex items-center justify-between p-3 border-b">
+                                    <span className="text-sm">{feature}</span>
+                                    <div>
+                                      {isAvailable ? (
+                                        isPartial ? (
+                                          <Badge
+                                            variant="outline"
+                                            className="text-xs bg-yellow-50 text-yellow-700 border-yellow-200"
+                                          >
+                                            Částečně
+                                          </Badge>
+                                        ) : (
+                                          <CheckCircle className="h-5 w-5" style={{ color: option.color }} />
+                                        )
+                                      ) : (
+                                        <span className="text-gray-300">—</span>
+                                      )}
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          ))}
+
+                          <div className="p-3 flex items-center justify-between bg-gray-50 border-t">
+                            <span className="font-medium text-sm">Cenová kategorie</span>
+                            <Badge
+                              className={`
+                              ${option.id === "elementary" ? "bg-green-100 text-green-800" : ""}
+                              ${option.id === "secondary" ? "bg-blue-100 text-blue-800" : ""}
+                              ${option.id === "university" ? "bg-purple-100 text-purple-800" : ""}
+                              ${option.id === "language" ? "bg-amber-100 text-amber-800" : ""}
+                            `}
+                            >
+                              {option.id === "elementary" ? "Základní" : ""}
+                              {option.id === "secondary" ? "Střední" : ""}
+                              {option.id === "university" ? "Prémiová" : ""}
+                              {option.id === "language" ? "Flexibilní" : ""}
+                            </Badge>
+                          </div>
+                        </div>
+                      </TabsContent>
+                    ))}
+                  </Tabs>
+                </div>
+
+                {/* Desktop comparison table */}
+                <div className="hidden md:block overflow-x-auto">
+                  <table className="w-full min-w-[800px] border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="text-left p-3 border-b">Funkce / Typ školy</th>
+                        {schoolOptions.map((option) => (
+                          <th key={option.id} className="p-3 border-b">
+                            <div className="p-2 text-white rounded-lg" style={{ backgroundColor: option.color }}>
+                              <div className="flex items-center justify-center gap-2">
+                                <option.icon className="h-5 w-5" />
+                                <span>{option.title}</span>
+                              </div>
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        {
+                          category: "Základní funkce",
+                          features: ["Evidence studentů", "Rozvrh hodin", "Klasifikace", "Docházka", "Komunikace"],
+                        },
+                        {
+                          category: "Pokročilé funkce",
+                          features: [
+                            "Ekonomická agenda",
+                            "Přijímací řízení",
+                            "Maturitní/závěrečné zkoušky",
+                            "Integrace s externími systémy",
+                            "Analytické nástroje",
+                          ],
+                        },
+                        {
+                          category: "Specializované moduly",
+                          features: [
+                            "Věda a výzkum",
+                            "Kreditní systém",
+                            "Správa fakult a kateder",
+                            "Školní akce a výlety",
+                            "Správa kurzů a lekcí",
+                          ],
+                        },
+                      ].map((group, groupIdx) => (
+                        <React.Fragment key={groupIdx}>
+                          <tr>
+                            <th colSpan={5} className="text-left p-3 bg-gray-50 font-medium">
+                              {group.category}
+                            </th>
+                          </tr>
+                          {group.features.map((feature, featureIdx) => (
+                            <tr key={featureIdx}>
+                              <td className="p-3 border-b">{feature}</td>
+                              {schoolOptions.map((option) => {
+                                // Determine if feature is available
+                                let isAvailable = true
+                                let isPartial = false
+
+                                // Elementary schools
+                                if (
+                                  option.id === "elementary" &&
+                                  (group.category === "Pokročilé funkce" || group.category === "Specializované moduly")
+                                ) {
+                                  if (feature === "Školní akce a výlety") {
+                                    isAvailable = true
+                                  } else if (feature === "Ekonomická agenda" || feature === "Analytické nástroje") {
+                                    isPartial = true
+                                  } else {
+                                    isAvailable = false
+                                  }
+                                }
+
+                                // Secondary schools
+                                if (option.id === "secondary" && group.category === "Specializované moduly") {
+                                  if (
+                                    feature === "Věda a výzkum" ||
+                                    feature === "Kreditní systém" ||
+                                    feature === "Správa fakult a kateder"
+                                  ) {
+                                    isAvailable = false
+                                  }
+                                }
+
+                                // Language schools
+                                if (option.id === "language") {
+                                  if (
+                                    feature === "Maturitní/závěrečné zkoušky" ||
+                                    feature === "Věda a výzkum" ||
+                                    feature === "Kreditní systém" ||
+                                    feature === "Správa fakult a kateder"
+                                  ) {
+                                    isAvailable = false
+                                  } else if (feature === "Klasifikace") {
+                                    isPartial = true
+                                  } else if (feature === "Správa kurzů a lekcí") {
+                                    isAvailable = true
+                                  }
+                                }
+
+                                // University
+                                if (option.id === "university" && feature === "Školní akce a výlety") {
+                                  isPartial = true
+                                }
+
+                                return (
+                                  <td key={option.id} className="p-3 border-b text-center">
+                                    {isAvailable ? (
+                                      isPartial ? (
+                                        <Badge
+                                          variant="outline"
+                                          className="bg-yellow-50 text-yellow-700 border-yellow-200"
+                                        >
+                                          Částečně
+                                        </Badge>
+                                      ) : (
+                                        <CheckCircle className="h-5 w-5 mx-auto" style={{ color: option.color }} />
+                                      )
+                                    ) : (
+                                      <span className="text-gray-300">—</span>
+                                    )}
+                                  </td>
+                                )
+                              })}
+                            </tr>
+                          ))}
+                        </React.Fragment>
+                      ))}
+                      <tr>
+                        <th className="text-left p-3 bg-gray-50">Cenová kategorie</th>
+                        <td className="p-3 bg-gray-50 text-center">
+                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Základní</Badge>
+                        </td>
+                        <td className="p-3 bg-gray-50 text-center">
+                          <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Střední</Badge>
+                        </td>
+                        <td className="p-3 bg-gray-50 text-center">
+                          <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Prémiová</Badge>
+                        </td>
+                        <td className="p-3 bg-gray-50 text-center">
+                          <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">Flexibilní</Badge>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
                 <div className="mt-8 flex justify-center">
-                  <Button className="bg-[#884DEE] hover:bg-[#7a45d4]">Získat personalizovanou nabídku</Button>
+                  <Button className="bg-[#884DEE] hover:bg-[#7a45d4] text-white">
+                    Získat personalizovanou nabídku
+                  </Button>
                 </div>
               </CardContent>
             </Card>

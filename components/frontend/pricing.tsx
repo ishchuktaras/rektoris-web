@@ -345,7 +345,12 @@ export default function Pricing() {
                             }`}
                             asChild
                           >
-                            <a href="/contact-us">Spusťte bezplatnou zkušební verzi</a>
+                            <a
+                              href="/contact-us"
+                              className="w-full bg-[#884DEE] hover:bg-[#7a45d4] text-white font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#884DEE] focus:ring-offset-2 py-3 rounded-lg"
+                            >
+                              Spusťte bezplatnou zkušební verzi
+                            </a>
                           </Button>
                           <Button variant="ghost" className="w-full text-sm">
                             Kontaktujte obchodní oddělení
@@ -369,7 +374,11 @@ export default function Pricing() {
                     <Tabs defaultValue={plans[0].id} className="w-full">
                       <TabsList className="grid grid-cols-3 mb-4">
                         {plans.map((plan) => (
-                          <TabsTrigger key={plan.id} value={plan.id} className="relative">
+                          <TabsTrigger
+                            key={plan.id}
+                            value={plan.id}
+                            className="py-2 px-1 h-auto flex flex-col items-center gap-1 text-[#884DEE] data-[state=active]:bg-[#884DEE] data-[state=active]:text-white relative"
+                          >
                             {plan.name}
                             {plan.popular && (
                               <span className="absolute -top-2 right-0 w-2 h-2 bg-[#884DEE] rounded-full"></span>
@@ -640,7 +649,9 @@ export default function Pricing() {
                         </div>
                       </div>
 
-                      <Button className="w-full bg-[#884DEE] hover:bg-[#7a45d4] mt-6">Získat nabídku</Button>
+                      <Button className="w-full bg-[#884DEE] hover:bg-[#7a45d4] text-white font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#884DEE] focus:ring-offset-2 mt-6">
+                        Získat nabídku
+                      </Button>
 
                       <p className="text-sm text-center text-gray-500 mt-4">
                         Náš obchodní tým vás bude kontaktovat do 24 hodin s přesnou nabídkou.
