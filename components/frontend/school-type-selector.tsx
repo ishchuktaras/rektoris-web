@@ -1,17 +1,12 @@
 "use client"
 
-import React from "react"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import React, { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import {
   School,
   GraduationCap,
   Building,
-  CheckCircle,
+  Globe,
   Users,
   Calendar,
   BookOpen,
@@ -20,15 +15,23 @@ import {
   Award,
   FileText,
   Zap,
-  ChevronRight,
-  Globe,
   Lightbulb,
   Headphones,
   BarChart,
   Clock,
+  ArrowRight,
+  ChevronDown,
+  X,
+  Check,
 } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 type SchoolType = "elementary" | "secondary" | "university" | "language" | null
 
@@ -53,7 +56,7 @@ interface SchoolOption {
   }[]
 }
 
-const schoolOptions: (Omit<SchoolOption, 'id'> & { id: Exclude<SchoolType, null> })[] = [
+const schoolOptions: (Omit<SchoolOption, "id"> & { id: Exclude<SchoolType, null> })[] = [
   {
     id: "elementary",
     title: "Základní školy",
@@ -291,96 +294,402 @@ const schoolOptions: (Omit<SchoolOption, 'id'> & { id: Exclude<SchoolType, null>
   },
 ]
 
+const FeatureCard = ({ feature, color }: { feature: SchoolOption["features"][0]; color: string }) => {
+  return (
+    <Card className="h-full">
+      <CardHeader className="p-4 pb-2">
+        <div className="flex items-start gap-2">
+          <div className="p-2 rounded-full flex-shrink-0" style={{ backgroundColor: `${color}20` }}>
+            <feature.icon className="h-5 w-5" style={{ color }} />
+          </div>
+          <h4 className="font-medium text-base sm:text-lg break-words">{feature.title}</h4>
+        </div>
+      </CardHeader>
+      <CardContent className="p-4 pt-0">
+        <ul className="space-y-3">
+          {feature.items.map((item, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <Check className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+              <span className="text-sm text-gray-600">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
+  )
+}
+
+const BenefitCard = ({ benefit, color }: { benefit: SchoolOption["benefits"][0]; color: string }) => {
+  return (
+    <Card className="overflow-hidden h-full">
+      <div className="p-1" style={{ backgroundColor: color }}></div>
+      <CardContent className="p-6 text-center">
+        <div
+          className="mx-auto p-3 rounded-full mb-4 w-14 h-14 flex items-center justify-center"
+          style={{ backgroundColor: `${color}15` }}
+        >
+          <benefit.icon className="h-6 w-6" style={{ color }} />
+        </div>
+        <h4 className="font-medium mb-2 text-gray-700">{benefit.title}</h4>
+        <p className="text-2xl font-bold" style={{ color }}>
+          {benefit.value}
+        </p>
+      </CardContent>
+    </Card>
+  )
+}
+
+const ComparisonTable = ({ isMobile = false }: { isMobile?: boolean }) => {
+  const features = [
+    {
+      category: "Základní funkce",
+      features: ["Evidence studentů", "Rozvrh hodin", "Klasifikace", "Docházka", "Komunikace"],
+    },
+    {
+      category: "Pokročilé funkce",
+      features: [
+        "Ekonomická agenda",
+        "Přijímací řízení",
+        "Maturitní/závěrečné zkoušky",
+        "Integrace s externími systémy",
+        "Analytické nástroje",
+      ],
+    },
+    {
+      category: "Specializované moduly",
+      features: [
+        "Věda a výzkum",
+        "Kreditní systém",
+        "Správa fakult a kateder",
+        "Školní akce a výlety",
+        "Správa kurzů a lekcí",
+      ],
+    },
+  ]
+
+  const getFeatureAvailability = (schoolId: string, category: string, feature: string) => {
+    let isAvailable = true
+    let isPartial = false
+
+    // Elementary schools
+    if (schoolId === "elementary" && (category === "Pokročilé funkce" || category === "Specializované moduly")) {
+      if (feature === "Školní akce a výlety") {
+        isAvailable = true
+      } else if (feature === "Ekonomická agenda" || feature === "Analytické nástroje") {
+        isPartial = true
+      } else {
+        isAvailable = false
+      }
+    }
+
+    // Secondary schools
+    if (schoolId === "secondary" && category === "Specializované moduly") {
+      if (feature === "Věda a výzkum" || feature === "Kreditní systém" || feature === "Správa fakult a kateder") {
+        isAvailable = false
+      }
+    }
+
+    // Language schools
+    if (schoolId === "language") {
+      if (
+        feature === "Maturitní/závěrečné zkoušky" ||
+        feature === "Věda a výzkum" ||
+        feature === "Kreditní systém" ||
+        feature === "Správa fakult a kateder"
+      ) {
+        isAvailable = false
+      } else if (feature === "Klasifikace") {
+        isPartial = true
+      } else if (feature === "Správa kurzů a lekcí") {
+        isAvailable = true
+      }
+    }
+
+    // University
+    if (schoolId === "university" && feature === "Školní akce a výlety") {
+      isPartial = true
+    }
+
+    return { isAvailable, isPartial }
+  }
+
+  if (isMobile) {
+    return (
+      <div className="space-y-6">
+        {schoolOptions.map((school) => (
+          <Card key={school.id} className="overflow-hidden">
+            <div className="p-4 text-white" style={{ backgroundColor: school.color }}>
+              <div className="flex items-center gap-2">
+                <school.icon className="h-5 w-5" />
+                <h3 className="font-medium">{school.title}</h3>
+              </div>
+            </div>
+            <CardContent className="p-0">
+              <Accordion type="single" collapsible className="w-full">
+                {features.map((group, groupIdx) => (
+                  <AccordionItem key={groupIdx} value={`item-${groupIdx}`}>
+                    <AccordionTrigger className="px-4 py-3 text-sm font-medium bg-gray-50 hover:bg-gray-100 hover:no-underline">
+                      {group.category}
+                    </AccordionTrigger>
+                    <AccordionContent className="p-0">
+                      <div className="divide-y">
+                        {group.features.map((feature, featureIdx) => {
+                          const { isAvailable, isPartial } = getFeatureAvailability(school.id, group.category, feature)
+
+                          return (
+                            <div key={featureIdx} className="flex items-center justify-between p-3">
+                              <span className="text-sm">{feature}</span>
+                              <div>
+                                {isAvailable ? (
+                                  isPartial ? (
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs bg-yellow-50 text-yellow-700 border-yellow-200"
+                                    >
+                                      Částečně
+                                    </Badge>
+                                  ) : (
+                                    <Check className="h-5 w-5 text-green-500" />
+                                  )
+                                ) : (
+                                  <X className="h-5 w-5 text-gray-300" />
+                                )}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+              <div className="p-4 flex items-center justify-between bg-gray-50">
+                <span className="font-medium text-sm">Cenová kategorie</span>
+                <Badge
+                  className={`
+                  ${school.id === "elementary" ? "bg-green-100 text-green-800" : ""}
+                  ${school.id === "secondary" ? "bg-blue-100 text-blue-800" : ""}
+                  ${school.id === "university" ? "bg-purple-100 text-purple-800" : ""}
+                  ${school.id === "language" ? "bg-amber-100 text-amber-800" : ""}
+                `}
+                >
+                  {school.id === "elementary" ? "Základní" : ""}
+                  {school.id === "secondary" ? "Střední" : ""}
+                  {school.id === "university" ? "Prémiová" : ""}
+                  {school.id === "language" ? "Flexibilní" : ""}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse">
+        <thead>
+          <tr>
+            <th className="text-left p-4 border-b bg-gray-50 font-medium">Funkce / Typ školy</th>
+            {schoolOptions.map((school) => (
+              <th key={school.id} className="p-4 border-b bg-gray-50">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-2 rounded-full text-white" style={{ backgroundColor: school.color }}>
+                    <school.icon className="h-5 w-5" />
+                  </div>
+                  <span className="font-medium">{school.title}</span>
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {features.map((group, groupIdx) => (
+            <React.Fragment key={groupIdx}>
+              <tr>
+                <th colSpan={5} className="text-left p-4 bg-gray-50 font-medium border-t border-b">
+                  {group.category}
+                </th>
+              </tr>
+              {group.features.map((feature, featureIdx) => (
+                <tr key={featureIdx} className="hover:bg-gray-50">
+                  <td className="p-4 border-b">{feature}</td>
+                  {schoolOptions.map((school) => {
+                    const { isAvailable, isPartial } = getFeatureAvailability(school.id, group.category, feature)
+
+                    return (
+                      <td key={school.id} className="p-4 border-b text-center">
+                        {isAvailable ? (
+                          isPartial ? (
+                            <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
+                              Částečně
+                            </Badge>
+                          ) : (
+                            <div className="flex justify-center">
+                              <Check className="h-5 w-5 text-green-500" />
+                            </div>
+                          )
+                        ) : (
+                          <div className="flex justify-center">
+                            <X className="h-5 w-5 text-gray-300" />
+                          </div>
+                        )}
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+            </React.Fragment>
+          ))}
+          <tr>
+            <th className="text-left p-4 bg-gray-50 font-medium border-t">Cenová kategorie</th>
+            <td className="p-4 bg-gray-50 text-center border-t">
+              <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Základní</Badge>
+            </td>
+            <td className="p-4 bg-gray-50 text-center border-t">
+              <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Střední</Badge>
+            </td>
+            <td className="p-4 bg-gray-50 text-center border-t">
+              <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Prémiová</Badge>
+            </td>
+            <td className="p-4 bg-gray-50 text-center border-t">
+              <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">Flexibilní</Badge>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 export function SchoolTypeSelector() {
   const [selectedType, setSelectedType] = useState<SchoolType>(null)
   const [activeTab, setActiveTab] = useState("features")
   const [isComparing, setIsComparing] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
+
+  // Handle responsive design with useEffect
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768)
+      setIsTablet(window.innerWidth < 1024)
+    }
+
+    // Initial check
+    checkScreenSize()
+
+    // Add event listener
+    window.addEventListener("resize", checkScreenSize)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkScreenSize)
+  }, [])
 
   const handleSelect = (type: SchoolType) => {
     setSelectedType(type)
     setActiveTab("features")
+
+    // Scroll to details section on mobile
+    if (isMobile && type) {
+      setTimeout(() => {
+        const detailsSection = document.getElementById("school-details")
+        if (detailsSection) {
+          detailsSection.scrollIntoView({ behavior: "smooth" })
+        }
+      }, 100)
+    }
   }
 
   const toggleCompare = () => {
     setIsComparing(!isComparing)
+    setSelectedType(null)
+
+    // Scroll to comparison section
+    if (!isComparing) {
+      setTimeout(() => {
+        const comparisonSection = document.getElementById("comparison-section")
+        if (comparisonSection) {
+          comparisonSection.scrollIntoView({ behavior: "smooth" })
+        }
+      }, 100)
+    }
   }
 
   return (
-    <div className="py-8 px-4">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <Badge className="mb-4 bg-[#884DEE] hover:bg-[#7a45d4]">Řešení pro všechny typy škol</Badge>
-        <h2 className="text-3xl font-bold mb-3">Vyberte typ vaší vzdělávací instituce</h2>
-        <p className="text-gray-500">
+        <Badge className="mb-4 bg-[#884DEE] hover:bg-[#7a45d4] px-3 py-1 text-sm">Řešení pro všechny typy škol</Badge>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3">Vyberte typ vaší vzdělávací instituce</h2>
+        <p className="text-gray-500 max-w-2xl mx-auto">
           RektorIS nabízí specializovaná řešení pro různé typy vzdělávacích institucí. Vyberte si kategorii, která
           nejlépe odpovídá vašim potřebám.
         </p>
       </div>
 
       {/* School Type Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {schoolOptions.map((option) => (
-          <motion.div key={option.id} whileHover={{ y: -8 }} whileTap={{ scale: 0.98 }} className="h-full">
+          <motion.div key={option.id} whileHover={{ y: -5 }} whileTap={{ scale: 0.98 }} className="h-full">
             <Card
               className={cn(
-                "cursor-pointer transition-all duration-300 h-full overflow-hidden",
-                selectedType === option.id
-                  ? `border-[${option.color}] shadow-lg shadow-[${option.color}]/20`
-                  : "hover:border-gray-300 hover:shadow-md",
+                "cursor-pointer transition-all duration-300 h-full overflow-hidden border-2",
+                selectedType === option.id ? `border-[${option.color}]` : "border-transparent hover:border-gray-200",
               )}
               onClick={() => handleSelect(option.id)}
             >
-              <CardContent className="p-0">
-                {/* Card Header with Color */}
-                <div className="p-6 text-white" style={{ backgroundColor: option.color }}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white/20 rounded-lg">
-                        <option.icon className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold">{option.title}</h3>
-                        <p className="text-white/80 text-sm">{option.subtitle}</p>
-                      </div>
-                    </div>
-                    {selectedType === option.id && <CheckCircle className="h-6 w-6" />}
+              <div className="h-2" style={{ backgroundColor: option.color }}></div>
+              <CardContent className="p-5 pt-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-3 rounded-full" style={{ backgroundColor: `${option.color}15` }}>
+                    <option.icon className="h-6 w-6" style={{ color: option.color }} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">{option.title}</h3>
+                    <p className="text-gray-500 text-sm">{option.subtitle}</p>
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 text-sm">{option.description}</p>
+                <p className="text-gray-600 mb-4 text-sm line-clamp-3">{option.description}</p>
 
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-600">{option.studentCount}</span>
-                  </div>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {option.idealFor.slice(0, 2).map((item, i) => (
-                      <Badge key={i} variant="outline" className="bg-gray-50">
-                        {item}
-                      </Badge>
-                    ))}
-                    {option.idealFor.length > 2 && (
-                      <Badge variant="outline" className="bg-gray-50">
-                        +{option.idealFor.length - 2} další
-                      </Badge>
-                    )}
-                  </div>
-
-                  <div className="mt-6">
-                    <Button
-                      className="w-full group bg-[#884DEE] hover:bg-[#7a45d4] text-white"
-                      style={{
-                        backgroundColor: selectedType === option.id ? option.color : "#884DEE",
-                        color: "white",
-                      }}
-                    >
-                      {selectedType === option.id ? "Vybráno" : "Vybrat a zobrazit detaily"}
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                  </div>
+                <div className="flex items-center gap-2 mb-4">
+                  <Users className="h-4 w-4 text-gray-400" />
+                  <span className="text-sm text-gray-600">{option.studentCount}</span>
                 </div>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {option.idealFor.slice(0, 2).map((item, i) => (
+                    <Badge key={i} variant="outline" className="bg-gray-50 text-xs">
+                      {item}
+                    </Badge>
+                  ))}
+                  {option.idealFor.length > 2 && (
+                    <Badge variant="outline" className="bg-gray-50 text-xs">
+                      +{option.idealFor.length - 2}
+                    </Badge>
+                  )}
+                </div>
+
+                <Button
+                  className="w-full group"
+                  style={{
+                    backgroundColor: selectedType === option.id ? option.color : "#884DEE",
+                  }}
+                >
+                  {selectedType === option.id ? (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Vybráno
+                    </>
+                  ) : (
+                    <>
+                      Zobrazit detaily
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </>
+                  )}
+                </Button>
               </CardContent>
             </Card>
           </motion.div>
@@ -390,450 +699,168 @@ export function SchoolTypeSelector() {
       {/* Compare Toggle */}
       <div className="flex justify-center mt-8">
         <Button
-          variant="outline"
+          variant={isComparing ? "default" : "outline"}
           onClick={toggleCompare}
           className={cn(
             "transition-all",
             isComparing ? "bg-[#884DEE] text-white hover:bg-[#7a45d4]" : "hover:bg-[#884DEE]/10",
           )}
         >
-          {isComparing ? "Skrýt srovnání" : "Porovnat všechny typy škol"}
+          {isComparing ? (
+            <>
+              <X className="mr-2 h-4 w-4" />
+              Skrýt srovnání
+            </>
+          ) : (
+            <>
+              <ChevronDown className="mr-2 h-4 w-4" />
+              Porovnat všechny typy škol
+            </>
+          )}
         </Button>
       </div>
 
       {/* Selected School Details or Comparison */}
-      <AnimatePresence>
-        {selectedType && !isComparing && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4 }}
-            className="mt-12 max-w-5xl mx-auto"
-          >
-            {(() => {
-              const option = schoolOptions.find((opt) => opt.id === selectedType)!
+      <div className="mt-12" id="school-details">
+        <AnimatePresence mode="wait">
+          {selectedType && !isComparing && (
+            <motion.div
+              key="details"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.4 }}
+            >
+              {(() => {
+                const option = schoolOptions.find((opt) => opt.id === selectedType)!
 
-              return (
-                <Card className={`border-[${option.color}]/30`}>
-                  <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-                      <div className="flex items-center gap-4">
-                        <div className="p-3 rounded-xl text-white" style={{ backgroundColor: option.color }}>
-                          <option.icon className="h-8 w-8" />
+                return (
+                  <Card className="overflow-hidden border-t-4" style={{ borderTopColor: option.color }}>
+                    <CardContent className="p-0">
+                      <div className="p-6 md:p-8">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                          <div className="flex items-center gap-4">
+                            <div className="p-3 rounded-full text-white" style={{ backgroundColor: option.color }}>
+                              <option.icon className="h-8 w-8" />
+                            </div>
+                            <div>
+                              <h3 className="text-2xl font-bold">{option.title}</h3>
+                              <p className="text-gray-500 mt-1">{option.description}</p>
+                            </div>
+                          </div>
+
+                          <Button size="lg" className="md:self-start" style={{ backgroundColor: option.color }}>
+                            Získat nabídku
+                          </Button>
                         </div>
-                        <div>
-                          <h3 className="text-2xl font-bold">{option.title}</h3>
-                          <p className="text-gray-500">{option.description}</p>
-                        </div>
-                      </div>
 
-                      <Button className="md:self-start bg-[#884DEE] hover:bg-[#7a45d4] text-white">
-                        Získat nabídku
-                      </Button>
-                    </div>
+                        <Tabs defaultValue="features" value={activeTab} onValueChange={setActiveTab} className="w-full">
+                          <TabsList className="grid w-full grid-cols-3 mb-8">
+                            <TabsTrigger
+                              value="features"
+                              className="text-sm sm:text-base whitespace-normal h-auto py-2"
+                            >
+                              Funkce a moduly
+                            </TabsTrigger>
+                            <TabsTrigger
+                              value="benefits"
+                              className="text-sm sm:text-base whitespace-normal h-auto py-2"
+                            >
+                              Přínosy a výhody
+                            </TabsTrigger>
+                            <TabsTrigger
+                              value="idealFor"
+                              className="text-sm sm:text-base whitespace-normal h-auto py-2"
+                            >
+                              Pro koho je určeno
+                            </TabsTrigger>
+                          </TabsList>
 
-                    <Tabs defaultValue="features" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                      <TabsList className="grid w-full grid-cols-3 mb-8">
-                        <TabsTrigger value="features">Funkce a moduly</TabsTrigger>
-                        <TabsTrigger value="benefits">Přínosy a výhody</TabsTrigger>
-                        <TabsTrigger value="idealFor">Pro koho je určeno</TabsTrigger>
-                      </TabsList>
-
-                      <TabsContent value="features" className="space-y-8">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          {option.features.map((feature, idx) => (
-                            <Card key={idx} className="overflow-hidden">
-                              <div className="p-4 text-white" style={{ backgroundColor: option.color }}>
-                                <div className="flex items-center gap-2">
-                                  <feature.icon className="h-5 w-5" />
-                                  <h4 className="font-medium">{feature.title}</h4>
-                                </div>
-                              </div>
-                              <CardContent className="p-4">
-                                <ul className="space-y-2">
-                                  {feature.items.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-2">
-                                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                      <span className="text-sm">{item}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </CardContent>
-                            </Card>
-                          ))}
-                        </div>
-                      </TabsContent>
-
-                      <TabsContent value="benefits">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          {option.benefits.map((benefit, idx) => (
-                            <Card key={idx} className="text-center p-6">
-                              <div
-                                className="mx-auto p-3 rounded-full mb-4"
-                                style={{ backgroundColor: `${option.color}20` }}
-                              >
-                                <benefit.icon className="h-6 w-6" style={{ color: option.color }} />
-                              </div>
-                              <h4 className="font-medium mb-2">{benefit.title}</h4>
-                              <p className="text-2xl font-bold" style={{ color: option.color }}>
-                                {benefit.value}
-                              </p>
-                            </Card>
-                          ))}
-                        </div>
-                      </TabsContent>
-
-                      <TabsContent value="idealFor">
-                        <Card>
-                          <CardContent className="p-6">
-                            <h4 className="font-medium mb-4">Ideální řešení pro:</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              {option.idealFor.map((item, idx) => (
-                                <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                  <CheckCircle className="h-5 w-5" style={{ color: option.color }} />
-                                  <span>{item}</span>
-                                </div>
+                          <TabsContent value="features" className="space-y-8 overflow-hidden">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                              {option.features.map((feature, idx) => (
+                                <FeatureCard key={idx} feature={feature} color={option.color} />
                               ))}
                             </div>
+                          </TabsContent>
 
-                            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                              <h5 className="font-medium text-blue-800 mb-2">Nevíte si rady s výběrem?</h5>
-                              <p className="text-sm text-blue-700 mb-4">
-                                Rádi vám pomůžeme s výběrem správného řešení pro vaši instituci. Kontaktujte nás a
-                                domluvíme si nezávaznou konzultaci.
-                              </p>
-                              <Button variant="outline" className="border-blue-300 text-blue-700">
-                                Kontaktovat pro konzultaci
-                              </Button>
+                          <TabsContent value="benefits">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                              {option.benefits.map((benefit, idx) => (
+                                <BenefitCard key={idx} benefit={benefit} color={option.color} />
+                              ))}
                             </div>
-                          </CardContent>
-                        </Card>
-                      </TabsContent>
-                    </Tabs>
-                  </CardContent>
-                </Card>
-              )
-            })()}
-          </motion.div>
-        )}
+                          </TabsContent>
 
-        {isComparing && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4 }}
-            className="mt-12 max-w-6xl mx-auto"
-          >
-            <Card>
-              <CardContent className="p-4 sm:p-6">
-                <h3 className="text-xl font-bold mb-6">Srovnání řešení pro různé typy škol</h3>
-
-                {/* Mobile comparison tabs */}
-                <div className="block md:hidden">
-                  <Tabs defaultValue={schoolOptions[0]?.id}>
-                    <TabsList className="grid grid-cols-4 mb-4">
-                      {schoolOptions.map((option) => (
-                        <TabsTrigger key={option.id} value={option.id} className="p-2">
-                          <option.icon className="h-5 w-5" style={{ color: option.color }} />
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
-
-                    {schoolOptions.map((option) => (
-                      <TabsContent key={option.id} value={option.id}>
-                        <div className="bg-white rounded-lg overflow-hidden border mb-4">
-                          <div className="p-3 text-white" style={{ backgroundColor: option.color }}>
-                            <div className="flex items-center gap-2">
-                              <option.icon className="h-5 w-5" />
-                              <h4 className="font-medium">{option.title}</h4>
-                            </div>
-                          </div>
-
-                          {[
-                            {
-                              category: "Základní funkce",
-                              features: ["Evidence studentů", "Rozvrh hodin", "Klasifikace", "Docházka", "Komunikace"],
-                            },
-                            {
-                              category: "Pokročilé funkce",
-                              features: [
-                                "Ekonomická agenda",
-                                "Přijímací řízení",
-                                "Maturitní/závěrečné zkoušky",
-                                "Integrace s externími systémy",
-                                "Analytické nástroje",
-                              ],
-                            },
-                            {
-                              category: "Specializované moduly",
-                              features: [
-                                "Věda a výzkum",
-                                "Kreditní systém",
-                                "Správa fakult a kateder",
-                                "Školní akce a výlety",
-                                "Správa kurzů a lekcí",
-                              ],
-                            },
-                          ].map((group, groupIdx) => (
-                            <div key={groupIdx}>
-                              <div className="p-2 bg-gray-50 font-medium border-y">{group.category}</div>
-                              {group.features.map((feature, featureIdx) => {
-                                // Determine if feature is available
-                                let isAvailable = true
-                                let isPartial = false
-
-                                // Elementary schools
-                                if (
-                                  option.id === "elementary" &&
-                                  (group.category === "Pokročilé funkce" || group.category === "Specializované moduly")
-                                ) {
-                                  if (feature === "Školní akce a výlety") {
-                                    isAvailable = true
-                                  } else if (feature === "Ekonomická agenda" || feature === "Analytické nástroje") {
-                                    isPartial = true
-                                  } else {
-                                    isAvailable = false
-                                  }
-                                }
-
-                                // Secondary schools
-                                if (option.id === "secondary" && group.category === "Specializované moduly") {
-                                  if (
-                                    feature === "Věda a výzkum" ||
-                                    feature === "Kreditní systém" ||
-                                    feature === "Správa fakult a kateder"
-                                  ) {
-                                    isAvailable = false
-                                  }
-                                }
-
-                                // Language schools
-                                if (option.id === "language") {
-                                  if (
-                                    feature === "Maturitní/závěrečné zkoušky" ||
-                                    feature === "Věda a výzkum" ||
-                                    feature === "Kreditní systém" ||
-                                    feature === "Správa fakult a kateder"
-                                  ) {
-                                    isAvailable = false
-                                  } else if (feature === "Klasifikace") {
-                                    isPartial = true
-                                  } else if (feature === "Správa kurzů a lekcí") {
-                                    isAvailable = true
-                                  }
-                                }
-
-                                // University
-                                if (option.id === "university" && feature === "Školní akce a výlety") {
-                                  isPartial = true
-                                }
-
-                                return (
-                                  <div key={featureIdx} className="flex items-center justify-between p-3 border-b">
-                                    <span className="text-sm">{feature}</span>
-                                    <div>
-                                      {isAvailable ? (
-                                        isPartial ? (
-                                          <Badge
-                                            variant="outline"
-                                            className="text-xs bg-yellow-50 text-yellow-700 border-yellow-200"
-                                          >
-                                            Částečně
-                                          </Badge>
-                                        ) : (
-                                          <CheckCircle className="h-5 w-5" style={{ color: option.color }} />
-                                        )
-                                      ) : (
-                                        <span className="text-gray-300">—</span>
-                                      )}
+                          <TabsContent value="idealFor">
+                            <Card>
+                              <CardContent className="p-6">
+                                <h4 className="font-medium text-lg mb-6">Ideální řešení pro:</h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  {option.idealFor.map((item, idx) => (
+                                    <div key={idx} className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+                                      <Check className="h-5 w-5" style={{ color: option.color }} />
+                                      <span>{item}</span>
                                     </div>
-                                  </div>
-                                )
-                              })}
-                            </div>
-                          ))}
+                                  ))}
+                                </div>
 
-                          <div className="p-3 flex items-center justify-between bg-gray-50 border-t">
-                            <span className="font-medium text-sm">Cenová kategorie</span>
-                            <Badge
-                              className={`
-                              ${option.id === "elementary" ? "bg-green-100 text-green-800" : ""}
-                              ${option.id === "secondary" ? "bg-blue-100 text-blue-800" : ""}
-                              ${option.id === "university" ? "bg-purple-100 text-purple-800" : ""}
-                              ${option.id === "language" ? "bg-amber-100 text-amber-800" : ""}
-                            `}
-                            >
-                              {option.id === "elementary" ? "Základní" : ""}
-                              {option.id === "secondary" ? "Střední" : ""}
-                              {option.id === "university" ? "Prémiová" : ""}
-                              {option.id === "language" ? "Flexibilní" : ""}
-                            </Badge>
-                          </div>
-                        </div>
-                      </TabsContent>
-                    ))}
-                  </Tabs>
-                </div>
+                                <div className="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-100">
+                                  <h5 className="font-medium text-blue-800 mb-2">Nevíte si rady s výběrem?</h5>
+                                  <p className="text-sm text-blue-700 mb-4">
+                                    Rádi vám pomůžeme s výběrem správného řešení pro vaši instituci. Kontaktujte nás a
+                                    domluvíme si nezávaznou konzultaci.
+                                  </p>
+                                  <Button variant="outline" className="border-blue-300 text-blue-700">
+                                    Kontaktovat pro konzultaci
+                                  </Button>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </TabsContent>
+                        </Tabs>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })()}
+            </motion.div>
+          )}
 
-                {/* Desktop comparison table */}
-                <div className="hidden md:block overflow-x-auto">
-                  <table className="w-full min-w-[800px] border-collapse">
-                    <thead>
-                      <tr>
-                        <th className="text-left p-3 border-b">Funkce / Typ školy</th>
-                        {schoolOptions.map((option) => (
-                          <th key={option.id} className="p-3 border-b">
-                            <div className="p-2 text-white rounded-lg" style={{ backgroundColor: option.color }}>
-                              <div className="flex items-center justify-center gap-2">
-                                <option.icon className="h-5 w-5" />
-                                <span>{option.title}</span>
-                              </div>
-                            </div>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        {
-                          category: "Základní funkce",
-                          features: ["Evidence studentů", "Rozvrh hodin", "Klasifikace", "Docházka", "Komunikace"],
-                        },
-                        {
-                          category: "Pokročilé funkce",
-                          features: [
-                            "Ekonomická agenda",
-                            "Přijímací řízení",
-                            "Maturitní/závěrečné zkoušky",
-                            "Integrace s externími systémy",
-                            "Analytické nástroje",
-                          ],
-                        },
-                        {
-                          category: "Specializované moduly",
-                          features: [
-                            "Věda a výzkum",
-                            "Kreditní systém",
-                            "Správa fakult a kateder",
-                            "Školní akce a výlety",
-                            "Správa kurzů a lekcí",
-                          ],
-                        },
-                      ].map((group, groupIdx) => (
-                        <React.Fragment key={groupIdx}>
-                          <tr>
-                            <th colSpan={5} className="text-left p-3 bg-gray-50 font-medium">
-                              {group.category}
-                            </th>
-                          </tr>
-                          {group.features.map((feature, featureIdx) => (
-                            <tr key={featureIdx}>
-                              <td className="p-3 border-b">{feature}</td>
-                              {schoolOptions.map((option) => {
-                                // Determine if feature is available
-                                let isAvailable = true
-                                let isPartial = false
+          {isComparing && (
+            <motion.div
+              key="comparison"
+              id="comparison-section"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Card>
+                <CardContent className="p-6 md:p-8">
+                  <h3 className="text-xl font-bold mb-6">Srovnání řešení pro různé typy škol</h3>
 
-                                // Elementary schools
-                                if (
-                                  option.id === "elementary" &&
-                                  (group.category === "Pokročilé funkce" || group.category === "Specializované moduly")
-                                ) {
-                                  if (feature === "Školní akce a výlety") {
-                                    isAvailable = true
-                                  } else if (feature === "Ekonomická agenda" || feature === "Analytické nástroje") {
-                                    isPartial = true
-                                  } else {
-                                    isAvailable = false
-                                  }
-                                }
+                  {isMobile ? (
+                    <ComparisonTable isMobile={true} />
+                  ) : (
+                    <ScrollArea className="w-full">
+                      <div className="min-w-[800px]">
+                        <ComparisonTable />
+                      </div>
+                    </ScrollArea>
+                  )}
 
-                                // Secondary schools
-                                if (option.id === "secondary" && group.category === "Specializované moduly") {
-                                  if (
-                                    feature === "Věda a výzkum" ||
-                                    feature === "Kreditní systém" ||
-                                    feature === "Správa fakult a kateder"
-                                  ) {
-                                    isAvailable = false
-                                  }
-                                }
-
-                                // Language schools
-                                if (option.id === "language") {
-                                  if (
-                                    feature === "Maturitní/závěrečné zkoušky" ||
-                                    feature === "Věda a výzkum" ||
-                                    feature === "Kreditní systém" ||
-                                    feature === "Správa fakult a kateder"
-                                  ) {
-                                    isAvailable = false
-                                  } else if (feature === "Klasifikace") {
-                                    isPartial = true
-                                  } else if (feature === "Správa kurzů a lekcí") {
-                                    isAvailable = true
-                                  }
-                                }
-
-                                // University
-                                if (option.id === "university" && feature === "Školní akce a výlety") {
-                                  isPartial = true
-                                }
-
-                                return (
-                                  <td key={option.id} className="p-3 border-b text-center">
-                                    {isAvailable ? (
-                                      isPartial ? (
-                                        <Badge
-                                          variant="outline"
-                                          className="bg-yellow-50 text-yellow-700 border-yellow-200"
-                                        >
-                                          Částečně
-                                        </Badge>
-                                      ) : (
-                                        <CheckCircle className="h-5 w-5 mx-auto" style={{ color: option.color }} />
-                                      )
-                                    ) : (
-                                      <span className="text-gray-300">—</span>
-                                    )}
-                                  </td>
-                                )
-                              })}
-                            </tr>
-                          ))}
-                        </React.Fragment>
-                      ))}
-                      <tr>
-                        <th className="text-left p-3 bg-gray-50">Cenová kategorie</th>
-                        <td className="p-3 bg-gray-50 text-center">
-                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Základní</Badge>
-                        </td>
-                        <td className="p-3 bg-gray-50 text-center">
-                          <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Střední</Badge>
-                        </td>
-                        <td className="p-3 bg-gray-50 text-center">
-                          <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Prémiová</Badge>
-                        </td>
-                        <td className="p-3 bg-gray-50 text-center">
-                          <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">Flexibilní</Badge>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="mt-8 flex justify-center">
-                  <Button className="bg-[#884DEE] hover:bg-[#7a45d4] text-white">
-                    Získat personalizovanou nabídku
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  <div className="mt-8 flex justify-center">
+                    <Button className="bg-[#884DEE] hover:bg-[#7a45d4] text-white">
+                      Získat personalizovanou nabídku
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }
