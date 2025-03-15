@@ -9,22 +9,25 @@ export default async function DashboardLayout({
   children,
 }: {
   children: ReactNode;
-}) { 
-    const user = await getServerUser();
-    // const role = user?.role;
-    if (!user) {
-      redirect("/login");
-    }
+}) {
+  const user = await getServerUser();
 
-    return (
-      <div>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <SidebarHeader />
-            {children}
-          </SidebarInset>
-        </SidebarProvider>
-      </div>
-    );
+  if (!user) {
+    redirect("/login");
   }
+  if (user.role !== "ADMIN") {
+    redirect("/login");
+  }
+
+  return (
+    <div>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <SidebarHeader />
+          {children}
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  );
+}

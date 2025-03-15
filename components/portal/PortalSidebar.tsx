@@ -17,6 +17,7 @@ import {
   User2,
   Building,
   GraduationCapIcon,
+  User2Icon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -111,10 +112,10 @@ export function renderLogedInUserLinks(role: UserRoles): NavLink[] {
     ],
     PARENT: [
       {
-        title: "Children",
-        href: "/dashboard/children",
-        icon: ShoppingCart,
-        count: 6,
+        title: "Moje děti",
+        href: "/portal/parent/children",
+        icon: Users,
+        // count: 6,
       },
     ],
     STUDENT: [

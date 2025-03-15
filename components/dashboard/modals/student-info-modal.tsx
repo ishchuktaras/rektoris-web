@@ -89,16 +89,16 @@ export function StudentInfoModal({
                   {student.firstName} {student.lastName}
                 </h2>
                 <p className="text-xs text-gray-500">
-                  Registration No: {student.regNo}
+                  Registrační číslo: {student.regNo}
                 </p>
               </div>
             </DialogTitle>
             <div className="flex gap-6">
               <Button variant="outline" size="sm" onClick={handleEdit}>
-                Edit
+                Upravit
               </Button>
               <Button variant="destructive" size="sm" onClick={handleDelete}>
-                Delete
+                Vymazat
               </Button>
             </div>
           </div>
@@ -138,7 +138,7 @@ export function StudentInfoModal({
           <InfoCard
             icon={Users2}
             label="Parent"
-            value={student?.parentName|| student.parentId}
+            value={student?.parentName || student.parentId}
           />
           <InfoCard
             icon={GraduationCap}
