@@ -153,6 +153,7 @@ export type Stream = {
 export type Parent = {
   id: string;
   title: string;
+  name: string;
   firstName: string;
   lastName: string;
   relationship: string;
@@ -162,45 +163,62 @@ export type Parent = {
   dateOfBirth: string;
   phone: string;
   nationality: string;
+  religion: string;
   whatsappNumber: string;
+  emergencyContact: string;
+  emergencyContactPhone: string;
   contactMethod: string;
   occupation: string;
+  state?: string;
+  birthCertificateNumber?: string;
   address: string;
   password: string;
+  studentIds: string[];
   imageUrl: string;
   createdAt: string;
   updatedAt: string;
 };
 
-export type Student = {
+export interface Student {
   id: string;
-  name: string;
   firstName: string;
   lastName: string;
   email: string;
   parentId: string;
-  parentName?: string;
-  classTitle?: string;
+  name: string;
+  age: number;
+  grade: number;
+  className: string;
+  regNo: string;
   classId: string;
-  streamTitle?: string;
   streamId: string;
   password: string;
   imageUrl: string;
+  address: string;
   phone: string;
+  classTitle: string;
+  streamTitle: string;
+  subjects: string[];
+  attendance: number;
+  grades: Record<string, string>;
+  events: Event[];
   state: string;
   birthCertificateNumber: string;
   nationality: string;
   religion: string;
+  emergencyContact: string;
+  emergencyContactPhone: string;
+  medicalConditions: string;
+  allergies: string;
   gender: string;
   dateOfBirth: string;
   rollNumber: string;
-  sponsorshipType: "PS" | "SS";
-  regNo: string;
+  sponsorshipType: string;
   admissionDate: string;
-  address: string;
+  guardianName: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 export type TeacherCreateProps = {
   id: string;
@@ -313,4 +331,10 @@ export type UserRoles =
   | "TEACHER"
   | "PARENT"
   | "STUDENT"
-  | "SECRETARY"
+  | "SECRETARY";
+
+  export type Event = {
+    title: string;
+    date: string;
+    description?: string;
+  };

@@ -113,7 +113,7 @@ export function renderLogedInUserLinks(role: UserRoles): NavLink[] {
     PARENT: [
       {
         title: "Moje děti",
-        href: "/portal/parent/children",
+        href: "/portal/parent",
         icon: Users,
         // count: 6,
       },

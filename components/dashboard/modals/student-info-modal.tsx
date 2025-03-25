@@ -138,7 +138,7 @@ export function StudentInfoModal({
           <InfoCard
             icon={Users2}
             label="Parent"
-            value={student?.parentName || student.parentId}
+            value={student.parentId}
           />
           <InfoCard
             icon={GraduationCap}

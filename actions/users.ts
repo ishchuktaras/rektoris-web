@@ -1,7 +1,7 @@
 "use server"
 
 import axios from "axios";
-import { UserCreateProps } from "@/types/types";
+import { UserCreateProps, UserRoles } from "@/types/types";
 import { api } from "@/lib/api";
 
 export async function createUser(data:UserCreateProps) {
@@ -17,6 +17,19 @@ export async function createUser(data:UserCreateProps) {
     throw error;
   }
 }
- 
+
+export async function getProfileId(userId: string, role: UserRoles) {
+  try {
+    const res = await api.get(`/users/${userId}? role=${role}`);
+    const profileData = res.data;
+    return  profileData.id as string;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message || "Nepodařilo se načíst profil";
+      throw new Error(message);
+    }
+    throw error;
+  }
+}
 
 
