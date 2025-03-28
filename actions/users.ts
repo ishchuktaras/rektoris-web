@@ -19,16 +19,38 @@ export async function createUser(data:UserCreateProps) {
 }
 
 export async function getProfileId(userId: string, role: UserRoles) {
+  if (!userId) {
+    console.error("getProfileId called with empty userId")
+    return null
+  }
+
   try {
-    const res = await api.get(`/users/${userId}? role=${role}`);
-    const profileData = res.data;
-    return  profileData.id as string;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const message = error.response?.data?.message || "Nepodařilo se načíst profil";
-      throw new Error(message);
+    // Fix the space in the URL query parameter
+    const res = await api.get(`/users/${userId}?role=${role}`)
+
+    // Check if we got a response
+    if (!res.data) {
+      console.error("No data returned from profile ID API")
+      return null
     }
-    throw error;
+
+    // Handle different response structures
+    if (res.data.id) {
+      return res.data.id
+    } else if (res.data.data && res.data.data.id) {
+      return res.data.data.id
+    } else {
+      console.error("Unexpected response structure:", res.data)
+      return null
+    }
+  } catch (error) {
+    console.error("Error in getProfileId:", error)
+
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message || "Nepodařilo se načíst profil"
+      throw new Error(message)
+    }
+    throw error
   }
 }
 

@@ -42,12 +42,36 @@ export async function getAllParents(schoolId: string) {
   }
 }
 
-export async function getStudentsByParentId(parentId: string, ) {
+export async function getStudentsByParentId(parentId: string) {
+  if (!parentId) {
+    console.error("getStudentsByParentId called with empty parentId")
+    return []
+  }
+
   try {
-    const response = await api.get(`/students/parent/${parentId}`);
-    const students = response.data;
-    return students as BriefStudent[];
+    // Try to get students directly using the user ID
+    const response = await api.get(`/students/parent/${parentId}`)
+
+    // Check if we got a response
+    if (!response.data) {
+      console.error("No data returned from students API")
+      return []
+    }
+
+    // Handle different response structures
+    if (Array.isArray(response.data)) {
+      return response.data as BriefStudent[]
+    } else if (response.data.data && Array.isArray(response.data.data)) {
+      return response.data.data as BriefStudent[]
+    } else {
+      console.error("Unexpected response structure:", response.data)
+      return []
+    }
   } catch (error) {
-    console.log(error);
+    console.error("Error in getStudentsByParentId:", error)
+
+    // If the API call fails, return an empty array instead of throwing an error
+    // This allows the UI to show "No students found" instead of an error message
+    return []
   }
 }

@@ -249,20 +249,22 @@ export function InteractiveDemo() {
                   />
                 </div>
 
-                {/* Screen info overlay */}
+                {/* Screen info overlay - MODIFIED FOR BETTER READABILITY */}
                 <div
-                  className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 text-white"
+                  className="absolute bottom-0 left-0 right-0 p-4 sm:p-8 text-white"
                   style={{
-                    background: `linear-gradient(to top, ${currentColor}dd, ${currentColor}00)`,
+                    background: `linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4) 80%, rgba(0,0,0,0))`,
                   }}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="p-1 rounded-full" style={{ backgroundColor: currentColor }}>
-                      <CurrentIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-1.5 rounded-full" style={{ backgroundColor: currentColor }}>
+                      <CurrentIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold">{demoScreens[currentScreen].title}</h3>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-md">
+                      {demoScreens[currentScreen].title}
+                    </h3>
                   </div>
-                  <p className="text-xs sm:text-sm opacity-90 line-clamp-2 sm:line-clamp-none">
+                  <p className="text-base sm:text-xl md:text-2xl font-medium text-white drop-shadow-md max-w-3xl">
                     {demoScreens[currentScreen].description}
                   </p>
                 </div>
